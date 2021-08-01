@@ -26,6 +26,6 @@ modules = ["utils.py",
 
 doc_url = "https://morriso1.github.io/py_clone_detective/"
 
-git_url = "https://github.com/morriso1/py_clone_detective/tree/master/"
+git_url = "https://github.com/morriso1/py_clone_detective"
 
 def custom_doc_links(name): return None
