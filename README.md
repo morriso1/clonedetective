@@ -1,24 +1,15 @@
-# Project name here
-> Summary description here.
+# py_clone_detective
+> A python library for automated cell lineage analysis.
 
 
-This file will become your README and also the index of your documentation.
+<img src="docs/images/marcm_example.png">
 
 ## Install
 
-`pip install your_project_name`
+pip install not yet supported but will be soon!
+
+`pip install coming_soon`
 
 ## How to use
 
-Fill me in please! Don't forget code examples:
-
-```
-1+1
-```
-
-
-
-
-    2
-
-
+To do
