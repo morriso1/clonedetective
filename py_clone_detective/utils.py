@@ -22,10 +22,6 @@ from scipy.stats import mode
 from skimage import measure, segmentation
 
 # Cell
-#export
-import pyclesperanto_prototype as cle
-
-# Cell
 def clean_img_names(img_path_glob: str, img_name_regex: str):
     """clean_img_names takes a "globbed" string pattern, searches
     for all files that match the pattern and extracts image names
