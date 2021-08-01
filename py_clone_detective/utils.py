@@ -19,7 +19,6 @@ from dask_image.imread import imread
 from matplotlib import pyplot as plt
 from scipy.stats import mode
 from skimage import measure, segmentation
-import pyclesperanto_prototype as cle
 
 # Cell
 def clean_img_names(img_path_glob, img_name_regex: str):
