@@ -45,37 +45,6 @@ nb_path: "00_utils.ipynb"
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pyclesperanto_prototype</span> <span class="k">as</span> <span class="nn">cle</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_text output_error">
-<pre>
-<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
-<span class="ansi-green-fg">/var/folders/j0/rvxl45091qg36bgv821hfkmc0000gn/T/ipykernel_8458/3039580099.py</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
-<span class="ansi-green-intense-fg ansi-bold">      2</span> <span class="ansi-green-fg">import</span> pyclesperanto_prototype <span class="ansi-green-fg">as</span> cle
-<span class="ansi-green-intense-fg ansi-bold">      3</span> <span class="ansi-red-fg">#export</span>
-<span class="ansi-green-fg">----&gt; 4</span><span class="ansi-red-fg"> </span>otto
-
-<span class="ansi-red-fg">NameError</span>: name &#39;otto&#39; is not defined</pre>
-</div>
-</div>
-
-</div>
-</div>
 
 </div>
     {% endraw %}
@@ -97,7 +66,7 @@ nb_path: "00_utils.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="clean_img_names" class="doc_header"><code>clean_img_names</code><a href="https://github.com/morriso1/py_clone_detective/tree/{branch}/py_clone_detective/utils.py#L25" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>clean_img_names</code>(<strong><code>img_path_glob</code></strong>:<code>str</code>, <strong><code>img_name_regex</code></strong>:<code>str</code>)</p>
+<h4 id="clean_img_names" class="doc_header"><code>clean_img_names</code><a href="https://github.com/morriso1/py_clone_detective/tree/{branch}/py_clone_detective/utils.py#L28" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>clean_img_names</code>(<strong><code>img_path_glob</code></strong>:<code>str</code>, <strong><code>img_name_regex</code></strong>:<code>str</code>)</p>
 </blockquote>
 <p>clean_img_names takes a "globbed" string pattern, searches
 for all files that match the pattern and extracts image names
@@ -188,7 +157,7 @@ from each file using a regular expression.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="check_lists_identical" class="doc_header"><code>check_lists_identical</code><a href="https://github.com/morriso1/py_clone_detective/tree/{branch}/py_clone_detective/utils.py#L35" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>check_lists_identical</code>(<strong><code>list_of_lists</code></strong>)</p>
+<h4 id="check_lists_identical" class="doc_header"><code>check_lists_identical</code><a href="https://github.com/morriso1/py_clone_detective/tree/{branch}/py_clone_detective/utils.py#L38" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>check_lists_identical</code>(<strong><code>list_of_lists</code></strong>)</p>
 </blockquote>
 
 </div>
@@ -219,7 +188,7 @@ from each file using a regular expression.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="img_path_to_xarr" class="doc_header"><code>img_path_to_xarr</code><a href="https://github.com/morriso1/py_clone_detective/tree/{branch}/py_clone_detective/utils.py#L45" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>img_path_to_xarr</code>(<strong><code>img_name_regex</code></strong>, <strong><code>pixel_size</code></strong>=<em><code>0.275</code></em>, <strong>**<code>channel_path_globs</code></strong>)</p>
+<h4 id="img_path_to_xarr" class="doc_header"><code>img_path_to_xarr</code><a href="https://github.com/morriso1/py_clone_detective/tree/{branch}/py_clone_detective/utils.py#L48" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>img_path_to_xarr</code>(<strong><code>img_name_regex</code></strong>, <strong><code>pixel_size</code></strong>=<em><code>0.275</code></em>, <strong>**<code>channel_path_globs</code></strong>)</p>
 </blockquote>
 
 </div>
@@ -250,7 +219,7 @@ from each file using a regular expression.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="last2dims" class="doc_header"><code>last2dims</code><a href="https://github.com/morriso1/py_clone_detective/tree/{branch}/py_clone_detective/utils.py#L68" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>last2dims</code>(<strong><code>f</code></strong>)</p>
+<h4 id="last2dims" class="doc_header"><code>last2dims</code><a href="https://github.com/morriso1/py_clone_detective/tree/{branch}/py_clone_detective/utils.py#L71" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>last2dims</code>(<strong><code>f</code></strong>)</p>
 </blockquote>
 
 </div>
@@ -287,7 +256,7 @@ from each file using a regular expression.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="extend_region_properties_list" class="doc_header"><code>extend_region_properties_list</code><a href="https://github.com/morriso1/py_clone_detective/tree/{branch}/py_clone_detective/utils.py#L75" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>extend_region_properties_list</code>(<strong><code>extra_properties</code></strong>:<code>list</code>=<em><code>None</code></em>)</p>
+<h4 id="extend_region_properties_list" class="doc_header"><code>extend_region_properties_list</code><a href="https://github.com/morriso1/py_clone_detective/tree/{branch}/py_clone_detective/utils.py#L78" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>extend_region_properties_list</code>(<strong><code>extra_properties</code></strong>:<code>list</code>=<em><code>None</code></em>)</p>
 </blockquote>
 
 </div>
@@ -318,7 +287,7 @@ from each file using a regular expression.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="add_scale_regionprops_table_area_measurements" class="doc_header"><code>add_scale_regionprops_table_area_measurements</code><a href="https://github.com/morriso1/py_clone_detective/tree/{branch}/py_clone_detective/utils.py#L90" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>add_scale_regionprops_table_area_measurements</code>(<strong><code>df</code></strong>, <strong><code>pixel_size</code></strong>)</p>
+<h4 id="add_scale_regionprops_table_area_measurements" class="doc_header"><code>add_scale_regionprops_table_area_measurements</code><a href="https://github.com/morriso1/py_clone_detective/tree/{branch}/py_clone_detective/utils.py#L93" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>add_scale_regionprops_table_area_measurements</code>(<strong><code>df</code></strong>, <strong><code>pixel_size</code></strong>)</p>
 </blockquote>
 
 </div>
@@ -349,7 +318,7 @@ from each file using a regular expression.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="Delayed('lazy_props-dc74518b-165d-4a90-a61e-c6ff21b4a8a9')" class="doc_header"><code>Delayed('lazy_props-dc74518b-165d-4a90-a61e-c6ff21b4a8a9')</code><a href="" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Delayed('lazy_props-dc74518b-165d-4a90-a61e-c6ff21b4a8a9')</code>()</p>
+<h4 id="Delayed('lazy_props-5cc0507a-d3bc-4d84-b60d-a27025623e3f')" class="doc_header"><code>Delayed('lazy_props-5cc0507a-d3bc-4d84-b60d-a27025623e3f')</code><a href="" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Delayed('lazy_props-5cc0507a-d3bc-4d84-b60d-a27025623e3f')</code>()</p>
 </blockquote>
 
 </div>
