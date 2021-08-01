@@ -16,7 +16,7 @@ entries:
       title: CloneCounter Classes
       url: clone_counters.html
     - output: web,pdf
-      title: Title
+      title: Clone Analysis Functions
       url: clone_analysis.html
     output: web
     title: py_clone_detective
