@@ -22,7 +22,7 @@ from scipy.stats import mode
 from skimage import measure, segmentation
 
 # Cell
-#slow
+#export
 import pyclesperanto_prototype as cle
 
 # Cell
