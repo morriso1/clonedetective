@@ -16,15 +16,16 @@ from typing import List
 
 import dask.array as da
 import dask.dataframe as dd
+import numba
 import numpy as np
 import pandas as pd
+import pyclesperanto_prototype as cle
 import xarray as xr
 from dask import delayed
 from dask_image.imread import imread
 from matplotlib import pyplot as plt
 from scipy.stats import mode
 from skimage import measure, segmentation
-import pyclesperanto_prototype as cle
 
 # Cell
 def clean_img_names(img_path_glob: str, img_name_regex: str):
@@ -174,7 +175,6 @@ def generate_touch_counting_image(g_img):
     touch_matrix = cle.set_column(touch_matrix, 0, 0)
     counts = cle.count_touching_neighbors(touch_matrix)
     return cle.replace_intensities(g_img, counts)
-
 
 # Cell
 @delayed
