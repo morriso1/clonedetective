@@ -13,7 +13,7 @@ entries:
       title: Utils
       url: utils.html
     - output: web,pdf
-      title: CloneCounter Classes
+      title: Title
       url: clone_counters.html
     - output: web,pdf
       title: Clone Analysis Functions

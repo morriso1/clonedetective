@@ -48,7 +48,9 @@ def check_lists_identical(list_of_lists):
             raise ValueError("not all lists have same length!")
 
 # Cell
-def img_path_to_xarr(img_name_regex, pixel_size=0.275, **channel_path_globs):
+def img_path_to_xarr(
+    img_name_regex: str, pixel_size: float = 0.275, ch_name_for_first_dim:str = 'images', **channel_path_globs
+):
     imgs = list()
     channels = list()
     img_names = list()
@@ -67,7 +69,7 @@ def img_path_to_xarr(img_name_regex, pixel_size=0.275, **channel_path_globs):
             np.arange(0, imgs[0].shape[1] * pixel_size, pixel_size),
             np.arange(0, imgs[0].shape[2] * pixel_size, pixel_size),
         ],
-        dims=["channel", "img_name", "y", "x"],
+        dims=[ch_name_for_first_dim, "img_name", "y", "x"],
     )
 
 # Cell

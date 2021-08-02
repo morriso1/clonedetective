@@ -2,7 +2,7 @@
   "py_clone_detective": {
     "Overview": "/",
     "Utils": "utils.html",
-    "CloneCounter Classes": "clone_counters.html",
+    "Title": "clone_counters.html",
     "Clone Analysis Functions": "clone_analysis.html"
   }
 }

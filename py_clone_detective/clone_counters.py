@@ -37,12 +37,18 @@ class CloneCounter:
 
     def add_images(self, **channel_path_globs):
         return img_path_to_xarr(
-            self.img_name_regex, self.pixel_size, **channel_path_globs
+            self.img_name_regex,
+            self.pixel_size,
+            ch_name_for_first_dim="img_channels",
+            **channel_path_globs,
         )
 
     def add_segmentations(self, **channel_path_globs):
         segmentations = img_path_to_xarr(
-            self.img_name_regex, self.pixel_size, **channel_path_globs
+            self.img_name_regex,
+            self.pixel_size,
+            ch_name_for_first_dim="seg_channels",
+            **channel_path_globs,
         )
         segmentations.data = segmentations.data.map_blocks(
             last2dims(partial(measure.label)), dtype=np.uint16
@@ -70,12 +76,12 @@ class CloneCounter:
     ):
         seg_channels = check_channels_input_suitable_and_return_channels(
             channels=seg_channels,
-            available_channels=self.segmentations.channel.values.tolist(),
+            available_channels=self.image_data.seg_channels.values.tolist(),
         )
 
         img_channels = check_channels_input_suitable_and_return_channels(
             channels=img_channels,
-            available_channels=self.images.channel.values.tolist(),
+            available_channels=self.image_data.img_channels.values.tolist(),
         )
 
         seg_img_channel_pairs = pd.DataFrame()
@@ -100,14 +106,15 @@ class CloneCounter:
         results = list()
         for _, seg_ch, img_ch in self.seg_img_channel_pairs.itertuples():
             for seg, img in zip(
-                self.segmentations.loc[seg_ch], self.images.loc[img_ch]
+                self.image_data["segmentations"].loc[seg_ch],
+                self.image_data["images"].loc[img_ch],
             ):
                 results.append(
                     lazy_props(
                         seg.data,
                         img.data,
-                        seg.channel.item(),
-                        img.channel.item(),
+                        seg.seg_channels.item(),
+                        img.img_channels.item(),
                         seg.img_name.item(),
                         img.img_name.item(),
                         properties,
@@ -119,15 +126,27 @@ class CloneCounter:
         df = add_scale_regionprops_table_area_measurements(df, self.pixel_size)
         self.results_measurements = reorder_df_to_put_ch_info_first(df)
 
-    def _determine_max_seg_label_levels(self):
-        self.max_seg_label_levels = (
-            self.segmentations[0]
-            .data.map_blocks(
-                lambda x: np.unique(x).shape[0], drop_axis=(1, 2), dtype=np.uint16
+    def _determine_max_seg_label_levels(self, seg_channel):
+        """Determines in self.max_seg_label_levels is unassigned and create empty.
+        Then adds `seg_channel` as new key and corresponding max segmentation label levels
+        as value"""
+
+        try:
+            self.max_seg_label_levels.setdefault(seg_channel, 0).__add__(
+                (
+                    self.image_data["segmentations"][0]
+                    .data.map_blocks(
+                        lambda x: np.unique(x).shape[0],
+                        drop_axis=(1, 2),
+                        dtype=np.uint16,
+                    )
+                    .compute()
+                    .max()
+                )
             )
-            .compute()
-            .max()
-        )
+        except AttributeError:
+            self.max_seg_label_levels = dict()
+            self._determine_max_seg_label_levels(seg_channel)
 
     def _create_df_from_arr(self, arr):
         return (
@@ -206,10 +225,14 @@ class LazyCloneCounter(CloneCounter):
         super().__init__(exp_name, img_name_regex, pixel_size)
 
     def add_images(self, **channel_path_globs):
-        self.images = super().add_images(**channel_path_globs)
+        self.image_data = xr.Dataset(
+            {"images": super().add_images(**channel_path_globs)}
+        )
 
     def add_segmentations(self, **channel_path_globs):
-        self.segmentations = super().add_segmentations(**channel_path_globs)
+        self.image_data["segmentations"] = super().add_segmentations(
+            **channel_path_globs
+        )
 
 # Cell
 class PersistentCloneCounter(CloneCounter):
@@ -217,7 +240,11 @@ class PersistentCloneCounter(CloneCounter):
         super().__init__(exp_name, img_name_regex, pixel_size)
 
     def add_images(self, **channel_path_globs):
-        self.images = super().add_images(**channel_path_globs).persist()
+        self.image_data = xr.Dataset(
+            {"images": super().add_images(**channel_path_globs)}
+        ).persist()
 
     def add_segmentations(self, **channel_path_globs):
-        self.segmentations = super().add_segmentations(**channel_path_globs).persist()
+        self.image_data["segmentations"] = (
+            super().add_segmentations(**channel_path_globs).persist()
+        )
