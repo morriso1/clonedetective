@@ -5,7 +5,8 @@ __all__ = ['clean_img_names', 'check_lists_identical', 'img_path_to_xarr', 'last
            'add_scale_regionprops_table_area_measurements', 'lazy_props', 'reorder_df_to_put_ch_info_first',
            'region_overlap', 'calculate_overlap', 'generate_touch_counting_image',
            'label_clones_output_unmerged_and_merged', 'get_all_labeled_clones_unmerged_and_merged',
-           'determine_labels_across_other_images_using_centroids', 'update_1st_coord_and_dim_of_xarr']
+           'determine_labels_across_other_images_using_centroids', 'calculate_corresponding_labels',
+           'update_1st_coord_and_dim_of_xarr']
 
 # Cell
 import os
@@ -49,7 +50,10 @@ def check_lists_identical(list_of_lists):
 
 # Cell
 def img_path_to_xarr(
-    img_name_regex: str, pixel_size: float = 0.275, ch_name_for_first_dim:str = 'images', **channel_path_globs
+    img_name_regex: str,
+    pixel_size: float = 0.275,
+    ch_name_for_first_dim: str = "images",
+    **channel_path_globs
 ):
     imgs = list()
     channels = list()
@@ -233,12 +237,32 @@ def get_all_labeled_clones_unmerged_and_merged(total_seg_labels, clones_to_keep:
 # Cell
 @delayed
 @numba.njit()
-def determine_labels_across_other_images_using_centroids(image_1, centroids, first_output_dim: int = 8, second_output_dim: int = 1000):
+def determine_labels_across_other_images_using_centroids(
+    image_1, centroids, first_output_dim, second_output_dim
+):
     pre_arr = np.zeros((first_output_dim, second_output_dim), dtype=np.float64)
     pre_arr[:] = np.nan
     for i in range(centroids.shape[0]):
         pre_arr[:, i] = image_1[:, centroids[i, 0], centroids[i, 1]]
     return pre_arr
+
+# Cell
+def calculate_corresponding_labels(labels, centroids_list, first_output_dim, second_output_dim):
+    if not labels.shape[1] == len(centroids_list):
+        raise ValueError("not the same numbers of imgs as centroid pairs!")
+
+    img_list = list()
+    for i in range(labels.shape[1]):
+        img_list.append(
+            da.from_delayed(
+                determine_labels_across_other_images_using_centroids(
+                    labels[:, i], centroids_list[i], first_output_dim, second_output_dim
+                ),
+                shape=(first_output_dim, second_output_dim),
+                dtype=np.float64,
+            )
+        )
+    return da.stack(img_list, axis=1)
 
 # Cell
 def update_1st_coord_and_dim_of_xarr(xarr, new_coord: list, new_dim: str):
