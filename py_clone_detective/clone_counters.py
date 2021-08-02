@@ -171,7 +171,9 @@ class CloneCounter:
         )
 
     def add_clones_and_neighbouring_labels(
-        self, clones_to_keep, tot_seg_ch: str = "C0"
+        self,
+        tot_seg_ch: str = "C0",
+        query_for_pd: str = 'intensity_img_channel == "C1" & mean_intensity > 1000',
     ):
         clone_coords, clone_dims = update_1st_coord_and_dim_of_xarr(
             self.segmentations,
@@ -187,6 +189,8 @@ class CloneCounter:
             ],
             new_dim="extended_labels_neighbour_counts",
         )
+
+        clones_to_keep = self.clones_to_keep_as_dict(query_for_pd)
 
         new_label_imgs = get_all_labeled_clones_unmerged_and_merged(
             self.segmentations.loc[tot_seg_ch], clones_to_keep
