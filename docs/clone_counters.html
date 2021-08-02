@@ -161,7 +161,7 @@ nb_path: "01_clone_counters.ipynb"
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="trying-new-stuff">trying new stuff<a class="anchor-link" href="#trying-new-stuff"> </a></h2>
+<h2 id="Example-using-LazyCloneCounter-with-measure_overlap">Example using LazyCloneCounter with measure_overlap<a class="anchor-link" href="#Example-using-LazyCloneCounter-with-measure_overlap"> </a></h2>
 </div>
 </div>
 </div>
@@ -172,10 +172,276 @@ nb_path: "01_clone_counters.ipynb"
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">foo</span><span class="o">.</span><span class="n">measure_overlap</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">foo</span> <span class="o">=</span> <span class="n">LazyCloneCounter</span><span class="p">(</span><span class="s2">&quot;Marcm2a_E7F1&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;a\dg\d\dp\d&quot;</span><span class="p">,</span> <span class="mf">0.275</span><span class="p">)</span>
+
+<span class="n">foo</span><span class="o">.</span><span class="n">add_images</span><span class="p">(</span>
+    <span class="n">C0</span><span class="o">=</span><span class="s2">&quot;../current_imaging_analysis/MARCM2A_E7F1_refactoring/C0/C0_imgs/*.tif*&quot;</span><span class="p">,</span>
+    <span class="n">C1</span><span class="o">=</span><span class="s2">&quot;../current_imaging_analysis/MARCM2A_E7F1_refactoring/C1/C1_imgs/*.tif*&quot;</span><span class="p">,</span>
+    <span class="n">C2</span><span class="o">=</span><span class="s2">&quot;../current_imaging_analysis/MARCM2A_E7F1_refactoring/C2/C2_imgs/*.tif*&quot;</span><span class="p">,</span>
+    <span class="n">C3</span><span class="o">=</span><span class="s2">&quot;../current_imaging_analysis/MARCM2A_E7F1_refactoring/C3/C3_imgs/*.tif*&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">foo</span><span class="o">.</span><span class="n">add_segmentations</span><span class="p">(</span>
+    <span class="n">C0</span><span class="o">=</span><span class="s2">&quot;../current_imaging_analysis/MARCM2A_E7F1_refactoring/C0/C0_label_imgs_combined_C3/*.tif*&quot;</span><span class="p">,</span>
+    <span class="n">C1</span><span class="o">=</span><span class="s2">&quot;../current_imaging_analysis/MARCM2A_E7F1_refactoring/C1/C1_binaries/*.tif*&quot;</span><span class="p">,</span>
+    <span class="n">C2</span><span class="o">=</span><span class="s2">&quot;../current_imaging_analysis/MARCM2A_E7F1_refactoring/C2/C2_label_imgs_v2/*.tif*&quot;</span><span class="p">,</span>
+    <span class="n">C3</span><span class="o">=</span><span class="s2">&quot;../current_imaging_analysis/MARCM2A_E7F1_refactoring/C3/C3_label_imgs/*.tif*&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">foo</span><span class="o">.</span><span class="n">make_measurements</span><span class="p">(</span><span class="n">extra_properties</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;convex_area&quot;</span><span class="p">],)</span>
+<span class="n">foo</span><span class="o">.</span><span class="n">measure_overlap</span><span class="p">()</span>
+<span class="n">foo</span><span class="o">.</span><span class="n">combine_C0_overlaps_and_measurements</span><span class="p">()</span>
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th>C1</th>
+      <th>C2</th>
+      <th>C3</th>
+      <th>seg_channel</th>
+      <th>intensity_img_channel</th>
+      <th>intensity_img_name</th>
+      <th>area</th>
+      <th>mean_intensity</th>
+      <th>centroid-0</th>
+      <th>centroid-1</th>
+      <th>convex_area</th>
+      <th>area_um2</th>
+      <th>convex_area_um2</th>
+    </tr>
+    <tr>
+      <th>img_name</th>
+      <th>C0_labels</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th rowspan="5" valign="top">a1g01p1</th>
+      <th>1</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>C0</td>
+      <td>C0</td>
+      <td>a1g01p1</td>
+      <td>353</td>
+      <td>1143.484419</td>
+      <td>5.025496</td>
+      <td>97.269122</td>
+      <td>366</td>
+      <td>26.695625</td>
+      <td>27.678750</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>C0</td>
+      <td>C0</td>
+      <td>a1g01p1</td>
+      <td>613</td>
+      <td>2521.355628</td>
+      <td>8.014682</td>
+      <td>222.654160</td>
+      <td>640</td>
+      <td>46.358125</td>
+      <td>48.400000</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>C0</td>
+      <td>C0</td>
+      <td>a1g01p1</td>
+      <td>275</td>
+      <td>2570.625455</td>
+      <td>5.941818</td>
+      <td>383.338182</td>
+      <td>288</td>
+      <td>20.796875</td>
+      <td>21.780000</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0</td>
+      <td>3</td>
+      <td>0</td>
+      <td>C0</td>
+      <td>C0</td>
+      <td>a1g01p1</td>
+      <td>700</td>
+      <td>2873.265714</td>
+      <td>14.550000</td>
+      <td>519.455714</td>
+      <td>724</td>
+      <td>52.937500</td>
+      <td>54.752500</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>C0</td>
+      <td>C0</td>
+      <td>a1g01p1</td>
+      <td>33</td>
+      <td>2838.606061</td>
+      <td>0.848485</td>
+      <td>579.636364</td>
+      <td>35</td>
+      <td>2.495625</td>
+      <td>2.646875</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th rowspan="5" valign="top">a2g13p3</th>
+      <th>249</th>
+      <td>0</td>
+      <td>150</td>
+      <td>0</td>
+      <td>C0</td>
+      <td>C0</td>
+      <td>a2g13p3</td>
+      <td>712</td>
+      <td>1801.213483</td>
+      <td>792.443820</td>
+      <td>551.751404</td>
+      <td>739</td>
+      <td>53.845000</td>
+      <td>55.886875</td>
+    </tr>
+    <tr>
+      <th>250</th>
+      <td>0</td>
+      <td>146</td>
+      <td>0</td>
+      <td>C0</td>
+      <td>C0</td>
+      <td>a2g13p3</td>
+      <td>308</td>
+      <td>1980.500000</td>
+      <td>793.714286</td>
+      <td>459.652597</td>
+      <td>318</td>
+      <td>23.292500</td>
+      <td>24.048750</td>
+    </tr>
+    <tr>
+      <th>251</th>
+      <td>0</td>
+      <td>148</td>
+      <td>0</td>
+      <td>C0</td>
+      <td>C0</td>
+      <td>a2g13p3</td>
+      <td>678</td>
+      <td>2612.631268</td>
+      <td>799.069322</td>
+      <td>500.057522</td>
+      <td>696</td>
+      <td>51.273750</td>
+      <td>52.635000</td>
+    </tr>
+    <tr>
+      <th>252</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>C0</td>
+      <td>C0</td>
+      <td>a2g13p3</td>
+      <td>672</td>
+      <td>1393.748512</td>
+      <td>798.055060</td>
+      <td>786.084821</td>
+      <td>689</td>
+      <td>50.820000</td>
+      <td>52.105625</td>
+    </tr>
+    <tr>
+      <th>253</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>C0</td>
+      <td>C0</td>
+      <td>a2g13p3</td>
+      <td>212</td>
+      <td>2926.056604</td>
+      <td>805.608491</td>
+      <td>636.231132</td>
+      <td>219</td>
+      <td>16.032500</td>
+      <td>16.561875</td>
+    </tr>
+  </tbody>
+</table>
+<p>21336 rows × 13 columns</p>
+</div>
+</div>
+
+</div>
+
 </div>
 </div>
 
