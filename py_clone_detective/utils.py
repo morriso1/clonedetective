@@ -162,7 +162,7 @@ def region_overlap(
     return is_in
 
 # Cell
-def calculate_overlap(img, num_of_segs=4, preallocate_value=524):
+def calculate_overlap(img, num_of_segs=4, preallocate_value=1000):
     num_dapi = np.unique(img[0])
     l = np.zeros((num_of_segs - 1, preallocate_value), dtype=np.float64)
     l[:] = np.nan
