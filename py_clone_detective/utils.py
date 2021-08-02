@@ -5,7 +5,7 @@ __all__ = ['clean_img_names', 'check_lists_identical', 'img_path_to_xarr', 'last
            'add_scale_regionprops_table_area_measurements', 'lazy_props', 'reorder_df_to_put_ch_info_first',
            'region_overlap', 'calculate_overlap', 'generate_touch_counting_image',
            'label_clones_output_unmerged_and_merged', 'get_all_labeled_clones_unmerged_and_merged',
-           'update_1st_coord_and_dim_of_xarr']
+           'determine_labels_across_other_images_using_centroids', 'update_1st_coord_and_dim_of_xarr']
 
 # Cell
 import os
@@ -229,6 +229,16 @@ def get_all_labeled_clones_unmerged_and_merged(total_seg_labels, clones_to_keep:
             )
         )
     return da.stack(img_list, axis=1)
+
+# Cell
+@delayed
+@numba.njit()
+def determine_labels_across_other_images_using_centroids(image_1, centroids, first_output_dim: int = 8, second_output_dim: int = 1000):
+    pre_arr = np.zeros((first_output_dim, second_output_dim), dtype=np.float64)
+    pre_arr[:] = np.nan
+    for i in range(centroids.shape[0]):
+        pre_arr[:, i] = image_1[:, centroids[i, 0], centroids[i, 1]]
+    return pre_arr
 
 # Cell
 def update_1st_coord_and_dim_of_xarr(xarr, new_coord: list, new_dim: str):
