@@ -159,7 +159,7 @@ class CloneCounter:
                 coords=(
                     self.image_data["segmentations"].coords["seg_channels"][1:],
                     self.image_data["segmentations"].coords["img_name"],
-                    np.arange(self.max_seg_label_levels['C0']),
+                    np.arange(self.max_seg_label_levels["C0"]),
                 ),
                 dims=("colocalisation_ch", "img_name", "C0_labels",),
             )
@@ -200,9 +200,10 @@ class CloneCounter:
         self,
         tot_seg_ch: str = "C0",
         query_for_pd: str = 'intensity_img_channel == "C1" & mean_intensity > 1000',
+        name_for_query: str = "filt_C1_intensity",
     ):
         clone_coords, clone_dims = update_1st_coord_and_dim_of_xarr(
-            self.segmentations,
+            self.image_data["images"],
             new_coord=[
                 f"{tot_seg_ch}",
                 f"{tot_seg_ch}_extended",
@@ -219,11 +220,14 @@ class CloneCounter:
         clones_to_keep = self.clones_to_keep_as_dict(query_for_pd)
 
         new_label_imgs = get_all_labeled_clones_unmerged_and_merged(
-            self.segmentations.loc[tot_seg_ch], clones_to_keep
+            self.image_data["segmentations"].loc[tot_seg_ch], clones_to_keep
         )
 
-        self.clones_and_neighbouring_labels = xr.DataArray(
-            data=new_label_imgs, coords=clone_coords, dims=clone_dims
+        self.image_data[f"{name_for_query}_clones_and_neighbour_counts"] = xr.DataArray(
+            data=new_label_imgs,
+            coords=clone_coords,
+            dims=clone_dims,
+            attrs={f"{tot_seg_ch}_labels_kept_query": query_for_pd},
         )
 
 # Cell
