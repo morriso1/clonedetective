@@ -30,12 +30,17 @@ from .utils import (
 
 # Cell
 class CloneCounter:
-    def __init__(self, exp_name: str, img_name_regex: str, pixel_size: float):
-        self.exp_name, self.img_name_regex, self.pixel_size = (
-            exp_name,
-            img_name_regex,
-            pixel_size,
-        )
+    def __init__(
+        self,
+        exp_name: str,
+        img_name_regex: str,
+        pixel_size: float,
+        tot_seg_ch: str = "C0",
+    ):
+        self.exp_name = exp_name
+        self.img_name_regex = img_name_regex
+        self.pixel_size = pixel_size
+        self.tot_seg_ch = tot_seg_ch
 
     def add_images(self, **channel_path_globs):
         return img_path_to_xarr(
@@ -127,32 +132,18 @@ class CloneCounter:
         df = dd.from_delayed(results).compute()
         df = add_scale_regionprops_table_area_measurements(df, self.pixel_size)
         self.results_measurements = reorder_df_to_put_ch_info_first(df)
+        self._determine_max_seg_label_levels()
 
-    def _determine_max_seg_label_levels(self, seg_channel):
-        """Determines in self.max_seg_label_levels is unassigned and create empty.
-        Then adds `seg_channel` as new key and corresponding max segmentation label levels
-        as value"""
-
-        try:
-            self.max_seg_label_levels.setdefault(seg_channel, []).append(
-                (
-                    self.image_data["segmentations"]
-                    .loc[seg_channel]
-                    .data.map_blocks(
-                        lambda x: np.unique(x).shape[0],
-                        drop_axis=(1, 2),
-                        dtype=np.uint16,
-                    )
-                    .compute()
-                    .max()
-                )
+    def _determine_max_seg_label_levels(self):
+        self.tot_seg_ch_max_labels = (
+            self.image_data["segmentations"]
+            .loc[self.tot_seg_ch]
+            .data.map_blocks(
+                lambda x: np.unique(x).shape[0], drop_axis=(1, 2), dtype=np.uint16,
             )
-            self.max_seg_label_levels[seg_channel] = self.max_seg_label_levels[
-                seg_channel
-            ][0]
-        except AttributeError:
-            self.max_seg_label_levels = dict()
-            self._determine_max_seg_label_levels(seg_channel)
+            .compute()
+            .max()
+        )
 
     def _create_df_from_arr(self, arr):
         return (
@@ -198,8 +189,10 @@ class CloneCounter:
             .to_dict()
         )
 
-    def get_centroids_list(self, tot_seg_ch: str = "C0"):
-        df = self.results_measurements.query("intensity_img_channel == @tot_seg_ch")
+    def get_centroids_list(self):
+        df = self.results_measurements.query(
+            "intensity_img_channel == @self.tot_seg_ch"
+        )
         centroids_list = list()
         for img_name in df["intensity_img_name"].unique():
             centroids_list.append(
@@ -213,21 +206,20 @@ class CloneCounter:
 
     def add_clones_and_neighbouring_labels(
         self,
-        tot_seg_ch: str = "C0",
         query_for_pd: str = 'intensity_img_channel == "C1" & mean_intensity > 1000',
         name_for_query: str = "filt_C1_intensity",
     ):
         clone_coords, clone_dims = update_1st_coord_and_dim_of_xarr(
             self.image_data["images"],
             new_coord=[
-                f"{tot_seg_ch}",
-                f"{tot_seg_ch}_extended",
-                f"{tot_seg_ch}_inside_clones",
-                f"{tot_seg_ch}_outside_clones",
+                f"{self.tot_seg_ch}",
+                f"{self.tot_seg_ch}_extended",
+                f"{self.tot_seg_ch}_inside_clones",
+                f"{self.tot_seg_ch}_outside_clones",
                 f"merged_clones",
-                f"{tot_seg_ch}_neighbour_counts",
-                f"{tot_seg_ch}_inside_clones_neighbour_counts",
-                f"{tot_seg_ch}_outside_clones_neighbour_counts",
+                f"{self.tot_seg_ch}_neighbour_counts",
+                f"{self.tot_seg_ch}_inside_clones_neighbour_counts",
+                f"{self.tot_seg_ch}_outside_clones_neighbour_counts",
             ],
             new_dim="extended_labels_neighbour_counts",
         )
@@ -235,14 +227,52 @@ class CloneCounter:
         clones_to_keep = self.clones_to_keep_as_dict(query_for_pd)
 
         new_label_imgs = get_all_labeled_clones_unmerged_and_merged(
-            self.image_data["segmentations"].loc[tot_seg_ch], clones_to_keep
+            self.image_data["segmentations"].loc[self.tot_seg_ch], clones_to_keep
         )
 
-        self.image_data[f"{name_for_query}_clones_and_neighbour_counts"] = xr.DataArray(
+        return xr.DataArray(
             data=new_label_imgs,
             coords=clone_coords,
             dims=clone_dims,
-            attrs={f"{tot_seg_ch}_labels_kept_query": query_for_pd},
+            attrs={f"{self.tot_seg_ch}_labels_kept_query": query_for_pd},
+        )
+
+    def colabels_to_df(self, colabels, name_for_query):
+        return (
+            xr.DataArray(
+                colabels,
+                coords=(
+                    self.image_data[name_for_query].coords[
+                        "extended_labels_neighbour_counts"
+                    ],
+                    foo.image_data[name_for_query].coords["img_name"],
+                    range(colabels.shape[2]),
+                ),
+                dims=("extended_labels_neighbour_counts", "img_name", "labels"),
+            )
+            .to_dataframe("colabel")
+            .reset_index()
+            .dropna()
+            .pivot(
+                index=["img_name", "labels"],
+                columns=["extended_labels_neighbour_counts"],
+                values="colabel",
+            )
+            .query("C0_extended != 0")
+            .astype(np.uint16)
+        )
+
+    def measure_clones_and_neighbouring_labels(self, name_for_query):
+        self.get_centroids_list()
+        colabels = calculate_corresponding_labels(
+            self.image_data[name_for_query].data,
+            self.get_centroids_list(),
+            self.image_data[name_for_query].shape[0],
+            foo.tot_seg_ch_max_labels,
+        )
+
+        self.results_clones_and_neighbour_counts = self.colabels_to_df(
+            colabels, name_for_query
         )
 
 # Cell
@@ -260,6 +290,15 @@ class LazyCloneCounter(CloneCounter):
             **channel_path_globs
         )
 
+    def add_clones_and_neighbouring_labels(
+        self,
+        query_for_pd: str = 'intensity_img_channel == "C1" & mean_intensity > 1000',
+        name_for_query: str = "filt_C1_intensity",
+    ):
+        self.image_data[name_for_query] = super().add_clones_and_neighbouring_labels(
+            query_for_pd, name_for_query
+        )
+
 # Cell
 class PersistentCloneCounter(CloneCounter):
     def __init__(self, exp_name: str, img_name_regex: str, pixel_size: float):
@@ -273,4 +312,15 @@ class PersistentCloneCounter(CloneCounter):
     def add_segmentations(self, **channel_path_globs):
         self.image_data["segmentations"] = (
             super().add_segmentations(**channel_path_globs).persist()
+        )
+
+    def add_clones_and_neighbouring_labels(
+        self,
+        query_for_pd: str = 'intensity_img_channel == "C1" & mean_intensity > 1000',
+        name_for_query: str = "filt_C1_intensity",
+    ):
+        self.image_data[name_for_query] = (
+            super()
+            .add_clones_and_neighbouring_labels(query_for_pd, name_for_query)
+            .persist()
         )
