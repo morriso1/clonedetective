@@ -132,9 +132,10 @@ class CloneCounter:
         as value"""
 
         try:
-            self.max_seg_label_levels.setdefault(seg_channel, 0).__add__(
+            self.max_seg_label_levels.setdefault(seg_channel, []).append(
                 (
-                    self.image_data["segmentations"][0]
+                    self.image_data["segmentations"]
+                    .loc[seg_channel]
                     .data.map_blocks(
                         lambda x: np.unique(x).shape[0],
                         drop_axis=(1, 2),
@@ -144,6 +145,9 @@ class CloneCounter:
                     .max()
                 )
             )
+            self.max_seg_label_levels[seg_channel] = self.max_seg_label_levels[
+                seg_channel
+            ][0]
         except AttributeError:
             self.max_seg_label_levels = dict()
             self._determine_max_seg_label_levels(seg_channel)
@@ -153,9 +157,9 @@ class CloneCounter:
             xr.DataArray(
                 np.moveaxis(arr, 1, 0),
                 coords=(
-                    self.segmentations.coords["channel"][1:],
-                    self.segmentations.coords["img_name"],
-                    np.arange(self.max_seg_label_levels),
+                    self.image_data["segmentations"].coords["seg_channels"][1:],
+                    self.image_data["segmentations"].coords["img_name"],
+                    np.arange(self.max_seg_label_levels['C0']),
                 ),
                 dims=("colocalisation_ch", "img_name", "C0_labels",),
             )
@@ -165,15 +169,18 @@ class CloneCounter:
         )
 
     def measure_overlap(self):
-        self._determine_max_seg_label_levels()
-        # self._rechunk_seg_data_for_overlap_calc()
-        arr = self.segmentations.data.map_blocks(
-            calculate_overlap,
-            drop_axis=[0],
-            dtype=np.float64,
-            num_of_segs=self.segmentations.shape[0],
-            preallocate_value=self.max_seg_label_levels,
-        ).compute()
+        self._determine_max_seg_label_levels("C0")
+        arr = (
+            self.image_data["segmentations"]
+            .data.map_blocks(
+                calculate_overlap,
+                drop_axis=[0],
+                dtype=np.float64,
+                num_of_segs=self.image_data["segmentations"].shape[0],
+                preallocate_value=self.max_seg_label_levels["C0"],
+            )
+            .compute()
+        )
 
         df = self._create_df_from_arr(arr)
         df["is_in_label"] = df["is_in_label"].astype(np.uint16)
