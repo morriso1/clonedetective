@@ -15,8 +15,10 @@ from skimage import measure
 
 from .utils import (
     add_scale_regionprops_table_area_measurements,
+    calculate_corresponding_labels,
     calculate_overlap,
     check_channels_input_suitable_and_return_channels,
+    determine_labels_across_other_images_using_centroids,
     extend_region_properties_list,
     get_all_labeled_clones_unmerged_and_merged,
     img_path_to_xarr,
@@ -195,6 +197,19 @@ class CloneCounter:
             .agg({"label": lambda x: list(x)})["label"]
             .to_dict()
         )
+
+    def get_centroids_list(self, tot_seg_ch: str = "C0"):
+        df = self.results_measurements.query("intensity_img_channel == @tot_seg_ch")
+        centroids_list = list()
+        for img_name in df["intensity_img_name"].unique():
+            centroids_list.append(
+                (
+                    df.query("intensity_img_name == @img_name")
+                    .loc[:, ["centroid-0", "centroid-1"]]
+                    .values.astype(int)
+                )
+            )
+        return centroids_list
 
     def add_clones_and_neighbouring_labels(
         self,

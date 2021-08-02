@@ -71,7 +71,7 @@ nb_path: "01_clone_counters.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="CloneCounter" class="doc_header"><code>class</code> <code>CloneCounter</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/clone_counters.py#L30" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>CloneCounter</code>(<strong><code>exp_name</code></strong>:<code>str</code>, <strong><code>img_name_regex</code></strong>:<code>str</code>, <strong><code>pixel_size</code></strong>:<code>float</code>)</p>
+<h2 id="CloneCounter" class="doc_header"><code>class</code> <code>CloneCounter</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/clone_counters.py#L32" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>CloneCounter</code>(<strong><code>exp_name</code></strong>:<code>str</code>, <strong><code>img_name_regex</code></strong>:<code>str</code>, <strong><code>pixel_size</code></strong>:<code>float</code>)</p>
 </blockquote>
 
 </div>
@@ -108,7 +108,7 @@ nb_path: "01_clone_counters.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="LazyCloneCounter" class="doc_header"><code>class</code> <code>LazyCloneCounter</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/clone_counters.py#L234" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>LazyCloneCounter</code>(<strong><code>exp_name</code></strong>:<code>str</code>, <strong><code>img_name_regex</code></strong>:<code>str</code>, <strong><code>pixel_size</code></strong>:<code>float</code>) :: <a href="/py_clone_detective/clone_counters.html#CloneCounter"><code>CloneCounter</code></a></p>
+<h2 id="LazyCloneCounter" class="doc_header"><code>class</code> <code>LazyCloneCounter</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/clone_counters.py#L249" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>LazyCloneCounter</code>(<strong><code>exp_name</code></strong>:<code>str</code>, <strong><code>img_name_regex</code></strong>:<code>str</code>, <strong><code>pixel_size</code></strong>:<code>float</code>) :: <a href="/py_clone_detective/clone_counters.html#CloneCounter"><code>CloneCounter</code></a></p>
 </blockquote>
 
 </div>
@@ -139,7 +139,7 @@ nb_path: "01_clone_counters.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="PersistentCloneCounter" class="doc_header"><code>class</code> <code>PersistentCloneCounter</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/clone_counters.py#L249" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>PersistentCloneCounter</code>(<strong><code>exp_name</code></strong>:<code>str</code>, <strong><code>img_name_regex</code></strong>:<code>str</code>, <strong><code>pixel_size</code></strong>:<code>float</code>) :: <a href="/py_clone_detective/clone_counters.html#CloneCounter"><code>CloneCounter</code></a></p>
+<h2 id="PersistentCloneCounter" class="doc_header"><code>class</code> <code>PersistentCloneCounter</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/clone_counters.py#L264" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>PersistentCloneCounter</code>(<strong><code>exp_name</code></strong>:<code>str</code>, <strong><code>img_name_regex</code></strong>:<code>str</code>, <strong><code>pixel_size</code></strong>:<code>float</code>) :: <a href="/py_clone_detective/clone_counters.html#CloneCounter"><code>CloneCounter</code></a></p>
 </blockquote>
 
 </div>
@@ -196,6 +196,184 @@ nb_path: "01_clone_counters.ipynb"
 </div>
 </div>
 
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">KeyboardInterrupt</span>                         Traceback (most recent call last)
+<span class="ansi-green-fg">/var/folders/j0/rvxl45091qg36bgv821hfkmc0000gn/T/ipykernel_8253/2595728949.py</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-intense-fg ansi-bold">     14</span>     C3<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">&#34;../current_imaging_analysis/MARCM2A_E7F1_refactoring/C3/C3_label_imgs/*.tif*&#34;</span><span class="ansi-blue-fg">,</span>
+<span class="ansi-green-intense-fg ansi-bold">     15</span> )
+<span class="ansi-green-fg">---&gt; 16</span><span class="ansi-red-fg"> </span>foo<span class="ansi-blue-fg">.</span>make_measurements<span class="ansi-blue-fg">(</span>extra_properties<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#34;convex_area&#34;</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">,</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">     17</span> foo<span class="ansi-blue-fg">.</span>measure_overlap<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">     18</span> foo<span class="ansi-blue-fg">.</span>combine_C0_overlaps_and_measurements<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
+
+<span class="ansi-green-fg">/var/folders/j0/rvxl45091qg36bgv821hfkmc0000gn/T/ipykernel_8253/3424755806.py</span> in <span class="ansi-cyan-fg">make_measurements</span><span class="ansi-blue-fg">(self, seg_channels, img_channels, extra_properties, **kwargs)</span>
+<span class="ansi-green-intense-fg ansi-bold">     95</span>                 )
+<span class="ansi-green-intense-fg ansi-bold">     96</span> 
+<span class="ansi-green-fg">---&gt; 97</span><span class="ansi-red-fg">         </span>df <span class="ansi-blue-fg">=</span> dd<span class="ansi-blue-fg">.</span>from_delayed<span class="ansi-blue-fg">(</span>results<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">.</span>compute<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">     98</span>         df <span class="ansi-blue-fg">=</span> add_scale_regionprops_table_area_measurements<span class="ansi-blue-fg">(</span>df<span class="ansi-blue-fg">,</span> self<span class="ansi-blue-fg">.</span>pixel_size<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">     99</span>         self<span class="ansi-blue-fg">.</span>results_measurements <span class="ansi-blue-fg">=</span> reorder_df_to_put_ch_info_first<span class="ansi-blue-fg">(</span>df<span class="ansi-blue-fg">)</span>
+
+<span class="ansi-green-fg">~/miniconda3/envs/py_clone_det/lib/python3.8/site-packages/dask/base.py</span> in <span class="ansi-cyan-fg">compute</span><span class="ansi-blue-fg">(self, **kwargs)</span>
+<span class="ansi-green-intense-fg ansi-bold">    284</span>         dask<span class="ansi-blue-fg">.</span>base<span class="ansi-blue-fg">.</span>compute
+<span class="ansi-green-intense-fg ansi-bold">    285</span>         &#34;&#34;&#34;
+<span class="ansi-green-fg">--&gt; 286</span><span class="ansi-red-fg">         </span><span class="ansi-blue-fg">(</span>result<span class="ansi-blue-fg">,</span><span class="ansi-blue-fg">)</span> <span class="ansi-blue-fg">=</span> compute<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">,</span> traverse<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">False</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">**</span>kwargs<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    287</span>         <span class="ansi-green-fg">return</span> result
+<span class="ansi-green-intense-fg ansi-bold">    288</span> 
+
+<span class="ansi-green-fg">~/miniconda3/envs/py_clone_det/lib/python3.8/site-packages/dask/base.py</span> in <span class="ansi-cyan-fg">compute</span><span class="ansi-blue-fg">(*args, **kwargs)</span>
+<span class="ansi-green-intense-fg ansi-bold">    567</span> 
+<span class="ansi-green-intense-fg ansi-bold">    568</span>     results <span class="ansi-blue-fg">=</span> schedule<span class="ansi-blue-fg">(</span>dsk<span class="ansi-blue-fg">,</span> keys<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">**</span>kwargs<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-fg">--&gt; 569</span><span class="ansi-red-fg">     </span><span class="ansi-green-fg">return</span> repack<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">[</span>f<span class="ansi-blue-fg">(</span>r<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">*</span>a<span class="ansi-blue-fg">)</span> <span class="ansi-green-fg">for</span> r<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">(</span>f<span class="ansi-blue-fg">,</span> a<span class="ansi-blue-fg">)</span> <span class="ansi-green-fg">in</span> zip<span class="ansi-blue-fg">(</span>results<span class="ansi-blue-fg">,</span> postcomputes<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    570</span> 
+<span class="ansi-green-intense-fg ansi-bold">    571</span> 
+
+<span class="ansi-green-fg">~/miniconda3/envs/py_clone_det/lib/python3.8/site-packages/dask/base.py</span> in <span class="ansi-cyan-fg">&lt;listcomp&gt;</span><span class="ansi-blue-fg">(.0)</span>
+<span class="ansi-green-intense-fg ansi-bold">    567</span> 
+<span class="ansi-green-intense-fg ansi-bold">    568</span>     results <span class="ansi-blue-fg">=</span> schedule<span class="ansi-blue-fg">(</span>dsk<span class="ansi-blue-fg">,</span> keys<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">**</span>kwargs<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-fg">--&gt; 569</span><span class="ansi-red-fg">     </span><span class="ansi-green-fg">return</span> repack<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">[</span>f<span class="ansi-blue-fg">(</span>r<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">*</span>a<span class="ansi-blue-fg">)</span> <span class="ansi-green-fg">for</span> r<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">(</span>f<span class="ansi-blue-fg">,</span> a<span class="ansi-blue-fg">)</span> <span class="ansi-green-fg">in</span> zip<span class="ansi-blue-fg">(</span>results<span class="ansi-blue-fg">,</span> postcomputes<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    570</span> 
+<span class="ansi-green-intense-fg ansi-bold">    571</span> 
+
+<span class="ansi-green-fg">~/miniconda3/envs/py_clone_det/lib/python3.8/site-packages/dask/dataframe/core.py</span> in <span class="ansi-cyan-fg">finalize</span><span class="ansi-blue-fg">(results)</span>
+<span class="ansi-green-intense-fg ansi-bold">    127</span> 
+<span class="ansi-green-intense-fg ansi-bold">    128</span> <span class="ansi-green-fg">def</span> finalize<span class="ansi-blue-fg">(</span>results<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-fg">--&gt; 129</span><span class="ansi-red-fg">     </span><span class="ansi-green-fg">return</span> _concat<span class="ansi-blue-fg">(</span>results<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    130</span> 
+<span class="ansi-green-intense-fg ansi-bold">    131</span> 
+
+<span class="ansi-green-fg">~/miniconda3/envs/py_clone_det/lib/python3.8/site-packages/dask/dataframe/core.py</span> in <span class="ansi-cyan-fg">_concat</span><span class="ansi-blue-fg">(args, ignore_index)</span>
+<span class="ansi-green-intense-fg ansi-bold">    122</span>         args<span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">0</span><span class="ansi-blue-fg">]</span>
+<span class="ansi-green-intense-fg ansi-bold">    123</span>         <span class="ansi-green-fg">if</span> <span class="ansi-green-fg">not</span> args2
+<span class="ansi-green-fg">--&gt; 124</span><span class="ansi-red-fg">         </span><span class="ansi-green-fg">else</span> methods<span class="ansi-blue-fg">.</span>concat<span class="ansi-blue-fg">(</span>args2<span class="ansi-blue-fg">,</span> uniform<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">True</span><span class="ansi-blue-fg">,</span> ignore_index<span class="ansi-blue-fg">=</span>ignore_index<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    125</span>     )
+<span class="ansi-green-intense-fg ansi-bold">    126</span> 
+
+<span class="ansi-green-fg">~/miniconda3/envs/py_clone_det/lib/python3.8/site-packages/dask/dataframe/dispatch.py</span> in <span class="ansi-cyan-fg">concat</span><span class="ansi-blue-fg">(dfs, axis, join, uniform, filter_warning, ignore_index, **kwargs)</span>
+<span class="ansi-green-intense-fg ansi-bold">     59</span>     <span class="ansi-green-fg">else</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">     60</span>         func <span class="ansi-blue-fg">=</span> concat_dispatch<span class="ansi-blue-fg">.</span>dispatch<span class="ansi-blue-fg">(</span>type<span class="ansi-blue-fg">(</span>dfs<span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">0</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-fg">---&gt; 61</span><span class="ansi-red-fg">         return func(
+</span><span class="ansi-green-intense-fg ansi-bold">     62</span>             dfs<span class="ansi-blue-fg">,</span>
+<span class="ansi-green-intense-fg ansi-bold">     63</span>             axis<span class="ansi-blue-fg">=</span>axis<span class="ansi-blue-fg">,</span>
+
+<span class="ansi-green-fg">~/miniconda3/envs/py_clone_det/lib/python3.8/site-packages/dask/dataframe/backends.py</span> in <span class="ansi-cyan-fg">concat_pandas</span><span class="ansi-blue-fg">(dfs, axis, join, uniform, filter_warning, ignore_index, **kwargs)</span>
+<span class="ansi-green-intense-fg ansi-bold">    502</span>                 <span class="ansi-green-fg">if</span> filter_warning<span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">    503</span>                     warnings<span class="ansi-blue-fg">.</span>simplefilter<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#34;ignore&#34;</span><span class="ansi-blue-fg">,</span> FutureWarning<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-fg">--&gt; 504</span><span class="ansi-red-fg">                 </span>out <span class="ansi-blue-fg">=</span> pd<span class="ansi-blue-fg">.</span>concat<span class="ansi-blue-fg">(</span>dfs3<span class="ansi-blue-fg">,</span> join<span class="ansi-blue-fg">=</span>join<span class="ansi-blue-fg">,</span> sort<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">False</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    505</span>     <span class="ansi-green-fg">else</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">    506</span>         <span class="ansi-green-fg">if</span> is_categorical_dtype<span class="ansi-blue-fg">(</span>dfs2<span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">0</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">.</span>dtype<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
+
+<span class="ansi-green-fg">~/miniconda3/envs/py_clone_det/lib/python3.8/site-packages/pandas/util/_decorators.py</span> in <span class="ansi-cyan-fg">wrapper</span><span class="ansi-blue-fg">(*args, **kwargs)</span>
+<span class="ansi-green-intense-fg ansi-bold">    309</span>                     stacklevel<span class="ansi-blue-fg">=</span>stacklevel<span class="ansi-blue-fg">,</span>
+<span class="ansi-green-intense-fg ansi-bold">    310</span>                 )
+<span class="ansi-green-fg">--&gt; 311</span><span class="ansi-red-fg">             </span><span class="ansi-green-fg">return</span> func<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">*</span>args<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">**</span>kwargs<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    312</span> 
+<span class="ansi-green-intense-fg ansi-bold">    313</span>         <span class="ansi-green-fg">return</span> wrapper
+
+<span class="ansi-green-fg">~/miniconda3/envs/py_clone_det/lib/python3.8/site-packages/pandas/core/reshape/concat.py</span> in <span class="ansi-cyan-fg">concat</span><span class="ansi-blue-fg">(objs, axis, join, ignore_index, keys, levels, names, verify_integrity, sort, copy)</span>
+<span class="ansi-green-intense-fg ansi-bold">    292</span>     ValueError<span class="ansi-blue-fg">:</span> Indexes have overlapping values<span class="ansi-blue-fg">:</span> <span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#39;a&#39;</span><span class="ansi-blue-fg">]</span>
+<span class="ansi-green-intense-fg ansi-bold">    293</span>     &#34;&#34;&#34;
+<span class="ansi-green-fg">--&gt; 294</span><span class="ansi-red-fg">     op = _Concatenator(
+</span><span class="ansi-green-intense-fg ansi-bold">    295</span>         objs<span class="ansi-blue-fg">,</span>
+<span class="ansi-green-intense-fg ansi-bold">    296</span>         axis<span class="ansi-blue-fg">=</span>axis<span class="ansi-blue-fg">,</span>
+
+<span class="ansi-green-fg">~/miniconda3/envs/py_clone_det/lib/python3.8/site-packages/pandas/core/reshape/concat.py</span> in <span class="ansi-cyan-fg">__init__</span><span class="ansi-blue-fg">(self, objs, axis, join, keys, levels, names, ignore_index, verify_integrity, copy, sort)</span>
+<span class="ansi-green-intense-fg ansi-bold">    477</span>         self<span class="ansi-blue-fg">.</span>copy <span class="ansi-blue-fg">=</span> copy
+<span class="ansi-green-intense-fg ansi-bold">    478</span> 
+<span class="ansi-green-fg">--&gt; 479</span><span class="ansi-red-fg">         </span>self<span class="ansi-blue-fg">.</span>new_axes <span class="ansi-blue-fg">=</span> self<span class="ansi-blue-fg">.</span>_get_new_axes<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    480</span> 
+<span class="ansi-green-intense-fg ansi-bold">    481</span>     <span class="ansi-green-fg">def</span> get_result<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
+
+<span class="ansi-green-fg">~/miniconda3/envs/py_clone_det/lib/python3.8/site-packages/pandas/core/reshape/concat.py</span> in <span class="ansi-cyan-fg">_get_new_axes</span><span class="ansi-blue-fg">(self)</span>
+<span class="ansi-green-intense-fg ansi-bold">    547</span>     <span class="ansi-green-fg">def</span> _get_new_axes<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">)</span> <span class="ansi-blue-fg">-&gt;</span> list<span class="ansi-blue-fg">[</span>Index<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">    548</span>         ndim <span class="ansi-blue-fg">=</span> self<span class="ansi-blue-fg">.</span>_get_result_dim<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-fg">--&gt; 549</span><span class="ansi-red-fg">         return [
+</span><span class="ansi-green-intense-fg ansi-bold">    550</span>             self<span class="ansi-blue-fg">.</span>_get_concat_axis <span class="ansi-green-fg">if</span> i <span class="ansi-blue-fg">==</span> self<span class="ansi-blue-fg">.</span>bm_axis <span class="ansi-green-fg">else</span> self<span class="ansi-blue-fg">.</span>_get_comb_axis<span class="ansi-blue-fg">(</span>i<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    551</span>             <span class="ansi-green-fg">for</span> i <span class="ansi-green-fg">in</span> range<span class="ansi-blue-fg">(</span>ndim<span class="ansi-blue-fg">)</span>
+
+<span class="ansi-green-fg">~/miniconda3/envs/py_clone_det/lib/python3.8/site-packages/pandas/core/reshape/concat.py</span> in <span class="ansi-cyan-fg">&lt;listcomp&gt;</span><span class="ansi-blue-fg">(.0)</span>
+<span class="ansi-green-intense-fg ansi-bold">    548</span>         ndim <span class="ansi-blue-fg">=</span> self<span class="ansi-blue-fg">.</span>_get_result_dim<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    549</span>         return [
+<span class="ansi-green-fg">--&gt; 550</span><span class="ansi-red-fg">             </span>self<span class="ansi-blue-fg">.</span>_get_concat_axis <span class="ansi-green-fg">if</span> i <span class="ansi-blue-fg">==</span> self<span class="ansi-blue-fg">.</span>bm_axis <span class="ansi-green-fg">else</span> self<span class="ansi-blue-fg">.</span>_get_comb_axis<span class="ansi-blue-fg">(</span>i<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    551</span>             <span class="ansi-green-fg">for</span> i <span class="ansi-green-fg">in</span> range<span class="ansi-blue-fg">(</span>ndim<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    552</span>         ]
+
+<span class="ansi-green-fg">~/miniconda3/envs/py_clone_det/lib/python3.8/site-packages/pandas/_libs/properties.pyx</span> in <span class="ansi-cyan-fg">pandas._libs.properties.CachedProperty.__get__</span><span class="ansi-blue-fg">()</span>
+
+<span class="ansi-green-fg">~/miniconda3/envs/py_clone_det/lib/python3.8/site-packages/pandas/core/reshape/concat.py</span> in <span class="ansi-cyan-fg">_get_concat_axis</span><span class="ansi-blue-fg">(self)</span>
+<span class="ansi-green-intense-fg ansi-bold">    603</span> 
+<span class="ansi-green-intense-fg ansi-bold">    604</span>         <span class="ansi-green-fg">if</span> self<span class="ansi-blue-fg">.</span>keys <span class="ansi-green-fg">is</span> <span class="ansi-green-fg">None</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-fg">--&gt; 605</span><span class="ansi-red-fg">             </span>concat_axis <span class="ansi-blue-fg">=</span> _concat_indexes<span class="ansi-blue-fg">(</span>indexes<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    606</span>         <span class="ansi-green-fg">else</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">    607</span>             concat_axis = _make_concat_multiindex(
+
+<span class="ansi-green-fg">~/miniconda3/envs/py_clone_det/lib/python3.8/site-packages/pandas/core/reshape/concat.py</span> in <span class="ansi-cyan-fg">_concat_indexes</span><span class="ansi-blue-fg">(indexes)</span>
+<span class="ansi-green-intense-fg ansi-bold">    621</span> 
+<span class="ansi-green-intense-fg ansi-bold">    622</span> <span class="ansi-green-fg">def</span> _concat_indexes<span class="ansi-blue-fg">(</span>indexes<span class="ansi-blue-fg">)</span> <span class="ansi-blue-fg">-&gt;</span> Index<span class="ansi-blue-fg">:</span>
+<span class="ansi-green-fg">--&gt; 623</span><span class="ansi-red-fg">     </span><span class="ansi-green-fg">return</span> indexes<span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">0</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">.</span>append<span class="ansi-blue-fg">(</span>indexes<span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">1</span><span class="ansi-blue-fg">:</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    624</span> 
+<span class="ansi-green-intense-fg ansi-bold">    625</span> 
+
+<span class="ansi-green-fg">~/miniconda3/envs/py_clone_det/lib/python3.8/site-packages/pandas/core/indexes/base.py</span> in <span class="ansi-cyan-fg">append</span><span class="ansi-blue-fg">(self, other)</span>
+<span class="ansi-green-intense-fg ansi-bold">   4678</span>         name <span class="ansi-blue-fg">=</span> <span class="ansi-green-fg">None</span> <span class="ansi-green-fg">if</span> len<span class="ansi-blue-fg">(</span>names<span class="ansi-blue-fg">)</span> <span class="ansi-blue-fg">&gt;</span> <span class="ansi-cyan-fg">1</span> <span class="ansi-green-fg">else</span> self<span class="ansi-blue-fg">.</span>name
+<span class="ansi-green-intense-fg ansi-bold">   4679</span> 
+<span class="ansi-green-fg">-&gt; 4680</span><span class="ansi-red-fg">         </span><span class="ansi-green-fg">return</span> self<span class="ansi-blue-fg">.</span>_concat<span class="ansi-blue-fg">(</span>to_concat<span class="ansi-blue-fg">,</span> name<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">   4681</span> 
+<span class="ansi-green-intense-fg ansi-bold">   4682</span>     <span class="ansi-green-fg">def</span> _concat<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">,</span> to_concat<span class="ansi-blue-fg">:</span> list<span class="ansi-blue-fg">[</span>Index<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">,</span> name<span class="ansi-blue-fg">:</span> Hashable<span class="ansi-blue-fg">)</span> <span class="ansi-blue-fg">-&gt;</span> Index<span class="ansi-blue-fg">:</span>
+
+<span class="ansi-green-fg">~/miniconda3/envs/py_clone_det/lib/python3.8/site-packages/pandas/core/indexes/range.py</span> in <span class="ansi-cyan-fg">_concat</span><span class="ansi-blue-fg">(self, indexes, name)</span>
+<span class="ansi-green-intense-fg ansi-bold">    788</span>             )
+<span class="ansi-green-intense-fg ansi-bold">    789</span>             <span class="ansi-green-fg">if</span> non_consecutive<span class="ansi-blue-fg">:</span>
+<span class="ansi-green-fg">--&gt; 790</span><span class="ansi-red-fg">                 </span>result <span class="ansi-blue-fg">=</span> Int64Index<span class="ansi-blue-fg">(</span>np<span class="ansi-blue-fg">.</span>concatenate<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">[</span>x<span class="ansi-blue-fg">.</span>_values <span class="ansi-green-fg">for</span> x <span class="ansi-green-fg">in</span> rng_indexes<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    791</span>                 <span class="ansi-green-fg">return</span> result<span class="ansi-blue-fg">.</span>rename<span class="ansi-blue-fg">(</span>name<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    792</span> 
+
+<span class="ansi-green-fg">~/miniconda3/envs/py_clone_det/lib/python3.8/site-packages/pandas/core/indexes/range.py</span> in <span class="ansi-cyan-fg">&lt;listcomp&gt;</span><span class="ansi-blue-fg">(.0)</span>
+<span class="ansi-green-intense-fg ansi-bold">    788</span>             )
+<span class="ansi-green-intense-fg ansi-bold">    789</span>             <span class="ansi-green-fg">if</span> non_consecutive<span class="ansi-blue-fg">:</span>
+<span class="ansi-green-fg">--&gt; 790</span><span class="ansi-red-fg">                 </span>result <span class="ansi-blue-fg">=</span> Int64Index<span class="ansi-blue-fg">(</span>np<span class="ansi-blue-fg">.</span>concatenate<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">[</span>x<span class="ansi-blue-fg">.</span>_values <span class="ansi-green-fg">for</span> x <span class="ansi-green-fg">in</span> rng_indexes<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    791</span>                 <span class="ansi-green-fg">return</span> result<span class="ansi-blue-fg">.</span>rename<span class="ansi-blue-fg">(</span>name<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    792</span> 
+
+<span class="ansi-green-fg">~/miniconda3/envs/py_clone_det/lib/python3.8/site-packages/pandas/core/indexes/base.py</span> in <span class="ansi-cyan-fg">_values</span><span class="ansi-blue-fg">(self)</span>
+<span class="ansi-green-intense-fg ansi-bold">   4401</span>         values <span class="ansi-blue-fg">:</span> Values
+<span class="ansi-green-intense-fg ansi-bold">   4402</span>         &#34;&#34;&#34;
+<span class="ansi-green-fg">-&gt; 4403</span><span class="ansi-red-fg">         </span><span class="ansi-green-fg">return</span> self<span class="ansi-blue-fg">.</span>_data
+<span class="ansi-green-intense-fg ansi-bold">   4404</span> 
+<span class="ansi-green-intense-fg ansi-bold">   4405</span>     <span class="ansi-green-fg">def</span> _get_engine_target<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">)</span> <span class="ansi-blue-fg">-&gt;</span> np<span class="ansi-blue-fg">.</span>ndarray<span class="ansi-blue-fg">:</span>
+
+<span class="ansi-green-fg">~/miniconda3/envs/py_clone_det/lib/python3.8/site-packages/pandas/_libs/properties.pyx</span> in <span class="ansi-cyan-fg">pandas._libs.properties.CachedProperty.__get__</span><span class="ansi-blue-fg">()</span>
+
+<span class="ansi-green-fg">~/miniconda3/envs/py_clone_det/lib/python3.8/site-packages/pandas/core/indexes/range.py</span> in <span class="ansi-cyan-fg">_data</span><span class="ansi-blue-fg">(self)</span>
+<span class="ansi-green-intense-fg ansi-bold">    184</span>         The constructed array <span class="ansi-green-fg">is</span> saved <span class="ansi-green-fg">in</span><span class="ansi-red-fg"> </span><span class="ansi-red-fg">`</span><span class="ansi-red-fg">`</span>_cache<span class="ansi-red-fg">`</span><span class="ansi-red-fg">`</span><span class="ansi-blue-fg">.</span>
+<span class="ansi-green-intense-fg ansi-bold">    185</span>         &#34;&#34;&#34;
+<span class="ansi-green-fg">--&gt; 186</span><span class="ansi-red-fg">         </span><span class="ansi-green-fg">return</span> np<span class="ansi-blue-fg">.</span>arange<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">.</span>start<span class="ansi-blue-fg">,</span> self<span class="ansi-blue-fg">.</span>stop<span class="ansi-blue-fg">,</span> self<span class="ansi-blue-fg">.</span>step<span class="ansi-blue-fg">,</span> dtype<span class="ansi-blue-fg">=</span>np<span class="ansi-blue-fg">.</span>int64<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    187</span> 
+<span class="ansi-green-intense-fg ansi-bold">    188</span>     <span class="ansi-blue-fg">@</span>cache_readonly
+
+<span class="ansi-red-fg">KeyboardInterrupt</span>: </pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>distributed.nanny - WARNING - Restarting worker
+distributed.nanny - WARNING - Restarting worker
+distributed.nanny - WARNING - Restarting worker
+distributed.nanny - WARNING - Restarting worker
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
 </div>
     {% endraw %}
 
@@ -229,26 +407,6 @@ nb_path: "01_clone_counters.ipynb"
     <span class="n">tot_seg_ch</span><span class="o">=</span><span class="s2">&quot;C0&quot;</span><span class="p">,</span>
     <span class="n">query_for_pd</span><span class="o">=</span><span class="s1">&#39;intensity_img_channel == &quot;C1&quot; &amp; mean_intensity &gt; 1000&#39;</span><span class="p">,</span>
     <span class="n">name_for_query</span><span class="o">=</span><span class="s2">&quot;filt_C1_intensity&quot;</span><span class="p">,</span>
-<span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">foo</span><span class="o">.</span><span class="n">add_clones_and_neighbouring_labels</span><span class="p">(</span>
-    <span class="n">query_for_pd</span><span class="o">=</span><span class="s1">&#39;intensity_img_channel == &quot;C2&quot; &amp; mean_intensity &gt; 500&#39;</span><span class="p">,</span>
-    <span class="n">name_for_query</span><span class="o">=</span><span class="s2">&quot;filt_C2_intensity&quot;</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 
