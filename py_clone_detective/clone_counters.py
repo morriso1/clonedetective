@@ -224,14 +224,11 @@ class CloneCounter:
         clone_coords, clone_dims = update_1st_coord_and_dim_of_xarr(
             self.image_data["images"],
             new_coord=[
-                f"{self.tot_seg_ch}",
-                f"{self.tot_seg_ch}_extended",
-                f"{self.tot_seg_ch}_inside_clones",
-                f"{self.tot_seg_ch}_outside_clones",
-                f"merged_clones",
-                f"{self.tot_seg_ch}_neighbour_counts",
-                f"{self.tot_seg_ch}_inside_clones_neighbour_counts",
-                f"{self.tot_seg_ch}_outside_clones_neighbour_counts",
+                f"extended_tot_seg_labels",
+                f"clone",
+                f"total_neighbour_counts",
+                f"inside_clone_neighbour_counts",
+                f"outside_clone_neighbour_counts",
             ],
             new_dim="extended_labels_neighbour_counts",
         )

@@ -259,7 +259,7 @@ def get_all_labeled_clones_unmerged_and_merged(total_seg_labels, clones_to_keep:
     for key in total_seg_labels.coords["img_name"].values:
         img_list.append(
             da.from_delayed(
-                label_clones_output_unmerged_and_merged(
+                label_clones_calc_neighbours(
                     total_seg_labels.loc[key, ...].data, clones_to_keep[key]
                 ),
                 shape=(5,) + total_seg_labels.shape[1:],
