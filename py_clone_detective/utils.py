@@ -129,19 +129,19 @@ def lazy_props(seg, img, seg_ch, img_ch, seg_name, img_name, properties, **kwarg
     df = pd.DataFrame(
         measure.regionprops_table(seg, img, properties=properties, **kwargs)
     )
-    df["seg_channel"] = seg_ch
-    df["intensity_img_channel"] = img_ch
-    df["segmentation_img_name"] = seg_name
-    df["intensity_img_name"] = img_name
+    df["seg_ch"] = seg_ch
+    df["int_img_ch"] = img_ch
+    df["seg_img"] = seg_name
+    df["int_img"] = img_name
     return df
 
 # Cell
 def reorder_df_to_put_ch_info_first(df):
     first_cols = [
-        "seg_channel",
-        "intensity_img_channel",
-        "segmentation_img_name",
-        "intensity_img_name",
+        "seg_ch",
+        "int_img_ch",
+        "seg_img",
+        "int_img",
     ]
     first_cols.extend(df.columns)
     first_cols = sorted(set(first_cols), key=first_cols.index)

@@ -84,8 +84,8 @@ class CloneCounter:
             .query("C0_labels != 0")
             .copy()
         )
-        sk_df = self.results_measurements.query("seg_channel == 'C0'").set_index(
-            ["segmentation_img_name", "label"]
+        sk_df = self.results_measurements.query("seg_ch== 'C0'").set_index(
+            ["seg_img", "label"]
         )
         sk_df.index.rename(["img_name", "C0_labels"], inplace=True)
         return pd.merge(ov_df, sk_df, left_index=True, right_index=True)
@@ -164,7 +164,7 @@ class CloneCounter:
                 coords=(
                     self.image_data["segmentations"].coords["seg_channels"][1:],
                     self.image_data["segmentations"].coords["img_name"],
-                    np.arange(self.max_seg_label_levels["C0"]),
+                    np.arange(self.tot_seg_ch_max_labels),
                 ),
                 dims=("colocalisation_ch", "img_name", "C0_labels",),
             )
@@ -174,7 +174,7 @@ class CloneCounter:
         )
 
     def measure_overlap(self):
-        self._determine_max_seg_label_levels("C0")
+        self._determine_max_seg_label_levels()
         arr = (
             self.image_data["segmentations"]
             .data.map_blocks(
@@ -182,7 +182,7 @@ class CloneCounter:
                 drop_axis=[0],
                 dtype=np.float64,
                 num_of_segs=self.image_data["segmentations"].shape[0],
-                preallocate_value=self.max_seg_label_levels["C0"],
+                preallocate_value=self.tot_seg_ch_max_labels,
             )
             .compute()
         )
@@ -196,20 +196,18 @@ class CloneCounter:
     def clones_to_keep_as_dict(self, query_for_pd: str):
         return (
             self.results_measurements.query(query_for_pd)
-            .groupby("intensity_img_name")
+            .groupby("int_img")
             .agg({"label": lambda x: list(x)})["label"]
             .to_dict()
         )
 
     def get_centroids_list(self):
-        df = self.results_measurements.query(
-            "intensity_img_channel == @self.tot_seg_ch"
-        )
+        df = self.results_measurements.query("int_img_ch == @self.tot_seg_ch")
         centroids_list = list()
-        for img_name in df["intensity_img_name"].unique():
+        for img_name in df["int_img"].unique():
             centroids_list.append(
                 (
-                    df.query("intensity_img_name == @img_name")
+                    df.query("int_img == @img_name")
                     .loc[:, ["centroid-0", "centroid-1"]]
                     .values.astype(int)
                 )
@@ -218,7 +216,7 @@ class CloneCounter:
 
     def add_clones_and_neighbouring_labels(
         self,
-        query_for_pd: str = 'intensity_img_channel == "C1" & mean_intensity > 1000',
+        query_for_pd: str = 'int_img_ch == "C1" & mean_intensity > 1000',
         name_for_query: str = "filt_C1_intensity",
     ):
         clone_coords, clone_dims = update_1st_coord_and_dim_of_xarr(
@@ -305,7 +303,7 @@ class LazyCloneCounter(CloneCounter):
 
     def add_clones_and_neighbouring_labels(
         self,
-        query_for_pd: str = 'intensity_img_channel == "C1" & mean_intensity > 1000',
+        query_for_pd: str = 'int_img_ch == "C1" & mean_intensity > 1000',
         name_for_query: str = "filt_C1_intensity",
     ):
         self.image_data[name_for_query] = super().add_clones_and_neighbouring_labels(
@@ -338,7 +336,7 @@ class PersistentCloneCounter(CloneCounter):
 
     def add_clones_and_neighbouring_labels(
         self,
-        query_for_pd: str = 'intensity_img_channel == "C1" & mean_intensity > 1000',
+        query_for_pd: str = 'int_img_ch == "C1" & mean_intensity > 1000',
         name_for_query: str = "filt_C1_intensity",
     ):
         self.image_data[name_for_query] = (
