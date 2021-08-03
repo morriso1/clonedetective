@@ -3,6 +3,7 @@
     "Overview": "/",
     "Utils": "utils.html",
     "CloneCounter Classes": "clone_counters.html",
-    "Clone Analysis Functions": "clone_analysis.html"
+    "Clone Analysis Functions": "clone_analysis.html",
+    "Example nuclei segmentation using StarDist": "Tutorial_StarDist_segmentation.html"
   }
 }
