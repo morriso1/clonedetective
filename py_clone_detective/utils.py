@@ -206,10 +206,7 @@ def label_clones_calc_neighbours(lab_img, to_keep):
 
     return np.stack(
         [
-            lab_img,
             extended_lab_img,
-            filtered_extended_lab,
-            opposite_filtered_extended_lab,
             merged_filtered_extended_lab,
             cle.pull(generate_touch_counting_image(cle.push(extended_lab_img))),
             cle.pull(generate_touch_counting_image(g_filtered_extended_lab)),
@@ -265,7 +262,7 @@ def get_all_labeled_clones_unmerged_and_merged(total_seg_labels, clones_to_keep:
                 label_clones_output_unmerged_and_merged(
                     total_seg_labels.loc[key, ...].data, clones_to_keep[key]
                 ),
-                shape=(8,) + total_seg_labels.shape[1:],
+                shape=(5,) + total_seg_labels.shape[1:],
                 dtype=np.uint16,
             )
         )
