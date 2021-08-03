@@ -218,23 +218,31 @@ class CloneCounter:
         self,
         query_for_pd: str = 'int_img_ch == "C1" & mean_intensity > 1000',
         name_for_query: str = "filt_C1_intensity",
+        calc_clones: str = True,
     ):
+        new_coord = [
+                    "extended_tot_seg_labels",
+                    "total_neighbour_counts",
+                    "inside_clone_neighbour_counts",
+                    "outside_clone_neighbour_counts",
+                ]
+
+        if calc_clones:
+            new_coord.append("clone")
+
+
         clone_coords, clone_dims = update_1st_coord_and_dim_of_xarr(
             self.image_data["images"],
-            new_coord=[
-                f"extended_tot_seg_labels",
-                f"clone",
-                f"total_neighbour_counts",
-                f"inside_clone_neighbour_counts",
-                f"outside_clone_neighbour_counts",
-            ],
-            new_dim="extended_labels_neighbour_counts",
+            new_coord=new_coord,
+            new_dim=f"{name_for_query}_neighbours",
         )
 
         clones_to_keep = self.clones_to_keep_as_dict(query_for_pd)
 
         new_label_imgs = get_all_labeled_clones_unmerged_and_merged(
-            self.image_data["segmentations"].loc[self.tot_seg_ch], clones_to_keep
+            self.image_data["segmentations"].loc[self.tot_seg_ch],
+            clones_to_keep,
+            calc_clones,
         )
 
         return xr.DataArray(
@@ -305,9 +313,10 @@ class LazyCloneCounter(CloneCounter):
         self,
         query_for_pd: str = 'int_img_ch == "C1" & mean_intensity > 1000',
         name_for_query: str = "filt_C1_intensity",
+        calc_clones: str = True,
     ):
         self.image_data[name_for_query] = super().add_clones_and_neighbouring_labels(
-            query_for_pd, name_for_query
+            query_for_pd, name_for_query, calc_clones
         )
 
 # Cell
@@ -338,9 +347,12 @@ class PersistentCloneCounter(CloneCounter):
         self,
         query_for_pd: str = 'int_img_ch == "C1" & mean_intensity > 1000',
         name_for_query: str = "filt_C1_intensity",
+        calc_clones: str = True,
     ):
         self.image_data[name_for_query] = (
             super()
-            .add_clones_and_neighbouring_labels(query_for_pd, name_for_query)
+            .add_clones_and_neighbouring_labels(
+                query_for_pd, name_for_query, calc_clones
+            )
             .persist()
         )

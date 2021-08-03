@@ -3,10 +3,9 @@
 __all__ = ['clean_img_names', 'check_lists_identical', 'img_path_to_xarr', 'last2dims',
            'check_channels_input_suitable_and_return_channels', 'extend_region_properties_list',
            'add_scale_regionprops_table_area_measurements', 'lazy_props', 'reorder_df_to_put_ch_info_first',
-           'region_overlap', 'calculate_overlap', 'generate_touch_counting_image', 'label_clones_calc_neighbours',
-           'label_clones_output_unmerged_and_merged', 'get_all_labeled_clones_unmerged_and_merged',
-           'determine_labels_across_other_images_using_centroids', 'calculate_corresponding_labels',
-           'update_1st_coord_and_dim_of_xarr']
+           'region_overlap', 'calculate_overlap', 'generate_touch_counting_image', 'calc_neighbours',
+           'get_all_labeled_clones_unmerged_and_merged', 'determine_labels_across_other_images_using_centroids',
+           'calculate_corresponding_labels', 'update_1st_coord_and_dim_of_xarr']
 
 # Cell
 import os
@@ -184,85 +183,52 @@ def generate_touch_counting_image(g_img):
 
 # Cell
 @delayed
-def label_clones_calc_neighbours(lab_img, to_keep):
+def calc_neighbours(lab_img, to_keep, calc_clones: bool = True):
     g_lab_img = cle.push(lab_img)
 
     extended_lab_img = segmentation.clear_border(
         cle.pull(cle.extend_labeling_via_voronoi(g_lab_img))
     )
 
-    filtered_extended_lab = np.isin(extended_lab_img, to_keep) * extended_lab_img
-    opposite_filtered_extended_lab = (
-        np.invert(np.isin(extended_lab_img, to_keep)) * extended_lab_img
-    )
+    binary_filt = np.isin(extended_lab_img, to_keep)
+    filtered_extended_lab = binary_filt * extended_lab_img
+    opposite_filtered_extended_lab = np.invert(binary_filt) * extended_lab_img
 
     g_filtered_extended_lab = cle.push(filtered_extended_lab)
 
-    merged_filtered_extended_lab = cle.pull(
-        cle.connected_components_labeling_box(
-            cle.merge_touching_labels(g_filtered_extended_lab)
-        )
-    )
+    stack = [
+        extended_lab_img,
+        cle.pull(generate_touch_counting_image(cle.push(extended_lab_img))),
+        cle.pull(generate_touch_counting_image(g_filtered_extended_lab)),
+        cle.pull(
+            generate_touch_counting_image(cle.push(opposite_filtered_extended_lab))
+        ),
+    ]
 
-    return np.stack(
-        [
-            extended_lab_img,
-            merged_filtered_extended_lab,
-            cle.pull(generate_touch_counting_image(cle.push(extended_lab_img))),
-            cle.pull(generate_touch_counting_image(g_filtered_extended_lab)),
+    if calc_clones:
+        stack.append(
             cle.pull(
-                generate_touch_counting_image(cle.push(opposite_filtered_extended_lab))
-            ),
-        ]
-    ).astype(np.uint16)
+                cle.connected_components_labeling_box(
+                    cle.merge_touching_labels(g_filtered_extended_lab)
+                )
+            )
+        )
+
+    return np.stack(stack).astype(np.uint16)
 
 # Cell
-@delayed
-def label_clones_output_unmerged_and_merged(lab_img, to_keep):
-    g_lab_img = cle.push(lab_img)
-
-    extended_lab_img = segmentation.clear_border(
-        cle.pull(cle.extend_labeling_via_voronoi(g_lab_img))
-    )
-
-    filtered_extended_lab = np.isin(extended_lab_img, to_keep) * extended_lab_img
-    opposite_filtered_extended_lab = (
-        np.invert(np.isin(extended_lab_img, to_keep)) * extended_lab_img
-    )
-
-    g_filtered_extended_lab = cle.push(filtered_extended_lab)
-
-    merged_filtered_extended_lab = cle.pull(
-        cle.connected_components_labeling_box(
-            cle.merge_touching_labels(g_filtered_extended_lab)
-        )
-    )
-
-    return np.stack(
-        [
-            lab_img,
-            extended_lab_img,
-            filtered_extended_lab,
-            opposite_filtered_extended_lab,
-            merged_filtered_extended_lab,
-            cle.pull(generate_touch_counting_image(cle.push(extended_lab_img))),
-            cle.pull(generate_touch_counting_image(g_filtered_extended_lab)),
-            cle.pull(
-                generate_touch_counting_image(cle.push(opposite_filtered_extended_lab))
-            ),
-        ]
-    ).astype(np.uint16)
-
-# Cell
-def get_all_labeled_clones_unmerged_and_merged(total_seg_labels, clones_to_keep: dict):
+def get_all_labeled_clones_unmerged_and_merged(
+    total_seg_labels, clones_to_keep: dict, calc_clones: bool
+):
     img_list = list()
+    first_dim = 4 + int(calc_clones)
     for key in total_seg_labels.coords["img_name"].values:
         img_list.append(
             da.from_delayed(
-                label_clones_calc_neighbours(
+                calc_neighbours(
                     total_seg_labels.loc[key, ...].data, clones_to_keep[key]
                 ),
-                shape=(5,) + total_seg_labels.shape[1:],
+                shape=(first_dim,) + total_seg_labels.shape[1:],
                 dtype=np.uint16,
             )
         )
@@ -281,7 +247,9 @@ def determine_labels_across_other_images_using_centroids(
     return pre_arr
 
 # Cell
-def calculate_corresponding_labels(labels, centroids_list, first_output_dim, second_output_dim):
+def calculate_corresponding_labels(
+    labels, centroids_list, first_output_dim, second_output_dim
+):
     if not labels.shape[1] == len(centroids_list):
         raise ValueError("not the same numbers of imgs as centroid pairs!")
 

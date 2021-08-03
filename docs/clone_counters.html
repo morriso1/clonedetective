@@ -108,7 +108,7 @@ nb_path: "01_clone_counters.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="LazyCloneCounter" class="doc_header"><code>class</code> <code>LazyCloneCounter</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/clone_counters.py#L285" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>LazyCloneCounter</code>(<strong><code>exp_name</code></strong>:<code>str</code>, <strong><code>img_name_regex</code></strong>:<code>str</code>, <strong><code>pixel_size</code></strong>:<code>float</code>) :: <a href="/py_clone_detective/clone_counters.html#CloneCounter"><code>CloneCounter</code></a></p>
+<h2 id="LazyCloneCounter" class="doc_header"><code>class</code> <code>LazyCloneCounter</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/clone_counters.py#L293" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>LazyCloneCounter</code>(<strong><code>exp_name</code></strong>:<code>str</code>, <strong><code>img_name_regex</code></strong>:<code>str</code>, <strong><code>pixel_size</code></strong>:<code>float</code>) :: <a href="/py_clone_detective/clone_counters.html#CloneCounter"><code>CloneCounter</code></a></p>
 </blockquote>
 
 </div>
@@ -139,7 +139,7 @@ nb_path: "01_clone_counters.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="PersistentCloneCounter" class="doc_header"><code>class</code> <code>PersistentCloneCounter</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/clone_counters.py#L314" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>PersistentCloneCounter</code>(<strong><code>exp_name</code></strong>:<code>str</code>, <strong><code>img_name_regex</code></strong>:<code>str</code>, <strong><code>pixel_size</code></strong>:<code>float</code>) :: <a href="/py_clone_detective/clone_counters.html#CloneCounter"><code>CloneCounter</code></a></p>
+<h2 id="PersistentCloneCounter" class="doc_header"><code>class</code> <code>PersistentCloneCounter</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/clone_counters.py#L323" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>PersistentCloneCounter</code>(<strong><code>exp_name</code></strong>:<code>str</code>, <strong><code>img_name_regex</code></strong>:<code>str</code>, <strong><code>pixel_size</code></strong>:<code>float</code>) :: <a href="/py_clone_detective/clone_counters.html#CloneCounter"><code>CloneCounter</code></a></p>
 </blockquote>
 
 </div>
@@ -512,7 +512,7 @@ nb_path: "01_clone_counters.ipynb"
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">foo</span> <span class="o">=</span> <span class="n">PersistentCloneCounter</span><span class="p">(</span><span class="s2">&quot;Marcm2a_E7F1&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;a\dg\d\dp\d&quot;</span><span class="p">,</span> <span class="mf">0.275</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">foo</span> <span class="o">=</span> <span class="n">LazyCloneCounter</span><span class="p">(</span><span class="s2">&quot;Marcm2a_E7F1&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;a\dg\d\dp\d&quot;</span><span class="p">,</span> <span class="mf">0.275</span><span class="p">)</span>
 
 <span class="n">foo</span><span class="o">.</span><span class="n">add_images</span><span class="p">(</span>
     <span class="n">C0</span><span class="o">=</span><span class="s2">&quot;../current_imaging_analysis/MARCM2A_E7F1_refactoring/C0/C0_imgs/*.tif*&quot;</span><span class="p">,</span>
@@ -577,9 +577,46 @@ nb_path: "01_clone_counters.ipynb"
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">foo</span><span class="o">.</span><span class="n">add_clones_and_neighbouring_labels</span><span class="p">(</span>
     <span class="n">query_for_pd</span><span class="o">=</span><span class="s1">&#39;int_img_ch == &quot;C1&quot; &amp; mean_intensity &gt; 1000&#39;</span><span class="p">,</span>
     <span class="n">name_for_query</span><span class="o">=</span><span class="s2">&quot;filt_C1_int&quot;</span><span class="p">,</span>
+    <span class="n">calc_clones</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
 <span class="p">)</span>
+</pre></div>
 
-<span class="n">foo</span><span class="o">.</span><span class="n">measure_clones_and_neighbouring_labels</span><span class="p">(</span><span class="n">name_for_query</span><span class="o">=</span><span class="s2">&quot;filt_C1_int&quot;</span><span class="p">)</span>
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">foo</span><span class="o">.</span><span class="n">add_clones_and_neighbouring_labels</span><span class="p">(</span>
+    <span class="n">query_for_pd</span><span class="o">=</span><span class="s1">&#39;int_img_ch == &quot;C2&quot; &amp; mean_intensity &gt; 500&#39;</span><span class="p">,</span>
+    <span class="n">name_for_query</span><span class="o">=</span><span class="s2">&quot;filt_C2_int&quot;</span><span class="p">,</span>
+    <span class="n">calc_clones</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">foo</span><span class="o">.</span><span class="n">measure_clones_and_neighbouring_labels</span><span class="p">(</span><span class="n">name_for_query</span><span class="o">=</span><span class="s2">&quot;filt_C1_int&quot;</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -663,287 +700,6 @@ nb_path: "01_clone_counters.ipynb"
     <span class="n">left_on</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;int_img&quot;</span><span class="p">,</span> <span class="s2">&quot;label&quot;</span><span class="p">],</span>
     <span class="n">right_on</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;img_name&quot;</span><span class="p">,</span> <span class="s2">&quot;extended_tot_seg_labels&quot;</span><span class="p">],</span>
 <span class="p">)</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;img_name&quot;</span><span class="p">,</span> <span class="s2">&quot;extended_tot_seg_labels&quot;</span><span class="p">])</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_html rendered_html output_subarea output_execute_result">
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>seg_ch</th>
-      <th>int_img_ch</th>
-      <th>seg_img</th>
-      <th>int_img</th>
-      <th>label</th>
-      <th>area</th>
-      <th>mean_intensity</th>
-      <th>centroid-0</th>
-      <th>centroid-1</th>
-      <th>convex_area</th>
-      <th>area_um2</th>
-      <th>convex_area_um2</th>
-      <th>clone</th>
-      <th>total_neighbour_counts</th>
-      <th>inside_clone_neighbour_counts</th>
-      <th>outside_clone_neighbour_counts</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>C0</td>
-      <td>C0</td>
-      <td>a1g01p1</td>
-      <td>a1g01p1</td>
-      <td>12</td>
-      <td>1094</td>
-      <td>2103.588665</td>
-      <td>43.901280</td>
-      <td>89.606947</td>
-      <td>1116</td>
-      <td>82.733750</td>
-      <td>84.397500</td>
-      <td>0</td>
-      <td>3</td>
-      <td>0</td>
-      <td>2</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>C0</td>
-      <td>C1</td>
-      <td>a1g01p1</td>
-      <td>a1g01p1</td>
-      <td>12</td>
-      <td>1094</td>
-      <td>60.372029</td>
-      <td>43.901280</td>
-      <td>89.606947</td>
-      <td>1116</td>
-      <td>82.733750</td>
-      <td>84.397500</td>
-      <td>0</td>
-      <td>3</td>
-      <td>0</td>
-      <td>2</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>C0</td>
-      <td>C2</td>
-      <td>a1g01p1</td>
-      <td>a1g01p1</td>
-      <td>12</td>
-      <td>1094</td>
-      <td>2209.449726</td>
-      <td>43.901280</td>
-      <td>89.606947</td>
-      <td>1116</td>
-      <td>82.733750</td>
-      <td>84.397500</td>
-      <td>0</td>
-      <td>3</td>
-      <td>0</td>
-      <td>2</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>C0</td>
-      <td>C3</td>
-      <td>a1g01p1</td>
-      <td>a1g01p1</td>
-      <td>12</td>
-      <td>1094</td>
-      <td>73.462523</td>
-      <td>43.901280</td>
-      <td>89.606947</td>
-      <td>1116</td>
-      <td>82.733750</td>
-      <td>84.397500</td>
-      <td>0</td>
-      <td>3</td>
-      <td>0</td>
-      <td>2</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>C0</td>
-      <td>C0</td>
-      <td>a1g01p1</td>
-      <td>a1g01p1</td>
-      <td>13</td>
-      <td>1123</td>
-      <td>3414.680321</td>
-      <td>51.479964</td>
-      <td>362.270703</td>
-      <td>1159</td>
-      <td>84.926875</td>
-      <td>87.649375</td>
-      <td>0</td>
-      <td>3</td>
-      <td>0</td>
-      <td>3</td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-    </tr>
-    <tr>
-      <th>67151</th>
-      <td>C0</td>
-      <td>C3</td>
-      <td>a2g13p3</td>
-      <td>a2g13p3</td>
-      <td>232</td>
-      <td>723</td>
-      <td>107.864454</td>
-      <td>772.175657</td>
-      <td>475.138313</td>
-      <td>749</td>
-      <td>54.676875</td>
-      <td>56.643125</td>
-      <td>0</td>
-      <td>3</td>
-      <td>0</td>
-      <td>3</td>
-    </tr>
-    <tr>
-      <th>67152</th>
-      <td>C0</td>
-      <td>C0</td>
-      <td>a2g13p3</td>
-      <td>a2g13p3</td>
-      <td>233</td>
-      <td>253</td>
-      <td>1257.762846</td>
-      <td>771.916996</td>
-      <td>675.988142</td>
-      <td>275</td>
-      <td>19.133125</td>
-      <td>20.796875</td>
-      <td>0</td>
-      <td>2</td>
-      <td>0</td>
-      <td>2</td>
-    </tr>
-    <tr>
-      <th>67153</th>
-      <td>C0</td>
-      <td>C1</td>
-      <td>a2g13p3</td>
-      <td>a2g13p3</td>
-      <td>233</td>
-      <td>253</td>
-      <td>32.418972</td>
-      <td>771.916996</td>
-      <td>675.988142</td>
-      <td>275</td>
-      <td>19.133125</td>
-      <td>20.796875</td>
-      <td>0</td>
-      <td>2</td>
-      <td>0</td>
-      <td>2</td>
-    </tr>
-    <tr>
-      <th>67154</th>
-      <td>C0</td>
-      <td>C2</td>
-      <td>a2g13p3</td>
-      <td>a2g13p3</td>
-      <td>233</td>
-      <td>253</td>
-      <td>742.395257</td>
-      <td>771.916996</td>
-      <td>675.988142</td>
-      <td>275</td>
-      <td>19.133125</td>
-      <td>20.796875</td>
-      <td>0</td>
-      <td>2</td>
-      <td>0</td>
-      <td>2</td>
-    </tr>
-    <tr>
-      <th>67155</th>
-      <td>C0</td>
-      <td>C3</td>
-      <td>a2g13p3</td>
-      <td>a2g13p3</td>
-      <td>233</td>
-      <td>253</td>
-      <td>99.430830</td>
-      <td>771.916996</td>
-      <td>675.988142</td>
-      <td>275</td>
-      <td>19.133125</td>
-      <td>20.796875</td>
-      <td>0</td>
-      <td>2</td>
-      <td>0</td>
-      <td>2</td>
-    </tr>
-  </tbody>
-</table>
-<p>67156 rows × 16 columns</p>
-</div>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">bar</span>
 </pre></div>
 
     </div>
