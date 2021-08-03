@@ -5,6 +5,7 @@ __all__ = ['CloneCounter', 'LazyCloneCounter', 'PersistentCloneCounter']
 # Cell
 from functools import partial
 from glob import glob
+from typing import Callable
 
 import dask.array as da
 import dask.dataframe as dd
@@ -50,13 +51,24 @@ class CloneCounter:
             **channel_path_globs,
         )
 
-    def add_segmentations(self, **channel_path_globs):
+    def add_segmentations(
+        self,
+        additional_func_to_map: Callable = None,
+        ad_func_kwargs: dict = None,
+        **channel_path_globs,
+    ):
         segmentations = img_path_to_xarr(
             self.img_name_regex,
             self.pixel_size,
             ch_name_for_first_dim="seg_channels",
             **channel_path_globs,
         )
+
+        if additional_func_to_map is not None:
+            segmentations.data = segmentations.data.map_blocks(
+                additional_func_to_map, **ad_func_kwargs, dtype=np.uint16
+            )
+
         segmentations.data = segmentations.data.map_blocks(
             last2dims(partial(measure.label)), dtype=np.uint16
         )
@@ -258,7 +270,6 @@ class CloneCounter:
                 columns=["extended_labels_neighbour_counts"],
                 values="colabel",
             )
-            .query("C0_extended != 0")
             .astype(np.uint16)
         )
 
@@ -285,9 +296,14 @@ class LazyCloneCounter(CloneCounter):
             {"images": super().add_images(**channel_path_globs)}
         )
 
-    def add_segmentations(self, **channel_path_globs):
+    def add_segmentations(
+        self,
+        additional_func_to_map: Callable = None,
+        ad_func_kwargs: dict = None,
+        **channel_path_globs
+    ):
         self.image_data["segmentations"] = super().add_segmentations(
-            **channel_path_globs
+            additional_func_to_map, ad_func_kwargs, **channel_path_globs
         )
 
     def add_clones_and_neighbouring_labels(
@@ -309,9 +325,18 @@ class PersistentCloneCounter(CloneCounter):
             {"images": super().add_images(**channel_path_globs)}
         ).persist()
 
-    def add_segmentations(self, **channel_path_globs):
+    def add_segmentations(
+        self,
+        additional_func_to_map: Callable = None,
+        ad_func_kwargs: dict = None,
+        **channel_path_globs,
+    ):
         self.image_data["segmentations"] = (
-            super().add_segmentations(**channel_path_globs).persist()
+            super()
+            .add_segmentations(
+                additional_func_to_map, ad_func_kwargs, **channel_path_globs
+            )
+            .persist()
         )
 
     def add_clones_and_neighbouring_labels(

@@ -3,7 +3,7 @@
 __all__ = ['clean_img_names', 'check_lists_identical', 'img_path_to_xarr', 'last2dims',
            'check_channels_input_suitable_and_return_channels', 'extend_region_properties_list',
            'add_scale_regionprops_table_area_measurements', 'lazy_props', 'reorder_df_to_put_ch_info_first',
-           'region_overlap', 'calculate_overlap', 'generate_touch_counting_image',
+           'region_overlap', 'calculate_overlap', 'generate_touch_counting_image', 'label_clones_calc_neighbours',
            'label_clones_output_unmerged_and_merged', 'get_all_labeled_clones_unmerged_and_merged',
            'determine_labels_across_other_images_using_centroids', 'calculate_corresponding_labels',
            'update_1st_coord_and_dim_of_xarr']
@@ -181,6 +181,43 @@ def generate_touch_counting_image(g_img):
     touch_matrix = cle.set_column(touch_matrix, 0, 0)
     counts = cle.count_touching_neighbors(touch_matrix)
     return cle.replace_intensities(g_img, counts)
+
+# Cell
+@delayed
+def label_clones_calc_neighbours(lab_img, to_keep):
+    g_lab_img = cle.push(lab_img)
+
+    extended_lab_img = segmentation.clear_border(
+        cle.pull(cle.extend_labeling_via_voronoi(g_lab_img))
+    )
+
+    filtered_extended_lab = np.isin(extended_lab_img, to_keep) * extended_lab_img
+    opposite_filtered_extended_lab = (
+        np.invert(np.isin(extended_lab_img, to_keep)) * extended_lab_img
+    )
+
+    g_filtered_extended_lab = cle.push(filtered_extended_lab)
+
+    merged_filtered_extended_lab = cle.pull(
+        cle.connected_components_labeling_box(
+            cle.merge_touching_labels(g_filtered_extended_lab)
+        )
+    )
+
+    return np.stack(
+        [
+            lab_img,
+            extended_lab_img,
+            filtered_extended_lab,
+            opposite_filtered_extended_lab,
+            merged_filtered_extended_lab,
+            cle.pull(generate_touch_counting_image(cle.push(extended_lab_img))),
+            cle.pull(generate_touch_counting_image(g_filtered_extended_lab)),
+            cle.pull(
+                generate_touch_counting_image(cle.push(opposite_filtered_extended_lab))
+            ),
+        ]
+    ).astype(np.uint16)
 
 # Cell
 @delayed
