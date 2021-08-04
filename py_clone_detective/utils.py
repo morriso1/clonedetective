@@ -183,7 +183,7 @@ def generate_touch_counting_image(g_img):
 
 # Cell
 @delayed
-def calc_neighbours(lab_img, to_keep, calc_clones: bool = True):
+def calc_neighbours(lab_img, to_keep, calc_clones):
     g_lab_img = cle.push(lab_img)
 
     extended_lab_img = segmentation.clear_border(
@@ -227,7 +227,7 @@ def get_all_labeled_clones_unmerged_and_merged(
             img_list.append(
                 da.from_delayed(
                     calc_neighbours(
-                        total_seg_labels.loc[key, ...].data, clones_to_keep[key]
+                        total_seg_labels.loc[key, ...].data, clones_to_keep[key], calc_clones
                     ),
                     shape=(first_dim,) + total_seg_labels.shape[1:],
                     dtype=np.uint16,

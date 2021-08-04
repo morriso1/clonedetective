@@ -217,19 +217,18 @@ class CloneCounter:
     def add_clones_and_neighbouring_labels(
         self,
         query_for_pd: str = 'int_img_ch == "C1" & mean_intensity > 1000',
-        name_for_query: str = "filt_C1_intensity",
-        calc_clones: str = True,
+        name_for_query: str = "C1",
+        calc_clones: bool = True,
     ):
         new_coord = [
-                    "extended_tot_seg_labels",
-                    "total_neighbour_counts",
-                    "inside_clone_neighbour_counts",
-                    "outside_clone_neighbour_counts",
-                ]
+            "extended_tot_seg_labels",
+            "total_neighbour_counts",
+            f"{name_for_query}pos_neigh_counts",
+            f"{name_for_query}neg_neigh_counts",
+        ]
 
         if calc_clones:
             new_coord.append("clone")
-
 
         clone_coords, clone_dims = update_1st_coord_and_dim_of_xarr(
             self.image_data["images"],
@@ -258,19 +257,19 @@ class CloneCounter:
                 colabels,
                 coords=(
                     self.image_data[name_for_query].coords[
-                        "extended_labels_neighbour_counts"
+                        f"{name_for_query}_neighbours"
                     ],
                     foo.image_data[name_for_query].coords["img_name"],
-                    range(colabels.shape[2]),
+                    range(1, colabels.shape[2] + 1),
                 ),
-                dims=("extended_labels_neighbour_counts", "img_name", "labels"),
+                dims=(f"{name_for_query}_neighbours", "img_name", "labels"),
             )
             .to_dataframe("colabel")
             .reset_index()
             .dropna()
             .pivot(
                 index=["img_name", "labels"],
-                columns=["extended_labels_neighbour_counts"],
+                columns=[f"{name_for_query}_neighbours"],
                 values="colabel",
             )
             .astype(np.uint16)
@@ -285,7 +284,10 @@ class CloneCounter:
             foo.tot_seg_ch_max_labels,
         )
 
-        self.results_clones_and_neighbour_counts = self.colabels_to_df(
+        if not hasattr(self, "results_clones_and_neighbour_counts"):
+            self.results_clones_and_neighbour_counts = dict()
+
+        self.results_clones_and_neighbour_counts[name_for_query] = self.colabels_to_df(
             colabels, name_for_query
         )
 
@@ -313,7 +315,7 @@ class LazyCloneCounter(CloneCounter):
         self,
         query_for_pd: str = 'int_img_ch == "C1" & mean_intensity > 1000',
         name_for_query: str = "filt_C1_intensity",
-        calc_clones: str = True,
+        calc_clones: bool = True,
     ):
         self.image_data[name_for_query] = super().add_clones_and_neighbouring_labels(
             query_for_pd, name_for_query, calc_clones
@@ -347,7 +349,7 @@ class PersistentCloneCounter(CloneCounter):
         self,
         query_for_pd: str = 'int_img_ch == "C1" & mean_intensity > 1000',
         name_for_query: str = "filt_C1_intensity",
-        calc_clones: str = True,
+        calc_clones: bool = True,
     ):
         self.image_data[name_for_query] = (
             super()
