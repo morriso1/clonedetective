@@ -223,15 +223,24 @@ def get_all_labeled_clones_unmerged_and_merged(
     img_list = list()
     first_dim = 4 + int(calc_clones)
     for key in total_seg_labels.coords["img_name"].values:
-        img_list.append(
-            da.from_delayed(
-                calc_neighbours(
-                    total_seg_labels.loc[key, ...].data, clones_to_keep[key]
-                ),
-                shape=(first_dim,) + total_seg_labels.shape[1:],
-                dtype=np.uint16,
+        try:
+            img_list.append(
+                da.from_delayed(
+                    calc_neighbours(
+                        total_seg_labels.loc[key, ...].data, clones_to_keep[key]
+                    ),
+                    shape=(first_dim,) + total_seg_labels.shape[1:],
+                    dtype=np.uint16,
+                )
             )
-        )
+        # KeyError exception occurs when query did not yield any labels to keep.
+        # Therefore, append empty array for this key instead.
+        except KeyError:
+            img_list.append(
+                da.zeros(
+                    shape=(first_dim,) + total_seg_labels.shape[1:], dtype=np.uint16
+                )
+            )
     return da.stack(img_list, axis=1)
 
 # Cell
