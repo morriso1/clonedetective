@@ -3,7 +3,7 @@
 __all__ = ['CloneCounter', 'LazyCloneCounter', 'PersistentCloneCounter']
 
 # Cell
-from functools import partial
+from functools import partial, reduce
 from glob import glob
 from typing import Callable
 
@@ -228,7 +228,7 @@ class CloneCounter:
         ]
 
         if calc_clones:
-            new_coord.append("clone")
+            new_coord.append(f"{name_for_query}_clone")
 
         clone_coords, clone_dims = update_1st_coord_and_dim_of_xarr(
             self.image_data["images"],
@@ -262,17 +262,19 @@ class CloneCounter:
                     foo.image_data[name_for_query].coords["img_name"],
                     range(1, colabels.shape[2] + 1),
                 ),
-                dims=(f"{name_for_query}_neighbours", "img_name", "labels"),
+                dims=(f"{name_for_query}_neighbours", "img_name", "label"),
             )
             .to_dataframe("colabel")
             .reset_index()
             .dropna()
             .pivot(
-                index=["img_name", "labels"],
+                index=["img_name", "label"],
                 columns=[f"{name_for_query}_neighbours"],
                 values="colabel",
             )
             .astype(np.uint16)
+            .query("label == extended_tot_seg_labels")
+            .eval(f"{name_for_query}pos_neigh_counts = total_neighbour_counts - {name_for_query}neg_neigh_counts")
         )
 
     def measure_clones_and_neighbouring_labels(self, name_for_query):
@@ -290,6 +292,31 @@ class CloneCounter:
         self.results_clones_and_neighbour_counts[name_for_query] = self.colabels_to_df(
             colabels, name_for_query
         )
+
+        self.results_clones_and_neighbour_counts[name_for_query].index.rename(
+            ["int_img", "label"], inplace=True
+        )
+
+    def combine_neighbour_counts_and_measurements(self):
+        list_df = list(self.results_clones_and_neighbour_counts.values()) + [
+            self.results_measurements.set_index(["int_img", "label"])
+        ]
+        merged_df = reduce(
+            lambda left, right: pd.merge(
+                left,
+                right,
+                how="left",
+                on=["int_img", "label"],
+                suffixes=(None, "_extra"),
+            ),
+            list_df,
+        )
+
+        cols_to_drop = merged_df.filter(regex="extra").columns.tolist() + [
+            "extended_tot_seg_labels"
+        ]
+
+        return merged_df.drop(columns=cols_to_drop)
 
 # Cell
 class LazyCloneCounter(CloneCounter):

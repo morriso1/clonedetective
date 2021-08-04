@@ -108,7 +108,7 @@ nb_path: "01_clone_counters.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="LazyCloneCounter" class="doc_header"><code>class</code> <code>LazyCloneCounter</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/clone_counters.py#L295" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>LazyCloneCounter</code>(<strong><code>exp_name</code></strong>:<code>str</code>, <strong><code>img_name_regex</code></strong>:<code>str</code>, <strong><code>pixel_size</code></strong>:<code>float</code>) :: <a href="/py_clone_detective/clone_counters.html#CloneCounter"><code>CloneCounter</code></a></p>
+<h2 id="LazyCloneCounter" class="doc_header"><code>class</code> <code>LazyCloneCounter</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/clone_counters.py#L322" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>LazyCloneCounter</code>(<strong><code>exp_name</code></strong>:<code>str</code>, <strong><code>img_name_regex</code></strong>:<code>str</code>, <strong><code>pixel_size</code></strong>:<code>float</code>) :: <a href="/py_clone_detective/clone_counters.html#CloneCounter"><code>CloneCounter</code></a></p>
 </blockquote>
 
 </div>
@@ -139,7 +139,7 @@ nb_path: "01_clone_counters.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="PersistentCloneCounter" class="doc_header"><code>class</code> <code>PersistentCloneCounter</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/clone_counters.py#L325" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>PersistentCloneCounter</code>(<strong><code>exp_name</code></strong>:<code>str</code>, <strong><code>img_name_regex</code></strong>:<code>str</code>, <strong><code>pixel_size</code></strong>:<code>float</code>) :: <a href="/py_clone_detective/clone_counters.html#CloneCounter"><code>CloneCounter</code></a></p>
+<h2 id="PersistentCloneCounter" class="doc_header"><code>class</code> <code>PersistentCloneCounter</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/clone_counters.py#L352" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>PersistentCloneCounter</code>(<strong><code>exp_name</code></strong>:<code>str</code>, <strong><code>img_name_regex</code></strong>:<code>str</code>, <strong><code>pixel_size</code></strong>:<code>float</code>) :: <a href="/py_clone_detective/clone_counters.html#CloneCounter"><code>CloneCounter</code></a></p>
 </blockquote>
 
 </div>
@@ -353,6 +353,7 @@ nb_path: "01_clone_counters.ipynb"
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">foo</span><span class="o">.</span><span class="n">measure_clones_and_neighbouring_labels</span><span class="p">(</span><span class="n">name_for_query</span><span class="o">=</span><span class="s2">&quot;C1&quot;</span><span class="p">)</span>
+<span class="n">foo</span><span class="o">.</span><span class="n">measure_clones_and_neighbouring_labels</span><span class="p">(</span><span class="n">name_for_query</span><span class="o">=</span><span class="s2">&quot;C2&quot;</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -369,24 +370,7 @@ nb_path: "01_clone_counters.ipynb"
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">foo</span><span class="o">.</span><span class="n">measure_clones_and_neighbouring_labels</span><span class="p">(</span><span class="n">name_for_query</span><span class="o">=</span><span class="s2">&quot;C2&quot;</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">foo</span><span class="o">.</span><span class="n">results_clones_and_neighbour_counts</span><span class="p">[</span><span class="s2">&quot;C1&quot;</span><span class="p">]</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">foo</span><span class="o">.</span><span class="n">combine_neighbour_counts_and_measurements</span><span class="p">()</span>
 </pre></div>
 
     </div>
@@ -418,169 +402,13 @@ nb_path: "01_clone_counters.ipynb"
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>C1_neighbours</th>
+      <th></th>
+      <th>C1_clone</th>
       <th>C1neg_neigh_counts</th>
       <th>C1pos_neigh_counts</th>
-      <th>clone</th>
-      <th>extended_tot_seg_labels</th>
       <th>total_neighbour_counts</th>
-    </tr>
-    <tr>
-      <th>img_name</th>
-      <th>labels</th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th rowspan="5" valign="top">a1g01p1</th>
-      <th>1</th>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>5</th>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-    </tr>
-    <tr>
-      <th rowspan="5" valign="top">a2g13p3</th>
-      <th>237</th>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>238</th>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>239</th>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>240</th>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>241</th>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-    </tr>
-  </tbody>
-</table>
-<p>20202 rows × 5 columns</p>
-</div>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">foo</span><span class="o">.</span><span class="n">results_measurements</span><span class="o">.</span><span class="n">set_index</span><span class="p">([</span><span class="s1">&#39;int_img&#39;</span><span class="p">,</span> <span class="s1">&#39;label&#39;</span><span class="p">])</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_html rendered_html output_subarea output_execute_result">
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th></th>
+      <th>C2neg_neigh_counts</th>
+      <th>C2pos_neigh_counts</th>
       <th>seg_ch</th>
       <th>int_img_ch</th>
       <th>seg_img</th>
@@ -603,209 +431,7 @@ nb_path: "01_clone_counters.ipynb"
       <th></th>
       <th></th>
       <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th rowspan="5" valign="top">a1g01p1</th>
-      <th>1</th>
-      <td>C0</td>
-      <td>C0</td>
-      <td>a1g01p1</td>
-      <td>353</td>
-      <td>1143.484419</td>
-      <td>5.025496</td>
-      <td>97.269122</td>
-      <td>26.695625</td>
-      <td>403650.0</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>C0</td>
-      <td>C0</td>
-      <td>a1g01p1</td>
-      <td>613</td>
-      <td>2521.355628</td>
-      <td>8.014682</td>
-      <td>222.654160</td>
-      <td>46.358125</td>
-      <td>1545591.0</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>C0</td>
-      <td>C0</td>
-      <td>a1g01p1</td>
-      <td>275</td>
-      <td>2570.625455</td>
-      <td>5.941818</td>
-      <td>383.338182</td>
-      <td>20.796875</td>
-      <td>706922.0</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>C0</td>
-      <td>C0</td>
-      <td>a1g01p1</td>
-      <td>700</td>
-      <td>2873.265714</td>
-      <td>14.550000</td>
-      <td>519.455714</td>
-      <td>52.937500</td>
-      <td>2011286.0</td>
-    </tr>
-    <tr>
-      <th>5</th>
-      <td>C0</td>
-      <td>C0</td>
-      <td>a1g01p1</td>
-      <td>209</td>
-      <td>2537.277512</td>
-      <td>7.693780</td>
-      <td>644.760766</td>
-      <td>15.805625</td>
-      <td>530291.0</td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-    </tr>
-    <tr>
-      <th rowspan="5" valign="top">a2g13p3</th>
-      <th>237</th>
-      <td>C0</td>
-      <td>C3</td>
-      <td>a2g13p3</td>
-      <td>712</td>
-      <td>96.773876</td>
-      <td>792.443820</td>
-      <td>551.751404</td>
-      <td>53.845000</td>
-      <td>68903.0</td>
-    </tr>
-    <tr>
-      <th>238</th>
-      <td>C0</td>
-      <td>C3</td>
-      <td>a2g13p3</td>
-      <td>308</td>
-      <td>73.847403</td>
-      <td>793.714286</td>
-      <td>459.652597</td>
-      <td>23.292500</td>
-      <td>22745.0</td>
-    </tr>
-    <tr>
-      <th>239</th>
-      <td>C0</td>
-      <td>C3</td>
-      <td>a2g13p3</td>
-      <td>678</td>
-      <td>95.244838</td>
-      <td>799.069322</td>
-      <td>500.057522</td>
-      <td>51.273750</td>
-      <td>64576.0</td>
-    </tr>
-    <tr>
-      <th>240</th>
-      <td>C0</td>
-      <td>C3</td>
-      <td>a2g13p3</td>
-      <td>672</td>
-      <td>31.366071</td>
-      <td>798.055060</td>
-      <td>786.084821</td>
-      <td>50.820000</td>
-      <td>21078.0</td>
-    </tr>
-    <tr>
-      <th>241</th>
-      <td>C0</td>
-      <td>C3</td>
-      <td>a2g13p3</td>
-      <td>212</td>
-      <td>50.495283</td>
-      <td>805.608491</td>
-      <td>636.231132</td>
-      <td>16.032500</td>
-      <td>10705.0</td>
-    </tr>
-  </tbody>
-</table>
-<p>80808 rows × 9 columns</p>
-</div>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">foo</span><span class="o">.</span><span class="n">results_clones_and_neighbour_counts</span><span class="p">[</span><span class="s2">&quot;C1&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">query</span><span class="p">(</span>
-    <span class="s2">&quot;labels == extended_tot_seg_labels&quot;</span>
-<span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_html rendered_html output_subarea output_execute_result">
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
       <th></th>
-      <th>C1_neighbours</th>
-      <th>C1neg_neigh_counts</th>
-      <th>C1pos_neigh_counts</th>
-      <th>clone</th>
-      <th>extended_tot_seg_labels</th>
-      <th>total_neighbour_counts</th>
-    </tr>
-    <tr>
-      <th>img_name</th>
-      <th>labels</th>
       <th></th>
       <th></th>
       <th></th>
@@ -817,211 +443,107 @@ nb_path: "01_clone_counters.ipynb"
     <tr>
       <th rowspan="5" valign="top">a1g01p1</th>
       <th>12</th>
+      <td>0</td>
       <td>2</td>
-      <td>0</td>
-      <td>0</td>
-      <td>12</td>
-      <td>3</td>
-    </tr>
-    <tr>
-      <th>13</th>
+      <td>1</td>
       <td>3</td>
       <td>0</td>
-      <td>0</td>
-      <td>13</td>
       <td>3</td>
+      <td>C0</td>
+      <td>C0</td>
+      <td>a1g01p1</td>
+      <td>1094</td>
+      <td>2103.588665</td>
+      <td>43.901280</td>
+      <td>89.606947</td>
+      <td>82.733750</td>
+      <td>2301326.0</td>
     </tr>
     <tr>
-      <th>14</th>
-      <td>5</td>
-      <td>0</td>
-      <td>0</td>
-      <td>14</td>
-      <td>5</td>
-    </tr>
-    <tr>
-      <th>15</th>
-      <td>2</td>
-      <td>0</td>
-      <td>0</td>
-      <td>15</td>
-      <td>2</td>
-    </tr>
-    <tr>
-      <th>20</th>
-      <td>3</td>
-      <td>0</td>
-      <td>0</td>
-      <td>20</td>
-      <td>3</td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-    </tr>
-    <tr>
-      <th rowspan="5" valign="top">a2g13p3</th>
-      <th>227</th>
-      <td>3</td>
-      <td>0</td>
-      <td>0</td>
-      <td>227</td>
-      <td>3</td>
-    </tr>
-    <tr>
-      <th>228</th>
-      <td>3</td>
-      <td>0</td>
-      <td>0</td>
-      <td>228</td>
-      <td>3</td>
-    </tr>
-    <tr>
-      <th>230</th>
-      <td>5</td>
-      <td>0</td>
-      <td>0</td>
-      <td>230</td>
-      <td>5</td>
-    </tr>
-    <tr>
-      <th>232</th>
-      <td>3</td>
-      <td>0</td>
-      <td>0</td>
-      <td>232</td>
-      <td>3</td>
-    </tr>
-    <tr>
-      <th>233</th>
-      <td>2</td>
-      <td>0</td>
-      <td>0</td>
-      <td>233</td>
-      <td>2</td>
-    </tr>
-  </tbody>
-</table>
-<p>16781 rows × 5 columns</p>
-</div>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">foo</span><span class="o">.</span><span class="n">results_clones_and_neighbour_counts</span><span class="p">[</span><span class="s2">&quot;C1&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">query</span><span class="p">(</span>
-    <span class="s2">&quot;extended_tot_seg_labels != 0&quot;</span>
-<span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_html rendered_html output_subarea output_execute_result">
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>C1_neighbours</th>
-      <th>C1neg_neigh_counts</th>
-      <th>C1pos_neigh_counts</th>
-      <th>clone</th>
-      <th>extended_tot_seg_labels</th>
-      <th>total_neighbour_counts</th>
-    </tr>
-    <tr>
-      <th>img_name</th>
-      <th>labels</th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th rowspan="5" valign="top">a1g01p1</th>
       <th>12</th>
+      <td>0</td>
       <td>2</td>
-      <td>0</td>
-      <td>0</td>
-      <td>12</td>
+      <td>1</td>
       <td>3</td>
+      <td>0</td>
+      <td>3</td>
+      <td>C0</td>
+      <td>C1</td>
+      <td>a1g01p1</td>
+      <td>1094</td>
+      <td>60.372029</td>
+      <td>43.901280</td>
+      <td>89.606947</td>
+      <td>82.733750</td>
+      <td>66047.0</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>0</td>
+      <td>2</td>
+      <td>1</td>
+      <td>3</td>
+      <td>0</td>
+      <td>3</td>
+      <td>C0</td>
+      <td>C2</td>
+      <td>a1g01p1</td>
+      <td>1094</td>
+      <td>2209.449726</td>
+      <td>43.901280</td>
+      <td>89.606947</td>
+      <td>82.733750</td>
+      <td>2417138.0</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>0</td>
+      <td>2</td>
+      <td>1</td>
+      <td>3</td>
+      <td>0</td>
+      <td>3</td>
+      <td>C0</td>
+      <td>C3</td>
+      <td>a1g01p1</td>
+      <td>1094</td>
+      <td>73.462523</td>
+      <td>43.901280</td>
+      <td>89.606947</td>
+      <td>82.733750</td>
+      <td>80368.0</td>
     </tr>
     <tr>
       <th>13</th>
+      <td>0</td>
       <td>3</td>
       <td>0</td>
-      <td>0</td>
-      <td>13</td>
-      <td>3</td>
-    </tr>
-    <tr>
-      <th>14</th>
-      <td>5</td>
-      <td>0</td>
-      <td>0</td>
-      <td>14</td>
-      <td>5</td>
-    </tr>
-    <tr>
-      <th>15</th>
-      <td>2</td>
-      <td>0</td>
-      <td>0</td>
-      <td>15</td>
-      <td>2</td>
-    </tr>
-    <tr>
-      <th>20</th>
       <td>3</td>
       <td>0</td>
-      <td>0</td>
-      <td>20</td>
       <td>3</td>
+      <td>C0</td>
+      <td>C0</td>
+      <td>a1g01p1</td>
+      <td>1123</td>
+      <td>3414.680321</td>
+      <td>51.479964</td>
+      <td>362.270703</td>
+      <td>84.926875</td>
+      <td>3834686.0</td>
     </tr>
     <tr>
       <th>...</th>
       <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
       <td>...</td>
       <td>...</td>
       <td>...</td>
@@ -1030,48 +552,98 @@ nb_path: "01_clone_counters.ipynb"
     </tr>
     <tr>
       <th rowspan="5" valign="top">a2g13p3</th>
-      <th>227</th>
-      <td>3</td>
-      <td>0</td>
-      <td>0</td>
-      <td>227</td>
-      <td>3</td>
-    </tr>
-    <tr>
-      <th>228</th>
-      <td>3</td>
-      <td>0</td>
-      <td>0</td>
-      <td>228</td>
-      <td>3</td>
-    </tr>
-    <tr>
-      <th>230</th>
-      <td>5</td>
-      <td>0</td>
-      <td>0</td>
-      <td>230</td>
-      <td>5</td>
-    </tr>
-    <tr>
       <th>232</th>
+      <td>0</td>
       <td>3</td>
       <td>0</td>
-      <td>0</td>
-      <td>232</td>
       <td>3</td>
+      <td>0</td>
+      <td>3</td>
+      <td>C0</td>
+      <td>C3</td>
+      <td>a2g13p3</td>
+      <td>723</td>
+      <td>107.864454</td>
+      <td>772.175657</td>
+      <td>475.138313</td>
+      <td>54.676875</td>
+      <td>77986.0</td>
     </tr>
     <tr>
       <th>233</th>
+      <td>0</td>
       <td>2</td>
       <td>0</td>
-      <td>0</td>
-      <td>233</td>
       <td>2</td>
+      <td>0</td>
+      <td>2</td>
+      <td>C0</td>
+      <td>C0</td>
+      <td>a2g13p3</td>
+      <td>253</td>
+      <td>1257.762846</td>
+      <td>771.916996</td>
+      <td>675.988142</td>
+      <td>19.133125</td>
+      <td>318214.0</td>
+    </tr>
+    <tr>
+      <th>233</th>
+      <td>0</td>
+      <td>2</td>
+      <td>0</td>
+      <td>2</td>
+      <td>0</td>
+      <td>2</td>
+      <td>C0</td>
+      <td>C1</td>
+      <td>a2g13p3</td>
+      <td>253</td>
+      <td>32.418972</td>
+      <td>771.916996</td>
+      <td>675.988142</td>
+      <td>19.133125</td>
+      <td>8202.0</td>
+    </tr>
+    <tr>
+      <th>233</th>
+      <td>0</td>
+      <td>2</td>
+      <td>0</td>
+      <td>2</td>
+      <td>0</td>
+      <td>2</td>
+      <td>C0</td>
+      <td>C2</td>
+      <td>a2g13p3</td>
+      <td>253</td>
+      <td>742.395257</td>
+      <td>771.916996</td>
+      <td>675.988142</td>
+      <td>19.133125</td>
+      <td>187826.0</td>
+    </tr>
+    <tr>
+      <th>233</th>
+      <td>0</td>
+      <td>2</td>
+      <td>0</td>
+      <td>2</td>
+      <td>0</td>
+      <td>2</td>
+      <td>C0</td>
+      <td>C3</td>
+      <td>a2g13p3</td>
+      <td>253</td>
+      <td>99.430830</td>
+      <td>771.916996</td>
+      <td>675.988142</td>
+      <td>19.133125</td>
+      <td>25156.0</td>
     </tr>
   </tbody>
 </table>
-<p>16789 rows × 5 columns</p>
+<p>67124 rows × 15 columns</p>
 </div>
 </div>
 
@@ -1126,7 +698,7 @@ nb_path: "01_clone_counters.ipynb"
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">lab_C1</span> <span class="o">=</span> <span class="n">foo</span><span class="o">.</span><span class="n">image_data</span><span class="p">[</span><span class="s2">&quot;C1&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">img_name</span><span class="o">=</span><span class="s2">&quot;a1g03p2&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">compute</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">img</span> <span class="o">=</span> <span class="n">foo</span><span class="o">.</span><span class="n">image_data</span><span class="p">[</span><span class="s2">&quot;C1&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">img_name</span><span class="o">=</span><span class="s2">&quot;a1g01p1&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">compute</span><span class="p">()</span>
 </pre></div>
 
     </div>
@@ -1143,24 +715,7 @@ nb_path: "01_clone_counters.ipynb"
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">seg_C1</span> <span class="o">=</span> <span class="n">foo</span><span class="o">.</span><span class="n">image_data</span><span class="p">[</span><span class="s2">&quot;segmentations&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">img_name</span><span class="o">=</span><span class="s2">&quot;a1g03p2&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">compute</span><span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">view</span><span class="o">.</span><span class="n">add_labels</span><span class="p">(</span><span class="n">seg_C1</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">view</span><span class="o">.</span><span class="n">add_labels</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -1184,7 +739,7 @@ nb_path: "01_clone_counters.ipynb"
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&lt;Labels layer &#39;seg_C1&#39; at 0x7fccdda6ea90&gt;</pre>
+<pre>&lt;Labels layer &#39;img&#39; at 0x7fe898d0dca0&gt;</pre>
 </div>
 
 </div>
@@ -1202,7 +757,7 @@ nb_path: "01_clone_counters.ipynb"
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">view</span><span class="o">.</span><span class="n">add_labels</span><span class="p">(</span><span class="n">lab_C1</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">view</span><span class="o">.</span><span class="n">add_labels</span><span class="p">((</span><span class="n">img</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">12</span><span class="p">)</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -1217,143 +772,11 @@ nb_path: "01_clone_counters.ipynb"
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&lt;Labels layer &#39;lab_C1&#39; at 0x7fccdeded7f0&gt;</pre>
+<pre>&lt;Labels layer &#39;Labels&#39; at 0x7fe89a3b19a0&gt;</pre>
 </div>
 
 </div>
 
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">view</span><span class="o">.</span><span class="n">add_labels</span><span class="p">(</span><span class="n">seg_C1</span> <span class="o">==</span> <span class="mi">251</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>&lt;Labels layer &#39;Labels&#39; at 0x7fccdeded310&gt;</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">foo</span><span class="o">.</span><span class="n">results_clones_and_neighbour_counts</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;extended_tot_seg_labels != 0&quot;</span><span class="p">)[</span>
-    <span class="p">[</span>
-        <span class="s2">&quot;extended_tot_seg_labels&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;img_name&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;total_neighbour_counts&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;inside_clone_neighbour_counts&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;outside_clone_neighbour_counts&quot;</span><span class="p">,</span>
-    <span class="p">]</span>
-<span class="p">]</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">bar</span> <span class="o">=</span> <span class="n">foo</span><span class="o">.</span><span class="n">results_measurements</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span>
-    <span class="n">bar</span><span class="p">,</span>
-    <span class="n">df</span><span class="p">,</span>
-    <span class="n">how</span><span class="o">=</span><span class="s2">&quot;inner&quot;</span><span class="p">,</span>
-    <span class="n">left_on</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;int_img&quot;</span><span class="p">,</span> <span class="s2">&quot;label&quot;</span><span class="p">],</span>
-    <span class="n">right_on</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;img_name&quot;</span><span class="p">,</span> <span class="s2">&quot;extended_tot_seg_labels&quot;</span><span class="p">],</span>
-<span class="p">)</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;img_name&quot;</span><span class="p">,</span> <span class="s2">&quot;extended_tot_seg_labels&quot;</span><span class="p">])</span>
-</pre></div>
-
-    </div>
 </div>
 </div>
 
