@@ -274,7 +274,49 @@ class CloneCounter:
             )
             .astype(np.uint16)
             .query("label == extended_tot_seg_labels")
-            .eval(f"{name_for_query}pos_neigh_counts = total_neighbour_counts - {name_for_query}neg_neigh_counts")
+            .eval(
+                f"oth_{name_for_query}pos_neigh_counts = total_neighbour_counts - {name_for_query}neg_neigh_counts"
+            )
+            .eval(
+                f"oth_{name_for_query}neg_neigh_counts = total_neighbour_counts - {name_for_query}pos_neigh_counts"
+            )
+        )
+
+    def clarify_neighbouring_label_counts(self, name_for_query):
+        df = (
+            self.results_clones_and_neighbour_counts[name_for_query]
+            .assign(
+                intermediate_1=lambda x: x[f"oth_{name_for_query}pos_neigh_counts"][
+                    x[f"{name_for_query}pos_neigh_counts"] == 0
+                ]
+            )
+            .assign(
+                intermediate_2=lambda x: x[f"{name_for_query}pos_neigh_counts"][
+                    x[f"oth_{name_for_query}pos_neigh_counts"]
+                    == x["total_neighbour_counts"]
+                ]
+            )
+        )
+        df[f"{name_for_query}pos_nc"] = df.intermediate_1.fillna(
+            0
+        ) + df.intermediate_2.fillna(0)
+        df[f"{name_for_query}neg_nc"] = (
+            df.total_neighbour_counts - df[f"{name_for_query}pos_nc"]
+        )
+
+        return (
+            df.drop(
+                columns=[
+                    f"{name_for_query}neg_neigh_counts",
+                    f"{name_for_query}pos_neigh_counts",
+                    f"oth_{name_for_query}pos_neigh_counts",
+                    f"oth_{name_for_query}neg_neigh_counts",
+                    "intermediate_1",
+                    "intermediate_2",
+                ]
+            )
+            .astype(np.uint16)
+            .query(f"{name_for_query}neg_nc != 0 | {name_for_query}pos_nc != 0")
         )
 
     def measure_clones_and_neighbouring_labels(self, name_for_query):
@@ -296,6 +338,10 @@ class CloneCounter:
         self.results_clones_and_neighbour_counts[name_for_query].index.rename(
             ["int_img", "label"], inplace=True
         )
+
+        self.results_clones_and_neighbour_counts[
+            name_for_query
+        ] = self.clarify_neighbouring_label_counts(name_for_query)
 
     def combine_neighbour_counts_and_measurements(self):
         list_df = list(self.results_clones_and_neighbour_counts.values()) + [
