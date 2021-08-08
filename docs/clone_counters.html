@@ -71,7 +71,7 @@ nb_path: "01_clone_counters.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="CloneCounter" class="doc_header"><code>class</code> <code>CloneCounter</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/clone_counters.py#L33" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>CloneCounter</code>(<strong><code>exp_name</code></strong>:<code>str</code>, <strong><code>img_name_regex</code></strong>:<code>str</code>, <strong><code>pixel_size</code></strong>:<code>float</code>, <strong><code>tot_seg_ch</code></strong>:<code>str</code>=<em><code>'C0'</code></em>)</p>
+<h2 id="CloneCounter" class="doc_header"><code>class</code> <code>CloneCounter</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/clone_counters.py#L34" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>CloneCounter</code>(<strong><code>exp_name</code></strong>:<code>str</code>, <strong><code>img_name_regex</code></strong>:<code>str</code>, <strong><code>pixel_size</code></strong>:<code>float</code>, <strong><code>tot_seg_ch</code></strong>:<code>str</code>=<em><code>'C0'</code></em>)</p>
 </blockquote>
 
 </div>
@@ -108,7 +108,7 @@ nb_path: "01_clone_counters.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="LazyCloneCounter" class="doc_header"><code>class</code> <code>LazyCloneCounter</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/clone_counters.py#L368" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>LazyCloneCounter</code>(<strong><code>exp_name</code></strong>:<code>str</code>, <strong><code>img_name_regex</code></strong>:<code>str</code>, <strong><code>pixel_size</code></strong>:<code>float</code>) :: <a href="/py_clone_detective/clone_counters.html#CloneCounter"><code>CloneCounter</code></a></p>
+<h2 id="LazyCloneCounter" class="doc_header"><code>class</code> <code>LazyCloneCounter</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/clone_counters.py#L382" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>LazyCloneCounter</code>(<strong><code>exp_name</code></strong>:<code>str</code>, <strong><code>img_name_regex</code></strong>:<code>str</code>, <strong><code>pixel_size</code></strong>:<code>float</code>) :: <a href="/py_clone_detective/clone_counters.html#CloneCounter"><code>CloneCounter</code></a></p>
 </blockquote>
 
 </div>
@@ -139,7 +139,7 @@ nb_path: "01_clone_counters.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="PersistentCloneCounter" class="doc_header"><code>class</code> <code>PersistentCloneCounter</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/clone_counters.py#L398" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>PersistentCloneCounter</code>(<strong><code>exp_name</code></strong>:<code>str</code>, <strong><code>img_name_regex</code></strong>:<code>str</code>, <strong><code>pixel_size</code></strong>:<code>float</code>) :: <a href="/py_clone_detective/clone_counters.html#CloneCounter"><code>CloneCounter</code></a></p>
+<h2 id="PersistentCloneCounter" class="doc_header"><code>class</code> <code>PersistentCloneCounter</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/clone_counters.py#L415" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>PersistentCloneCounter</code>(<strong><code>exp_name</code></strong>:<code>str</code>, <strong><code>img_name_regex</code></strong>:<code>str</code>, <strong><code>pixel_size</code></strong>:<code>float</code>) :: <a href="/py_clone_detective/clone_counters.html#CloneCounter"><code>CloneCounter</code></a></p>
 </blockquote>
 
 </div>
@@ -172,27 +172,318 @@ nb_path: "01_clone_counters.ipynb"
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">foo</span> <span class="o">=</span> <span class="n">LazyCloneCounter</span><span class="p">(</span><span class="s2">&quot;Marcm2a_E7F1&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;a\dg\d\dp\d&quot;</span><span class="p">,</span> <span class="mf">0.275</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">bar</span> <span class="o">=</span> <span class="n">LazyCloneCounter</span><span class="p">(</span><span class="s2">&quot;Marcm2a_E7F1&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;a\dg\d\dp\d&quot;</span><span class="p">,</span> <span class="mf">0.275</span><span class="p">)</span>
 
-<span class="n">foo</span><span class="o">.</span><span class="n">add_images</span><span class="p">(</span>
+<span class="n">bar</span><span class="o">.</span><span class="n">add_images</span><span class="p">(</span>
     <span class="n">C0</span><span class="o">=</span><span class="s2">&quot;../current_imaging_analysis/MARCM2A_E7F1_refactoring/C0/C0_imgs/*.tif*&quot;</span><span class="p">,</span>
     <span class="n">C1</span><span class="o">=</span><span class="s2">&quot;../current_imaging_analysis/MARCM2A_E7F1_refactoring/C1/C1_imgs/*.tif*&quot;</span><span class="p">,</span>
     <span class="n">C2</span><span class="o">=</span><span class="s2">&quot;../current_imaging_analysis/MARCM2A_E7F1_refactoring/C2/C2_imgs/*.tif*&quot;</span><span class="p">,</span>
     <span class="n">C3</span><span class="o">=</span><span class="s2">&quot;../current_imaging_analysis/MARCM2A_E7F1_refactoring/C3/C3_imgs/*.tif*&quot;</span><span class="p">,</span>
 <span class="p">)</span>
 
-<span class="n">foo</span><span class="o">.</span><span class="n">add_segmentations</span><span class="p">(</span>
+<span class="n">bar</span><span class="o">.</span><span class="n">add_segmentations</span><span class="p">(</span>
     <span class="n">C0</span><span class="o">=</span><span class="s2">&quot;../current_imaging_analysis/MARCM2A_E7F1_refactoring/C0/C0_label_imgs_combined_C3/*.tif*&quot;</span><span class="p">,</span>
     <span class="n">C1</span><span class="o">=</span><span class="s2">&quot;../current_imaging_analysis/MARCM2A_E7F1_refactoring/C1/C1_binaries/*.tif*&quot;</span><span class="p">,</span>
     <span class="n">C2</span><span class="o">=</span><span class="s2">&quot;../current_imaging_analysis/MARCM2A_E7F1_refactoring/C2/C2_label_imgs_v2/*.tif*&quot;</span><span class="p">,</span>
     <span class="n">C3</span><span class="o">=</span><span class="s2">&quot;../current_imaging_analysis/MARCM2A_E7F1_refactoring/C3/C3_label_imgs/*.tif*&quot;</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="n">foo</span><span class="o">.</span><span class="n">make_measurements</span><span class="p">(</span><span class="n">extra_properties</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;convex_area&quot;</span><span class="p">],)</span>
-<span class="n">foo</span><span class="o">.</span><span class="n">measure_overlap</span><span class="p">()</span>
-<span class="n">foo</span><span class="o">.</span><span class="n">combine_C0_overlaps_and_measurements</span><span class="p">()</span>
+<span class="n">bar</span><span class="o">.</span><span class="n">make_measurements</span><span class="p">(</span><span class="n">extra_properties</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;convex_area&quot;</span><span class="p">],)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">bar</span><span class="o">.</span><span class="n">measure_overlap</span><span class="p">()</span>
+<span class="c1"># df = bar.combine_C0_overlaps_and_measurements()</span>
 </pre></div>
 
     </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">ca</span><span class="o">.</span><span class="n">query_df_groupby_by_clone_channel</span><span class="p">(</span>
+    <span class="n">df</span><span class="p">,</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;C2negC3neg_C0area_less_than_50um2&quot;</span><span class="p">:</span> <span class="s2">&quot;C3 == 0 &amp; C2 == 0 &amp; area_um2 &lt; 50&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;C2negC3neg_C0area_greater_than_50um2&quot;</span><span class="p">:</span> <span class="s2">&quot;C3 == 0 &amp; C2 == 0 &amp; area_um2 &gt; 50&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;C2pos&quot;</span><span class="p">:</span> <span class="s2">&quot;C2 != 0&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;C3pos&quot;</span><span class="p">:</span> <span class="s2">&quot;C3 != 0&quot;</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="n">clone_channel</span><span class="o">=</span><span class="s2">&quot;C1&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead tr th {
+        text-align: left;
+    }
+
+    .dataframe thead tr:last-of-type th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th></th>
+      <th colspan="3" halign="left">C2negC3neg_C0area_less_than_50um2</th>
+      <th colspan="3" halign="left">C2negC3neg_C0area_greater_than_50um2</th>
+      <th colspan="3" halign="left">C2pos</th>
+      <th colspan="3" halign="left">C3pos</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th></th>
+      <th>C0_labels</th>
+      <th colspan="2" halign="left">area_um2</th>
+      <th>C0_labels</th>
+      <th colspan="2" halign="left">area_um2</th>
+      <th>C0_labels</th>
+      <th colspan="2" halign="left">area_um2</th>
+      <th>C0_labels</th>
+      <th colspan="2" halign="left">area_um2</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th></th>
+      <th>count</th>
+      <th>mean</th>
+      <th>std</th>
+      <th>count</th>
+      <th>mean</th>
+      <th>std</th>
+      <th>count</th>
+      <th>mean</th>
+      <th>std</th>
+      <th>count</th>
+      <th>mean</th>
+      <th>std</th>
+    </tr>
+    <tr>
+      <th>img_name</th>
+      <th>C1</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th rowspan="4" valign="top">a1g01p1</th>
+      <th>0</th>
+      <td>90</td>
+      <td>23.704236</td>
+      <td>11.028195</td>
+      <td>22</td>
+      <td>82.469063</td>
+      <td>33.422793</td>
+      <td>81</td>
+      <td>80.136358</td>
+      <td>30.521184</td>
+      <td>29</td>
+      <td>6.057823</td>
+      <td>5.057770</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+      <td>31.157500</td>
+      <td>NaN</td>
+      <td>2</td>
+      <td>53.504688</td>
+      <td>0.588224</td>
+      <td>9</td>
+      <td>94.985000</td>
+      <td>24.524868</td>
+      <td>1</td>
+      <td>5.520625</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>14</td>
+      <td>23.978527</td>
+      <td>6.857923</td>
+      <td>5</td>
+      <td>87.377125</td>
+      <td>37.336913</td>
+      <td>13</td>
+      <td>71.087500</td>
+      <td>27.954905</td>
+      <td>4</td>
+      <td>3.932500</td>
+      <td>3.430742</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>9</td>
+      <td>26.905694</td>
+      <td>13.324214</td>
+      <td>2</td>
+      <td>119.298438</td>
+      <td>7.860818</td>
+      <td>9</td>
+      <td>86.237708</td>
+      <td>37.690737</td>
+      <td>1</td>
+      <td>4.461875</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>a1g01p2</th>
+      <th>0</th>
+      <td>93</td>
+      <td>27.090013</td>
+      <td>12.270181</td>
+      <td>48</td>
+      <td>80.080573</td>
+      <td>20.334236</td>
+      <td>107</td>
+      <td>67.489305</td>
+      <td>32.965702</td>
+      <td>25</td>
+      <td>6.107475</td>
+      <td>4.459860</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>a2g12p1</th>
+      <th>0</th>
+      <td>69</td>
+      <td>21.032518</td>
+      <td>12.005780</td>
+      <td>12</td>
+      <td>71.938281</td>
+      <td>21.282496</td>
+      <td>95</td>
+      <td>45.411618</td>
+      <td>28.140310</td>
+      <td>26</td>
+      <td>7.507236</td>
+      <td>3.430112</td>
+    </tr>
+    <tr>
+      <th>a2g12p2</th>
+      <th>0</th>
+      <td>63</td>
+      <td>27.849206</td>
+      <td>13.966935</td>
+      <td>17</td>
+      <td>59.748199</td>
+      <td>7.764255</td>
+      <td>53</td>
+      <td>35.659328</td>
+      <td>19.589708</td>
+      <td>23</td>
+      <td>8.183940</td>
+      <td>4.043894</td>
+    </tr>
+    <tr>
+      <th>a2g13p1</th>
+      <th>0</th>
+      <td>137</td>
+      <td>28.271054</td>
+      <td>11.999889</td>
+      <td>18</td>
+      <td>57.886736</td>
+      <td>8.982864</td>
+      <td>17</td>
+      <td>27.692096</td>
+      <td>16.454961</td>
+      <td>40</td>
+      <td>7.190047</td>
+      <td>4.512039</td>
+    </tr>
+    <tr>
+      <th>a2g13p2</th>
+      <th>0</th>
+      <td>80</td>
+      <td>26.988672</td>
+      <td>11.872825</td>
+      <td>8</td>
+      <td>58.892969</td>
+      <td>4.819319</td>
+      <td>108</td>
+      <td>32.742124</td>
+      <td>21.818361</td>
+      <td>35</td>
+      <td>6.397875</td>
+      <td>4.275251</td>
+    </tr>
+    <tr>
+      <th>a2g13p3</th>
+      <th>0</th>
+      <td>64</td>
+      <td>23.075078</td>
+      <td>10.868100</td>
+      <td>2</td>
+      <td>52.030000</td>
+      <td>1.711198</td>
+      <td>149</td>
+      <td>47.172236</td>
+      <td>17.007087</td>
+      <td>23</td>
+      <td>8.183940</td>
+      <td>9.110108</td>
+    </tr>
+  </tbody>
+</table>
+<p>114 rows × 12 columns</p>
+</div>
+</div>
+
+</div>
+
 </div>
 </div>
 
@@ -229,7 +520,7 @@ nb_path: "01_clone_counters.ipynb"
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">foo</span> <span class="o">=</span> <span class="n">PersistentCloneCounter</span><span class="p">(</span><span class="s2">&quot;Marcm2a_E7F1&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;a\dg\d\dp\d&quot;</span><span class="p">,</span> <span class="mf">0.275</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">foo</span> <span class="o">=</span> <span class="n">LazyCloneCounter</span><span class="p">(</span><span class="s2">&quot;Marcm2a_E7F1&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;a\dg\d\dp\d&quot;</span><span class="p">,</span> <span class="mf">0.275</span><span class="p">)</span>
 
 <span class="n">foo</span><span class="o">.</span><span class="n">add_images</span><span class="p">(</span>
     <span class="n">C0</span><span class="o">=</span><span class="s2">&quot;../current_imaging_analysis/MARCM2A_E7F1_refactoring/C0/C0_imgs/*.tif*&quot;</span><span class="p">,</span>
@@ -237,44 +528,14 @@ nb_path: "01_clone_counters.ipynb"
     <span class="n">C2</span><span class="o">=</span><span class="s2">&quot;../current_imaging_analysis/MARCM2A_E7F1_refactoring/C2/C2_imgs/*.tif*&quot;</span><span class="p">,</span>
     <span class="n">C3</span><span class="o">=</span><span class="s2">&quot;../current_imaging_analysis/MARCM2A_E7F1_refactoring/C3/C3_imgs/*.tif*&quot;</span><span class="p">,</span>
 <span class="p">)</span>
-</pre></div>
 
-    </div>
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">foo</span><span class="o">.</span><span class="n">add_segmentations</span><span class="p">(</span>
+<span class="n">foo</span><span class="o">.</span><span class="n">add_segmentations</span><span class="p">(</span>
     <span class="n">morphology</span><span class="o">.</span><span class="n">remove_small_objects</span><span class="p">,</span>
     <span class="n">ad_func_kwargs</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;min_size&quot;</span><span class="p">:</span> <span class="mi">49</span><span class="p">},</span>
     <span class="n">C0</span><span class="o">=</span><span class="s2">&quot;../current_imaging_analysis/MARCM2A_E7F1_refactoring/C0/C0_label_imgs_combined_C3/*.tif*&quot;</span><span class="p">,</span>
 <span class="p">)</span>
-</pre></div>
 
-    </div>
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">foo</span><span class="o">.</span><span class="n">make_measurements</span><span class="p">()</span>
+<span class="n">foo</span><span class="o">.</span><span class="n">make_measurements</span><span class="p">()</span>
 </pre></div>
 
     </div>
@@ -353,7 +614,23 @@ nb_path: "01_clone_counters.ipynb"
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">foo</span><span class="o">.</span><span class="n">measure_clones_and_neighbouring_labels</span><span class="p">(</span><span class="n">name_for_query</span><span class="o">=</span><span class="s2">&quot;C1&quot;</span><span class="p">)</span>
-<span class="n">foo</span><span class="o">.</span><span class="n">measure_clones_and_neighbouring_labels</span><span class="p">(</span><span class="n">name_for_query</span><span class="o">=</span><span class="s2">&quot;C2&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">foo</span><span class="o">.</span><span class="n">measure_clones_and_neighbouring_labels</span><span class="p">(</span><span class="n">name_for_query</span><span class="o">=</span><span class="s2">&quot;C2&quot;</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -407,8 +684,10 @@ nb_path: "01_clone_counters.ipynb"
       <th>total_neighbour_counts</th>
       <th>C1pos_nc</th>
       <th>C1neg_nc</th>
+      <th>C1_pos</th>
       <th>C2pos_nc</th>
       <th>C2neg_nc</th>
+      <th>C2_pos</th>
       <th>seg_ch</th>
       <th>int_img_ch</th>
       <th>seg_img</th>
@@ -437,6 +716,8 @@ nb_path: "01_clone_counters.ipynb"
       <th></th>
       <th></th>
       <th></th>
+      <th></th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
@@ -447,8 +728,10 @@ nb_path: "01_clone_counters.ipynb"
       <td>3</td>
       <td>1</td>
       <td>2</td>
+      <td>False</td>
       <td>3</td>
       <td>0</td>
+      <td>True</td>
       <td>C0</td>
       <td>C0</td>
       <td>a1g01p1</td>
@@ -465,8 +748,10 @@ nb_path: "01_clone_counters.ipynb"
       <td>3</td>
       <td>1</td>
       <td>2</td>
+      <td>False</td>
       <td>3</td>
       <td>0</td>
+      <td>True</td>
       <td>C0</td>
       <td>C1</td>
       <td>a1g01p1</td>
@@ -483,8 +768,10 @@ nb_path: "01_clone_counters.ipynb"
       <td>3</td>
       <td>1</td>
       <td>2</td>
+      <td>False</td>
       <td>3</td>
       <td>0</td>
+      <td>True</td>
       <td>C0</td>
       <td>C2</td>
       <td>a1g01p1</td>
@@ -501,8 +788,10 @@ nb_path: "01_clone_counters.ipynb"
       <td>3</td>
       <td>1</td>
       <td>2</td>
+      <td>False</td>
       <td>3</td>
       <td>0</td>
+      <td>True</td>
       <td>C0</td>
       <td>C3</td>
       <td>a1g01p1</td>
@@ -519,8 +808,10 @@ nb_path: "01_clone_counters.ipynb"
       <td>3</td>
       <td>0</td>
       <td>3</td>
+      <td>False</td>
       <td>3</td>
       <td>0</td>
+      <td>True</td>
       <td>C0</td>
       <td>C0</td>
       <td>a1g01p1</td>
@@ -549,6 +840,8 @@ nb_path: "01_clone_counters.ipynb"
       <td>...</td>
       <td>...</td>
       <td>...</td>
+      <td>...</td>
+      <td>...</td>
     </tr>
     <tr>
       <th rowspan="5" valign="top">a2g13p3</th>
@@ -557,8 +850,10 @@ nb_path: "01_clone_counters.ipynb"
       <td>3</td>
       <td>0</td>
       <td>3</td>
+      <td>False</td>
       <td>1</td>
       <td>2</td>
+      <td>True</td>
       <td>C0</td>
       <td>C3</td>
       <td>a2g13p3</td>
@@ -575,8 +870,10 @@ nb_path: "01_clone_counters.ipynb"
       <td>2</td>
       <td>0</td>
       <td>2</td>
+      <td>False</td>
       <td>2</td>
       <td>0</td>
+      <td>False</td>
       <td>C0</td>
       <td>C0</td>
       <td>a2g13p3</td>
@@ -593,8 +890,10 @@ nb_path: "01_clone_counters.ipynb"
       <td>2</td>
       <td>0</td>
       <td>2</td>
+      <td>False</td>
       <td>2</td>
       <td>0</td>
+      <td>False</td>
       <td>C0</td>
       <td>C1</td>
       <td>a2g13p3</td>
@@ -611,8 +910,10 @@ nb_path: "01_clone_counters.ipynb"
       <td>2</td>
       <td>0</td>
       <td>2</td>
+      <td>False</td>
       <td>2</td>
       <td>0</td>
+      <td>False</td>
       <td>C0</td>
       <td>C2</td>
       <td>a2g13p3</td>
@@ -629,8 +930,10 @@ nb_path: "01_clone_counters.ipynb"
       <td>2</td>
       <td>0</td>
       <td>2</td>
+      <td>False</td>
       <td>2</td>
       <td>0</td>
+      <td>False</td>
       <td>C0</td>
       <td>C3</td>
       <td>a2g13p3</td>
@@ -643,7 +946,7 @@ nb_path: "01_clone_counters.ipynb"
     </tr>
   </tbody>
 </table>
-<p>67104 rows × 15 columns</p>
+<p>67104 rows × 17 columns</p>
 </div>
 </div>
 

@@ -14,6 +14,7 @@ import pandas as pd
 import xarray as xr
 from skimage import measure
 
+from py_clone_detective import clone_analysis as ca
 from .utils import (
     add_scale_regionprops_table_area_measurements,
     calculate_corresponding_labels,
@@ -244,11 +245,17 @@ class CloneCounter:
             calc_clones,
         )
 
-        return xr.DataArray(
-            data=new_label_imgs,
-            coords=clone_coords,
-            dims=clone_dims,
-            attrs={f"{self.tot_seg_ch}_labels_kept_query": query_for_pd},
+        if not hasattr(self, f"filtered_labels"):
+            self.filtered_labels = dict()
+
+        return (
+            xr.DataArray(
+                data=new_label_imgs,
+                coords=clone_coords,
+                dims=clone_dims,
+                attrs={f"{self.tot_seg_ch}_labels_kept_query": query_for_pd},
+            ),
+            clones_to_keep,
         )
 
     def colabels_to_df(self, colabels, name_for_query):
@@ -319,6 +326,11 @@ class CloneCounter:
             .query(f"{name_for_query}neg_nc != 0 | {name_for_query}pos_nc != 0")
         )
 
+    def update_df_with_query_positive_col_from_dict(self, name_for_query):
+        self.results_clones_and_neighbour_counts[name_for_query][f"{name_for_query}_pos"] = False
+        for key, value in self.filtered_labels[name_for_query].items():
+            self.results_clones_and_neighbour_counts[f"{name_for_query}"].loc[(key, value), f"{name_for_query}_pos"] = True
+
     def measure_clones_and_neighbouring_labels(self, name_for_query):
         self.get_centroids_list()
         colabels = calculate_corresponding_labels(
@@ -342,6 +354,8 @@ class CloneCounter:
         self.results_clones_and_neighbour_counts[
             name_for_query
         ] = self.clarify_neighbouring_label_counts(name_for_query)
+
+        self.update_df_with_query_positive_col_from_dict(name_for_query)
 
     def combine_neighbour_counts_and_measurements(self):
         list_df = list(self.results_clones_and_neighbour_counts.values()) + [
@@ -390,7 +404,10 @@ class LazyCloneCounter(CloneCounter):
         name_for_query: str = "filt_C1_intensity",
         calc_clones: bool = True,
     ):
-        self.image_data[name_for_query] = super().add_clones_and_neighbouring_labels(
+        (
+            self.image_data[name_for_query],
+            self.filtered_labels[name_for_query],
+        ) = super().add_clones_and_neighbouring_labels(
             query_for_pd, name_for_query, calc_clones
         )
 
@@ -424,10 +441,10 @@ class PersistentCloneCounter(CloneCounter):
         name_for_query: str = "filt_C1_intensity",
         calc_clones: bool = True,
     ):
-        self.image_data[name_for_query] = (
-            super()
-            .add_clones_and_neighbouring_labels(
-                query_for_pd, name_for_query, calc_clones
-            )
-            .persist()
+        (
+            self.image_data[name_for_query],
+            self.filtered_labels[name_for_query],
+        ) = super().add_clones_and_neighbouring_labels(
+            query_for_pd, name_for_query, calc_clones
         )
+        self.image_data[name_for_query] = self.image_data[name_for_query].persist()
