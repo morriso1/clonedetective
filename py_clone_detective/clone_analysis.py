@@ -50,7 +50,7 @@ def query_df_groupby_by_clone_channel(
 
     return reduce(
         lambda df_left, df_right: pd.merge(
-            df_left, df_right, left_index=True, right_index=True
+            df_left, df_right, how="outer", left_index=True, right_index=True
         ),
         l,
     )
