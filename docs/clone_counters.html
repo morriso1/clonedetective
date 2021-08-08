@@ -613,6 +613,27 @@ nb_path: "01_clone_counters.ipynb"
 
 <div class="inner_cell">
     <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">foo</span><span class="o">.</span><span class="n">add_clones_and_neighbouring_labels</span><span class="p">(</span>
+    <span class="n">query_for_pd</span><span class="o">=</span><span class="s1">&#39;int_img_ch == &quot;C3&quot; &amp; mean_intensity &gt; 5000&#39;</span><span class="p">,</span>
+    <span class="n">name_for_query</span><span class="o">=</span><span class="s2">&quot;C3&quot;</span><span class="p">,</span>
+    <span class="n">calc_clones</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">foo</span><span class="o">.</span><span class="n">measure_clones_and_neighbouring_labels</span><span class="p">(</span><span class="n">name_for_query</span><span class="o">=</span><span class="s2">&quot;C1&quot;</span><span class="p">)</span>
 </pre></div>
 
@@ -647,7 +668,128 @@ nb_path: "01_clone_counters.ipynb"
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">foo</span><span class="o">.</span><span class="n">combine_neighbour_counts_and_measurements</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">foo</span><span class="o">.</span><span class="n">measure_clones_and_neighbouring_labels</span><span class="p">(</span><span class="n">name_for_query</span><span class="o">=</span><span class="s2">&quot;C3&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">foo</span><span class="o">.</span><span class="n">combine_neighbour_counts_and_measurements</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">napari</span>
+<span class="n">view</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">Viewer</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">view</span><span class="o">.</span><span class="n">add_image</span><span class="p">(</span><span class="n">foo</span><span class="o">.</span><span class="n">image_data</span><span class="p">[</span><span class="s1">&#39;images&#39;</span><span class="p">],</span> <span class="n">channel_axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[&lt;Image layer &#39;Image&#39; at 0x7fbc910cc970&gt;,
+ &lt;Image layer &#39;Image [1]&#39; at 0x7fbc8f103e80&gt;,
+ &lt;Image layer &#39;Image [2]&#39; at 0x7fbc8a101640&gt;,
+ &lt;Image layer &#39;Image [3]&#39; at 0x7fbc914ff070&gt;]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">view</span><span class="o">.</span><span class="n">add_labels</span><span class="p">(</span><span class="n">foo</span><span class="o">.</span><span class="n">image_data</span><span class="p">[</span><span class="s1">&#39;images&#39;</span><span class="p">][</span><span class="mi">3</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">5000</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&lt;Labels layer &#39;Labels&#39; at 0x7fbc89980490&gt;</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 
     </div>
@@ -686,6 +828,8 @@ nb_path: "01_clone_counters.ipynb"
       <th>C1neg_nc</th>
       <th>C2pos_nc</th>
       <th>C2neg_nc</th>
+      <th>C3pos_nc</th>
+      <th>C3neg_nc</th>
       <th>seg_ch</th>
       <th>int_img_ch</th>
       <th>seg_img</th>
@@ -697,10 +841,14 @@ nb_path: "01_clone_counters.ipynb"
       <th>C1_pos</th>
       <th>total_intensity</th>
       <th>C2_pos</th>
+      <th>C3_pos</th>
     </tr>
     <tr>
       <th>int_img</th>
       <th>label</th>
+      <th></th>
+      <th></th>
+      <th></th>
       <th></th>
       <th></th>
       <th></th>
@@ -730,6 +878,8 @@ nb_path: "01_clone_counters.ipynb"
       <td>2</td>
       <td>3</td>
       <td>0</td>
+      <td>0</td>
+      <td>3</td>
       <td>C0</td>
       <td>C0</td>
       <td>a1g01p1</td>
@@ -741,6 +891,7 @@ nb_path: "01_clone_counters.ipynb"
       <td>False</td>
       <td>2301326.0</td>
       <td>False</td>
+      <td>False</td>
     </tr>
     <tr>
       <th>12</th>
@@ -750,6 +901,8 @@ nb_path: "01_clone_counters.ipynb"
       <td>2</td>
       <td>3</td>
       <td>0</td>
+      <td>0</td>
+      <td>3</td>
       <td>C0</td>
       <td>C1</td>
       <td>a1g01p1</td>
@@ -761,6 +914,7 @@ nb_path: "01_clone_counters.ipynb"
       <td>False</td>
       <td>66047.0</td>
       <td>False</td>
+      <td>False</td>
     </tr>
     <tr>
       <th>12</th>
@@ -770,6 +924,8 @@ nb_path: "01_clone_counters.ipynb"
       <td>2</td>
       <td>3</td>
       <td>0</td>
+      <td>0</td>
+      <td>3</td>
       <td>C0</td>
       <td>C2</td>
       <td>a1g01p1</td>
@@ -781,6 +937,7 @@ nb_path: "01_clone_counters.ipynb"
       <td>False</td>
       <td>2417138.0</td>
       <td>True</td>
+      <td>False</td>
     </tr>
     <tr>
       <th>12</th>
@@ -790,6 +947,8 @@ nb_path: "01_clone_counters.ipynb"
       <td>2</td>
       <td>3</td>
       <td>0</td>
+      <td>0</td>
+      <td>3</td>
       <td>C0</td>
       <td>C3</td>
       <td>a1g01p1</td>
@@ -801,6 +960,7 @@ nb_path: "01_clone_counters.ipynb"
       <td>False</td>
       <td>80368.0</td>
       <td>False</td>
+      <td>False</td>
     </tr>
     <tr>
       <th>13</th>
@@ -810,6 +970,8 @@ nb_path: "01_clone_counters.ipynb"
       <td>3</td>
       <td>3</td>
       <td>0</td>
+      <td>0</td>
+      <td>3</td>
       <td>C0</td>
       <td>C0</td>
       <td>a1g01p1</td>
@@ -821,135 +983,101 @@ nb_path: "01_clone_counters.ipynb"
       <td>False</td>
       <td>3834686.0</td>
       <td>False</td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-    </tr>
-    <tr>
-      <th rowspan="5" valign="top">a2g13p3</th>
-      <th>232</th>
-      <td>0</td>
-      <td>3</td>
-      <td>0</td>
-      <td>3</td>
-      <td>1</td>
-      <td>2</td>
-      <td>C0</td>
-      <td>C3</td>
-      <td>a2g13p3</td>
-      <td>723</td>
-      <td>107.864454</td>
-      <td>772.175657</td>
-      <td>475.138313</td>
-      <td>54.676875</td>
-      <td>False</td>
-      <td>77986.0</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>233</th>
-      <td>0</td>
-      <td>2</td>
-      <td>0</td>
-      <td>2</td>
-      <td>2</td>
-      <td>0</td>
-      <td>C0</td>
-      <td>C0</td>
-      <td>a2g13p3</td>
-      <td>253</td>
-      <td>1257.762846</td>
-      <td>771.916996</td>
-      <td>675.988142</td>
-      <td>19.133125</td>
-      <td>False</td>
-      <td>318214.0</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>233</th>
-      <td>0</td>
-      <td>2</td>
-      <td>0</td>
-      <td>2</td>
-      <td>2</td>
-      <td>0</td>
-      <td>C0</td>
-      <td>C1</td>
-      <td>a2g13p3</td>
-      <td>253</td>
-      <td>32.418972</td>
-      <td>771.916996</td>
-      <td>675.988142</td>
-      <td>19.133125</td>
-      <td>False</td>
-      <td>8202.0</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>233</th>
-      <td>0</td>
-      <td>2</td>
-      <td>0</td>
-      <td>2</td>
-      <td>2</td>
-      <td>0</td>
-      <td>C0</td>
-      <td>C2</td>
-      <td>a2g13p3</td>
-      <td>253</td>
-      <td>742.395257</td>
-      <td>771.916996</td>
-      <td>675.988142</td>
-      <td>19.133125</td>
-      <td>False</td>
-      <td>187826.0</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>233</th>
-      <td>0</td>
-      <td>2</td>
-      <td>0</td>
-      <td>2</td>
-      <td>2</td>
-      <td>0</td>
-      <td>C0</td>
-      <td>C3</td>
-      <td>a2g13p3</td>
-      <td>253</td>
-      <td>99.430830</td>
-      <td>771.916996</td>
-      <td>675.988142</td>
-      <td>19.133125</td>
-      <td>False</td>
-      <td>25156.0</td>
       <td>False</td>
     </tr>
   </tbody>
 </table>
-<p>67104 rows × 17 columns</p>
 </div>
 </div>
 
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">ca</span><span class="o">.</span><span class="n">query_df_groupby_by_clone_channel</span><span class="p">(</span>
+    <span class="n">df</span><span class="p">,</span>
+    <span class="n">queries</span><span class="o">=</span><span class="p">{</span>
+        <span class="s2">&quot;C2negC3neg_C0area_less_than_50um2&quot;</span><span class="p">:</span> <span class="s2">&quot;C2_pos == False &amp; C3_pos == False &amp; area_um2 &lt; 50&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;C2negC3neg_C0area_greater_than_50um2&quot;</span><span class="p">:</span> <span class="s2">&quot;C2_pos == False &amp; C3_pos == False &amp; area_um2 &gt; 50&quot;</span><span class="p">},</span>
+    <span class="n">clone_channel</span><span class="o">=</span><span class="s2">&quot;C1_clone&quot;</span>
+<span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">KeyError</span>                                  Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-32-88dbc17b8561&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> ca.query_df_groupby_by_clone_channel(
+</span><span class="ansi-green-intense-fg ansi-bold">      2</span>     df<span class="ansi-blue-fg">,</span>
+<span class="ansi-green-intense-fg ansi-bold">      3</span>     queries={
+<span class="ansi-green-intense-fg ansi-bold">      4</span>         <span class="ansi-blue-fg">&#34;C2negC3neg_C0area_less_than_50um2&#34;</span><span class="ansi-blue-fg">:</span> <span class="ansi-blue-fg">&#34;C2_pos == False &amp; C3_pos == False &amp; area_um2 &lt; 50&#34;</span><span class="ansi-blue-fg">,</span>
+<span class="ansi-green-intense-fg ansi-bold">      5</span>         &#34;C2negC3neg_C0area_greater_than_50um2&#34;: &#34;C2_pos == False &amp; C3_pos == False &amp; area_um2 &gt; 50&#34;},
+
+<span class="ansi-green-fg">~/Documents/py_clone_detective/py_clone_detective/clone_analysis.py</span> in <span class="ansi-cyan-fg">query_df_groupby_by_clone_channel</span><span class="ansi-blue-fg">(df, queries, clone_channel, additional_agg_functions)</span>
+<span class="ansi-green-intense-fg ansi-bold">     46</span>     <span class="ansi-green-fg">for</span> key<span class="ansi-blue-fg">,</span> query <span class="ansi-green-fg">in</span> queries<span class="ansi-blue-fg">.</span>items<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">     47</span>         l.append(
+<span class="ansi-green-fg">---&gt; 48</span><span class="ansi-red-fg">             </span>individual_filter_condition<span class="ansi-blue-fg">(</span>df<span class="ansi-blue-fg">,</span> key<span class="ansi-blue-fg">,</span> query<span class="ansi-blue-fg">,</span> clone_channel<span class="ansi-blue-fg">,</span> agg_functions<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">     49</span>         )
+<span class="ansi-green-intense-fg ansi-bold">     50</span> 
+
+<span class="ansi-green-fg">~/Documents/py_clone_detective/py_clone_detective/clone_analysis.py</span> in <span class="ansi-cyan-fg">individual_filter_condition</span><span class="ansi-blue-fg">(df, filtered_col_name, query, clone_channel, agg_functions)</span>
+<span class="ansi-green-intense-fg ansi-bold">     22</span> ):
+<span class="ansi-green-intense-fg ansi-bold">     23</span>     temp_df = (
+<span class="ansi-green-fg">---&gt; 24</span><span class="ansi-red-fg">         </span>df<span class="ansi-blue-fg">.</span>query<span class="ansi-blue-fg">(</span>query<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">.</span>groupby<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#34;int_img&#34;</span><span class="ansi-blue-fg">,</span> clone_channel<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">.</span>agg<span class="ansi-blue-fg">(</span>agg_functions<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">     25</span>     ).copy()
+<span class="ansi-green-intense-fg ansi-bold">     26</span> 
+
+<span class="ansi-green-fg">~/miniconda3/envs/nap_ia/lib/python3.9/site-packages/pandas/core/groupby/generic.py</span> in <span class="ansi-cyan-fg">aggregate</span><span class="ansi-blue-fg">(self, func, engine, engine_kwargs, *args, **kwargs)</span>
+<span class="ansi-green-intense-fg ansi-bold">    977</span> 
+<span class="ansi-green-intense-fg ansi-bold">    978</span>         op <span class="ansi-blue-fg">=</span> GroupByApply<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">,</span> func<span class="ansi-blue-fg">,</span> args<span class="ansi-blue-fg">,</span> kwargs<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-fg">--&gt; 979</span><span class="ansi-red-fg">         </span>result <span class="ansi-blue-fg">=</span> op<span class="ansi-blue-fg">.</span>agg<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    980</span>         <span class="ansi-green-fg">if</span> <span class="ansi-green-fg">not</span> is_dict_like<span class="ansi-blue-fg">(</span>func<span class="ansi-blue-fg">)</span> <span class="ansi-green-fg">and</span> result <span class="ansi-green-fg">is</span> <span class="ansi-green-fg">not</span> <span class="ansi-green-fg">None</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">    981</span>             <span class="ansi-green-fg">return</span> result
+
+<span class="ansi-green-fg">~/miniconda3/envs/nap_ia/lib/python3.9/site-packages/pandas/core/apply.py</span> in <span class="ansi-cyan-fg">agg</span><span class="ansi-blue-fg">(self)</span>
+<span class="ansi-green-intense-fg ansi-bold">    159</span> 
+<span class="ansi-green-intense-fg ansi-bold">    160</span>         <span class="ansi-green-fg">if</span> is_dict_like<span class="ansi-blue-fg">(</span>arg<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-fg">--&gt; 161</span><span class="ansi-red-fg">             </span><span class="ansi-green-fg">return</span> self<span class="ansi-blue-fg">.</span>agg_dict_like<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    162</span>         <span class="ansi-green-fg">elif</span> is_list_like<span class="ansi-blue-fg">(</span>arg<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">    163</span>             <span class="ansi-red-fg"># we require a list, but not a &#39;str&#39;</span>
+
+<span class="ansi-green-fg">~/miniconda3/envs/nap_ia/lib/python3.9/site-packages/pandas/core/apply.py</span> in <span class="ansi-cyan-fg">agg_dict_like</span><span class="ansi-blue-fg">(self)</span>
+<span class="ansi-green-intense-fg ansi-bold">    425</span>             selection <span class="ansi-blue-fg">=</span> obj<span class="ansi-blue-fg">.</span>_selection
+<span class="ansi-green-intense-fg ansi-bold">    426</span> 
+<span class="ansi-green-fg">--&gt; 427</span><span class="ansi-red-fg">         </span>arg <span class="ansi-blue-fg">=</span> self<span class="ansi-blue-fg">.</span>normalize_dictlike_arg<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#34;agg&#34;</span><span class="ansi-blue-fg">,</span> selected_obj<span class="ansi-blue-fg">,</span> arg<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    428</span> 
+<span class="ansi-green-intense-fg ansi-bold">    429</span>         <span class="ansi-green-fg">if</span> selected_obj<span class="ansi-blue-fg">.</span>ndim <span class="ansi-blue-fg">==</span> <span class="ansi-cyan-fg">1</span><span class="ansi-blue-fg">:</span>
+
+<span class="ansi-green-fg">~/miniconda3/envs/nap_ia/lib/python3.9/site-packages/pandas/core/apply.py</span> in <span class="ansi-cyan-fg">normalize_dictlike_arg</span><span class="ansi-blue-fg">(self, how, obj, func)</span>
+<span class="ansi-green-intense-fg ansi-bold">    544</span>             <span class="ansi-green-fg">if</span> len<span class="ansi-blue-fg">(</span>cols<span class="ansi-blue-fg">)</span> <span class="ansi-blue-fg">&gt;</span> <span class="ansi-cyan-fg">0</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">    545</span>                 cols_sorted <span class="ansi-blue-fg">=</span> list<span class="ansi-blue-fg">(</span>safe_sort<span class="ansi-blue-fg">(</span>list<span class="ansi-blue-fg">(</span>cols<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-fg">--&gt; 546</span><span class="ansi-red-fg">                 </span><span class="ansi-green-fg">raise</span> KeyError<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">f&#34;Column(s) {cols_sorted} do not exist&#34;</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    547</span> 
+<span class="ansi-green-intense-fg ansi-bold">    548</span>         is_aggregator <span class="ansi-blue-fg">=</span> <span class="ansi-green-fg">lambda</span> x<span class="ansi-blue-fg">:</span> isinstance<span class="ansi-blue-fg">(</span>x<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">(</span>list<span class="ansi-blue-fg">,</span> tuple<span class="ansi-blue-fg">,</span> dict<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span>
+
+<span class="ansi-red-fg">KeyError</span>: &#34;Column(s) [&#39;C0_labels&#39;] do not exist&#34;</pre>
+</div>
 </div>
 
 </div>

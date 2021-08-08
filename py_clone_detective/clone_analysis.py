@@ -13,7 +13,7 @@ def combine_agg_functions(additional_agg_functions):
     if additional_agg_functions is None:
         additional_agg_functions = {}
 
-    agg_functions = {"C0_labels": "count", "area_um2": [np.mean, np.std]}
+    agg_functions = {"label": "count", "area_um2": [np.mean, np.std]}
     return {**agg_functions, **additional_agg_functions}
 
 # Cell
@@ -21,7 +21,7 @@ def individual_filter_condition(
     df, filtered_col_name: str, query: str, clone_channel: str, agg_functions
 ):
     temp_df = (
-        df.query(query).groupby(["img_name", clone_channel]).agg(agg_functions)
+        df.query(query).groupby(["int_img", clone_channel]).agg(agg_functions)
     ).copy()
 
     temp_df.columns = pd.MultiIndex.from_tuples(
