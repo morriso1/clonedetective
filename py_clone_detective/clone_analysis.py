@@ -20,8 +20,11 @@ def combine_agg_functions(additional_agg_functions):
 def individual_filter_condition(
     df, filtered_col_name: str, query: str, clone_channel: str, agg_functions
 ):
+    if query is not None:
+        df = df.query(query)
+
     temp_df = (
-        df.query(query).groupby(["int_img", clone_channel]).agg(agg_functions)
+        df.groupby(["int_img", clone_channel]).agg(agg_functions)
     ).copy()
 
     temp_df.columns = pd.MultiIndex.from_tuples(
