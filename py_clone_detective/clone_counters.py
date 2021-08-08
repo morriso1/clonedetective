@@ -277,7 +277,7 @@ class CloneCounter:
                     self.image_data[name_for_query].coords[
                         f"{name_for_query}_neighbours"
                     ],
-                    foo.image_data[name_for_query].coords["img_name"],
+                    self.image_data[name_for_query].coords["img_name"],
                     range(1, colabels.shape[2] + 1),
                 ),
                 dims=(f"{name_for_query}_neighbours", "img_name", "label"),
@@ -343,7 +343,7 @@ class CloneCounter:
             self.image_data[name_for_query].data,
             self.get_centroids_list(),
             self.image_data[name_for_query].shape[0],
-            foo.tot_seg_ch_max_labels,
+            self.tot_seg_ch_max_labels,
         )
 
         if not hasattr(self, "results_clones_and_neighbour_counts"):

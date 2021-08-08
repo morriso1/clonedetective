@@ -22,8 +22,6 @@ index = {"clean_img_names": "00_utils.ipynb",
          "CloneCounter": "01_clone_counters.ipynb",
          "LazyCloneCounter": "01_clone_counters.ipynb",
          "PersistentCloneCounter": "01_clone_counters.ipynb",
-         "combine_agg_functions": "02_clone_analysis.ipynb",
-         "individual_filter_condition": "02_clone_analysis.ipynb",
          "query_df_groupby_by_clone_channel": "02_clone_analysis.ipynb"}
 
 modules = ["utils.py",
