@@ -194,7 +194,9 @@ class CloneCounter:
             ["img_name", "C0_labels", "colocalisation_ch", "is_in_label"]
         ]
 
-    def clones_to_keep_as_dict(self, query_for_pd: str):
+    def filter_labels_update_measurements_df_and_to_dict(self, query_for_pd: str, name_for_query: str):
+
+        self.results_measurements[f'{name_for_query}_pos'] = self.results_measurements.eval(query_for_pd)
         return (
             self.results_measurements.query(query_for_pd)
             .groupby("int_img")
@@ -237,11 +239,11 @@ class CloneCounter:
             new_dim=f"{name_for_query}_neighbours",
         )
 
-        clones_to_keep = self.clones_to_keep_as_dict(query_for_pd)
+        labels_to_keep = self.filter_labels_update_measurements_df_and_to_dict(query_for_pd, name_for_query)
 
         new_label_imgs = get_all_labeled_clones_unmerged_and_merged(
             self.image_data["segmentations"].loc[self.tot_seg_ch],
-            clones_to_keep,
+            labels_to_keep,
             calc_clones,
         )
 

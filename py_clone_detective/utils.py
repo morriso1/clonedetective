@@ -218,7 +218,7 @@ def calc_neighbours(lab_img, to_keep, calc_clones):
 
 # Cell
 def get_all_labeled_clones_unmerged_and_merged(
-    total_seg_labels, clones_to_keep: dict, calc_clones: bool
+    total_seg_labels, labels_to_keep: dict, calc_clones: bool
 ):
     img_list = list()
     first_dim = 4 + int(calc_clones)
@@ -227,7 +227,7 @@ def get_all_labeled_clones_unmerged_and_merged(
             img_list.append(
                 da.from_delayed(
                     calc_neighbours(
-                        total_seg_labels.loc[key, ...].data, clones_to_keep[key], calc_clones
+                        total_seg_labels.loc[key, ...].data, labels_to_keep[key], calc_clones
                     ),
                     shape=(first_dim,) + total_seg_labels.shape[1:],
                     dtype=np.uint16,
