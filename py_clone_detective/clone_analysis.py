@@ -5,9 +5,9 @@ __all__ = ['query_df_groupby_by_clone_channel']
 # Cell
 from functools import reduce
 
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
 import seaborn as sns
 
 # Cell
