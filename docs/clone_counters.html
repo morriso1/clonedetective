@@ -108,7 +108,7 @@ nb_path: "01_clone_counters.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="LazyCloneCounter" class="doc_header"><code>class</code> <code>LazyCloneCounter</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/clone_counters.py#L368" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>LazyCloneCounter</code>(<strong><code>exp_name</code></strong>:<code>str</code>, <strong><code>img_name_regex</code></strong>:<code>str</code>, <strong><code>pixel_size</code></strong>:<code>float</code>) :: <a href="/py_clone_detective/clone_counters.html#CloneCounter"><code>CloneCounter</code></a></p>
+<h2 id="LazyCloneCounter" class="doc_header"><code>class</code> <code>LazyCloneCounter</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/clone_counters.py#L370" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>LazyCloneCounter</code>(<strong><code>exp_name</code></strong>:<code>str</code>, <strong><code>img_name_regex</code></strong>:<code>str</code>, <strong><code>pixel_size</code></strong>:<code>float</code>) :: <a href="/py_clone_detective/clone_counters.html#CloneCounter"><code>CloneCounter</code></a></p>
 </blockquote>
 
 </div>
@@ -139,7 +139,7 @@ nb_path: "01_clone_counters.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="PersistentCloneCounter" class="doc_header"><code>class</code> <code>PersistentCloneCounter</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/clone_counters.py#L398" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>PersistentCloneCounter</code>(<strong><code>exp_name</code></strong>:<code>str</code>, <strong><code>img_name_regex</code></strong>:<code>str</code>, <strong><code>pixel_size</code></strong>:<code>float</code>) :: <a href="/py_clone_detective/clone_counters.html#CloneCounter"><code>CloneCounter</code></a></p>
+<h2 id="PersistentCloneCounter" class="doc_header"><code>class</code> <code>PersistentCloneCounter</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/clone_counters.py#L400" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>PersistentCloneCounter</code>(<strong><code>exp_name</code></strong>:<code>str</code>, <strong><code>img_name_regex</code></strong>:<code>str</code>, <strong><code>pixel_size</code></strong>:<code>float</code>) :: <a href="/py_clone_detective/clone_counters.html#CloneCounter"><code>CloneCounter</code></a></p>
 </blockquote>
 
 </div>
@@ -291,8 +291,10 @@ nb_path: "01_clone_counters.ipynb"
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">foo</span><span class="o">.</span><span class="n">results_measurements</span> <span class="o">=</span> <span class="n">foo</span><span class="o">.</span><span class="n">results_measurements</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span>
-    <span class="s2">&quot;total_intensity = mean_intensity * area&quot;</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">foo</span><span class="o">.</span><span class="n">add_clones_and_neighbouring_labels</span><span class="p">(</span>
+    <span class="n">query_for_pd</span><span class="o">=</span><span class="s1">&#39;int_img_ch == &quot;C1&quot; &amp; mean_intensity &gt; 1000&#39;</span><span class="p">,</span>
+    <span class="n">name_for_query</span><span class="o">=</span><span class="s2">&quot;C1&quot;</span><span class="p">,</span>
+    <span class="n">calc_clones</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 
@@ -310,11 +312,7 @@ nb_path: "01_clone_counters.ipynb"
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">foo</span><span class="o">.</span><span class="n">add_clones_and_neighbouring_labels</span><span class="p">(</span>
-    <span class="n">query_for_pd</span><span class="o">=</span><span class="s1">&#39;int_img_ch == &quot;C1&quot; &amp; mean_intensity &gt; 1000&#39;</span><span class="p">,</span>
-    <span class="n">name_for_query</span><span class="o">=</span><span class="s2">&quot;C1&quot;</span><span class="p">,</span>
-    <span class="n">calc_clones</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-<span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">foo</span><span class="o">.</span><span class="n">results_measurements</span> <span class="o">=</span> <span class="n">foo</span><span class="o">.</span><span class="n">results_measurements</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="s1">&#39;total_intensity = mean_intensity * area&#39;</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -417,11 +415,15 @@ nb_path: "01_clone_counters.ipynb"
       <th>centroid-0</th>
       <th>centroid-1</th>
       <th>area_um2</th>
+      <th>C1_pos</th>
       <th>total_intensity</th>
+      <th>C2_pos</th>
     </tr>
     <tr>
       <th>int_img</th>
       <th>label</th>
+      <th></th>
+      <th></th>
       <th></th>
       <th></th>
       <th></th>
@@ -457,7 +459,9 @@ nb_path: "01_clone_counters.ipynb"
       <td>43.901280</td>
       <td>89.606947</td>
       <td>82.733750</td>
+      <td>False</td>
       <td>2301326.0</td>
+      <td>False</td>
     </tr>
     <tr>
       <th>12</th>
@@ -475,7 +479,9 @@ nb_path: "01_clone_counters.ipynb"
       <td>43.901280</td>
       <td>89.606947</td>
       <td>82.733750</td>
+      <td>False</td>
       <td>66047.0</td>
+      <td>False</td>
     </tr>
     <tr>
       <th>12</th>
@@ -493,7 +499,9 @@ nb_path: "01_clone_counters.ipynb"
       <td>43.901280</td>
       <td>89.606947</td>
       <td>82.733750</td>
+      <td>False</td>
       <td>2417138.0</td>
+      <td>True</td>
     </tr>
     <tr>
       <th>12</th>
@@ -511,7 +519,9 @@ nb_path: "01_clone_counters.ipynb"
       <td>43.901280</td>
       <td>89.606947</td>
       <td>82.733750</td>
+      <td>False</td>
       <td>80368.0</td>
+      <td>False</td>
     </tr>
     <tr>
       <th>13</th>
@@ -529,11 +539,15 @@ nb_path: "01_clone_counters.ipynb"
       <td>51.479964</td>
       <td>362.270703</td>
       <td>84.926875</td>
+      <td>False</td>
       <td>3834686.0</td>
+      <td>False</td>
     </tr>
     <tr>
       <th>...</th>
       <th>...</th>
+      <td>...</td>
+      <td>...</td>
       <td>...</td>
       <td>...</td>
       <td>...</td>
@@ -567,7 +581,9 @@ nb_path: "01_clone_counters.ipynb"
       <td>772.175657</td>
       <td>475.138313</td>
       <td>54.676875</td>
+      <td>False</td>
       <td>77986.0</td>
+      <td>False</td>
     </tr>
     <tr>
       <th>233</th>
@@ -585,7 +601,9 @@ nb_path: "01_clone_counters.ipynb"
       <td>771.916996</td>
       <td>675.988142</td>
       <td>19.133125</td>
+      <td>False</td>
       <td>318214.0</td>
+      <td>False</td>
     </tr>
     <tr>
       <th>233</th>
@@ -603,7 +621,9 @@ nb_path: "01_clone_counters.ipynb"
       <td>771.916996</td>
       <td>675.988142</td>
       <td>19.133125</td>
+      <td>False</td>
       <td>8202.0</td>
+      <td>False</td>
     </tr>
     <tr>
       <th>233</th>
@@ -621,7 +641,9 @@ nb_path: "01_clone_counters.ipynb"
       <td>771.916996</td>
       <td>675.988142</td>
       <td>19.133125</td>
+      <td>False</td>
       <td>187826.0</td>
+      <td>False</td>
     </tr>
     <tr>
       <th>233</th>
@@ -639,11 +661,13 @@ nb_path: "01_clone_counters.ipynb"
       <td>771.916996</td>
       <td>675.988142</td>
       <td>19.133125</td>
+      <td>False</td>
       <td>25156.0</td>
+      <td>False</td>
     </tr>
   </tbody>
 </table>
-<p>67104 rows × 15 columns</p>
+<p>67104 rows × 17 columns</p>
 </div>
 </div>
 
