@@ -194,9 +194,13 @@ class CloneCounter:
             ["img_name", "C0_labels", "colocalisation_ch", "is_in_label"]
         ]
 
-    def filter_labels_update_measurements_df_and_to_dict(self, query_for_pd: str, name_for_query: str):
+    def filter_labels_update_measurements_df_and_to_dict(
+        self, query_for_pd: str, name_for_query: str
+    ):
 
-        self.results_measurements[f'{name_for_query}_pos'] = self.results_measurements.eval(query_for_pd)
+        self.results_measurements[
+            f"{name_for_query}_pos"
+        ] = self.results_measurements.eval(query_for_pd)
         return (
             self.results_measurements.query(query_for_pd)
             .groupby("int_img")
@@ -239,7 +243,9 @@ class CloneCounter:
             new_dim=f"{name_for_query}_neighbours",
         )
 
-        labels_to_keep = self.filter_labels_update_measurements_df_and_to_dict(query_for_pd, name_for_query)
+        labels_to_keep = self.filter_labels_update_measurements_df_and_to_dict(
+            query_for_pd, name_for_query
+        )
 
         new_label_imgs = get_all_labeled_clones_unmerged_and_merged(
             self.image_data["segmentations"].loc[self.tot_seg_ch],
@@ -247,17 +253,11 @@ class CloneCounter:
             calc_clones,
         )
 
-        if not hasattr(self, f"filtered_labels"):
-            self.filtered_labels = dict()
-
-        return (
-            xr.DataArray(
-                data=new_label_imgs,
-                coords=clone_coords,
-                dims=clone_dims,
-                attrs={f"{self.tot_seg_ch}_labels_kept_query": query_for_pd},
-            ),
-            clones_to_keep,
+        return xr.DataArray(
+            data=new_label_imgs,
+            coords=clone_coords,
+            dims=clone_dims,
+            attrs={f"{self.tot_seg_ch}_labels_kept_query": query_for_pd},
         )
 
     def colabels_to_df(self, colabels, name_for_query):
@@ -328,11 +328,6 @@ class CloneCounter:
             .query(f"{name_for_query}neg_nc != 0 | {name_for_query}pos_nc != 0")
         )
 
-    def update_df_with_query_positive_col_from_dict(self, name_for_query):
-        self.results_clones_and_neighbour_counts[name_for_query][f"{name_for_query}_pos"] = False
-        for key, value in self.filtered_labels[name_for_query].items():
-            self.results_clones_and_neighbour_counts[f"{name_for_query}"].loc[(key, value), f"{name_for_query}_pos"] = True
-
     def measure_clones_and_neighbouring_labels(self, name_for_query):
         self.get_centroids_list()
         colabels = calculate_corresponding_labels(
@@ -356,8 +351,6 @@ class CloneCounter:
         self.results_clones_and_neighbour_counts[
             name_for_query
         ] = self.clarify_neighbouring_label_counts(name_for_query)
-
-        self.update_df_with_query_positive_col_from_dict(name_for_query)
 
     def combine_neighbour_counts_and_measurements(self):
         list_df = list(self.results_clones_and_neighbour_counts.values()) + [
@@ -406,10 +399,7 @@ class LazyCloneCounter(CloneCounter):
         name_for_query: str = "filt_C1_intensity",
         calc_clones: bool = True,
     ):
-        (
-            self.image_data[name_for_query],
-            self.filtered_labels[name_for_query],
-        ) = super().add_clones_and_neighbouring_labels(
+        self.image_data[name_for_query] = super().add_clones_and_neighbouring_labels(
             query_for_pd, name_for_query, calc_clones
         )
 
@@ -443,10 +433,10 @@ class PersistentCloneCounter(CloneCounter):
         name_for_query: str = "filt_C1_intensity",
         calc_clones: bool = True,
     ):
-        (
-            self.image_data[name_for_query],
-            self.filtered_labels[name_for_query],
-        ) = super().add_clones_and_neighbouring_labels(
-            query_for_pd, name_for_query, calc_clones
+        self.image_data[name_for_query] = (
+            super()
+            .add_clones_and_neighbouring_labels(
+                query_for_pd, name_for_query, calc_clones
+            )
+            .persist()
         )
-        self.image_data[name_for_query] = self.image_data[name_for_query].persist()
