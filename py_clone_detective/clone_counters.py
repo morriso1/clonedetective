@@ -201,6 +201,15 @@ class CloneCounter:
         self.results_measurements[
             f"{name_for_query}_pos"
         ] = self.results_measurements.eval(query_for_pd)
+
+        temp_df = self.results_measurements.groupby(["int_img", "label"])[
+            f"{name_for_query}_pos"
+        ].any()
+
+        self.results_measurements = pd.merge(
+            self.results_measurements.drop(columns = [f"{name_for_query}_pos"]), temp_df, on=["int_img", "label"]
+        )
+
         return (
             self.results_measurements.query(query_for_pd)
             .groupby("int_img")
