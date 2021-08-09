@@ -207,7 +207,9 @@ class CloneCounter:
         ].any()
 
         self.results_measurements = pd.merge(
-            self.results_measurements.drop(columns = [f"{name_for_query}_pos"]), temp_df, on=["int_img", "label"]
+            self.results_measurements.drop(columns=[f"{name_for_query}_pos"]),
+            temp_df,
+            on=["int_img", "label"],
         )
 
         return (
@@ -384,7 +386,13 @@ class CloneCounter:
 
 # Cell
 class LazyCloneCounter(CloneCounter):
-    def __init__(self, exp_name: str, img_name_regex: str, pixel_size: float):
+    def __init__(
+        self,
+        exp_name: str,
+        img_name_regex: str,
+        pixel_size: float,
+        tot_seg_ch: str = "C0",
+    ):
         super().__init__(exp_name, img_name_regex, pixel_size)
 
     def add_images(self, **channel_path_globs):
@@ -414,7 +422,13 @@ class LazyCloneCounter(CloneCounter):
 
 # Cell
 class PersistentCloneCounter(CloneCounter):
-    def __init__(self, exp_name: str, img_name_regex: str, pixel_size: float):
+    def __init__(
+        self,
+        exp_name: str,
+        img_name_regex: str,
+        pixel_size: float,
+        tot_seg_ch: str = "C0",
+    ):
         super().__init__(exp_name, img_name_regex, pixel_size)
 
     def add_images(self, **channel_path_globs):
