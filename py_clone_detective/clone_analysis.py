@@ -8,6 +8,7 @@ from functools import reduce
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+import scikit_posthocs as sp
 import seaborn as sns
 
 # Cell
