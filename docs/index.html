@@ -52,14 +52,66 @@ nb_path: "index.ipynb"
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="How-to-use">How to use<a class="anchor-link" href="#How-to-use"> </a></h2>
+<h2 id="How-to-use---simple-use-case">How to use - simple use case<a class="anchor-link" href="#How-to-use---simple-use-case"> </a></h2><p>For a more detailed walkthrough, please see individual tutorials.</p>
+
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>To do</p>
+<h4 id="Import-and-instantiate-CloneCounter-subclass:">Import and instantiate CloneCounter subclass:<a class="anchor-link" href="#Import-and-instantiate-CloneCounter-subclass:"> </a></h4><p>The LazyCloneCounter subclass uses Dask to lazy load image series that maybe too large to fit in RAM.</p>
 
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">py_clone_detective.clone_counters</span> <span class="kn">import</span> <span class="n">LazyCloneCounter</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We intialise a LazyCloneCounter with four required arguments:
+1) <strong>exp_name</strong> : str -&gt; name of the experiment
+2) <strong>img_name_regex</strong> : str -&gt; regular expression used to extract unique identifies from image filenames
+3) <strong>pixel_size</strong> : str -&gt; pixel size in $\mu m^{2}$
+4) <strong>tot_seg_ch</strong> : str -&gt; image channel used to define the total number of cells e.g. DAPI channel.</p>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">exp</span> <span class="o">=</span> <span class="n">LazyCloneCounter</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Read-images">Read images<a class="anchor-link" href="#Read-images"> </a></h4>
 </div>
 </div>
 </div>
