@@ -2,7 +2,7 @@
 > A python library for automated cell lineage analysis.
 
 
-<img src="docs/images/marcm_example.png">
+<img src="docs/images/py_clone_detector_scheme.png">
 
 ## Install
 
