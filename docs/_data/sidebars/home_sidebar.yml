@@ -19,6 +19,9 @@ entries:
       title: Clone Analysis Functions
       url: clone_analysis.html
     - output: web,pdf
+      title: Title
+      url: Tutorial_simple_walkthrough.html
+    - output: web,pdf
       title: Example nuclei segmentation using StarDist
       url: Tutorial_StarDist_segmentation.html
     output: web

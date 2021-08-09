@@ -4,6 +4,7 @@
     "Utils": "utils.html",
     "CloneCounter Classes": "clone_counters.html",
     "Clone Analysis Functions": "clone_analysis.html",
+    "Title": "Tutorial_simple_walkthrough.html",
     "Example nuclei segmentation using StarDist": "Tutorial_StarDist_segmentation.html"
   }
 }
