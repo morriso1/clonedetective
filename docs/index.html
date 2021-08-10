@@ -31,7 +31,46 @@ nb_path: "index.ipynb"
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>{% include image.html file="/py_clone_detective/docs/images/py_clone_detector_scheme.png" %}</p>
+<p>{% include image.html width="800" max-width="800" file="/py_clone_detective/docs/images/py_clone_detector_scheme.png" %}</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="What-does-it-do?">What does it do?<a class="anchor-link" href="#What-does-it-do?"> </a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>py_clone_detector</strong> is a package for analysing fluorescent imaging data from cell lineage experiments (e.g. FLP-out, MARCM or Cre-lox clones).</p>
+<p>Outputted quantifications include:</p>
+<ul>
+<li>counts of each cell type per “clone”</li>
+<li>spatial metrics e.g. number of nearest neighbors of each cell per clone</li>
+<li>cell and clone properties e.g. area, mean intensity etc.</li>
+</ul>
+<p>If clones label genetic mutations, these metrics can be useful in addressing biological questions such as:</p>
+<ul>
+<li>does my gene of interest regulate clone size (i.e. cell proliferation) or clone composition (i.e. cell differentiation)?</li>
+<li>does the local cell neighbourhood (e.g. number and type of neighbours) non-autonomously impact cell proliferation or differentiation? </li>
+<li>does my gene of interest regulate the expression of other (immunostained) proteins?</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Under-the-hood">Under the hood<a class="anchor-link" href="#Under-the-hood"> </a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>py_clone_detector</strong> is constructed using many amazing python libraries, including scikit-image, numpy, Xarray, pandas, numba, Dask, Dask-image and pyclesperanto-prototype.</p>
+<p>Many functions are lazy-loaded and parallelized using <a href="https://dask.org/">Dask</a>, enabling py_clone_detector to scale to large multi-dimensional datasets that do not fit in RAM.</p>
 
 </div>
 </div>
@@ -53,8 +92,9 @@ nb_path: "index.ipynb"
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="How-to-use">How to use<a class="anchor-link" href="#How-to-use"> </a></h2><p>Please see example tutorials:
-1) Simple walkthrough
-2) Preparing segmentations using StarDist.</p>
+1) <a href="https://morriso1.github.io/py_clone_detective/Tutorial_simple_walkthrough.html">Simple walkthrough</a>
+2) <a href="https://morriso1.github.io/py_clone_detective/Tutorial_StarDist_segmentation.html">Preparing segmentations using StarDist</a>.</p>
+<p>In progress, more to come!</p>
 
 </div>
 </div>
