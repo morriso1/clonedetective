@@ -3,9 +3,10 @@
 __all__ = ['clean_img_names', 'check_lists_identical', 'img_path_to_xarr', 'last2dims',
            'check_channels_input_suitable_and_return_channels', 'extend_region_properties_list',
            'add_scale_regionprops_table_area_measurements', 'lazy_props', 'reorder_df_to_put_ch_info_first',
-           'region_overlap', 'calculate_overlap', 'generate_touch_counting_image', 'calc_neighbours',
-           'get_all_labeled_clones_unmerged_and_merged', 'determine_labels_across_other_images_using_centroids',
-           'calculate_corresponding_labels', 'update_1st_coord_and_dim_of_xarr']
+           'region_overlap', 'calculate_overlap', 'generate_touch_counting_image', 'adjusted_cell_touch_images',
+           'calc_neighbours', 'get_all_labeled_clones_unmerged_and_merged',
+           'determine_labels_across_other_images_using_centroids', 'calculate_corresponding_labels',
+           'update_1st_coord_and_dim_of_xarr']
 
 # Cell
 import os
@@ -182,6 +183,24 @@ def generate_touch_counting_image(g_img):
     return cle.replace_intensities(g_img, counts)
 
 # Cell
+def adjusted_cell_touch_images(
+    total_neigh_counts, neg_neigh_neg, pos_neigh_pos, pos_binary_image
+):
+    neg_neigh_pos = (
+        total_neigh_counts - neg_neigh_neg - pos_neigh_pos
+    ) * pos_binary_image
+
+    pos_neigh_neg = (total_neigh_counts - neg_neigh_neg - pos_neigh_pos) * np.invert(
+        pos_binary_image
+    )
+
+    neg_neigh_counts = neg_neigh_neg + neg_neigh_pos
+
+    pos_neigh_counts = pos_neigh_pos + pos_neigh_neg
+
+    return neg_neigh_counts, pos_neigh_counts
+
+# Cell
 @delayed
 def calc_neighbours(lab_img, to_keep, calc_clones):
     g_lab_img = cle.push(lab_img)
@@ -196,13 +215,27 @@ def calc_neighbours(lab_img, to_keep, calc_clones):
 
     g_filtered_extended_lab = cle.push(filtered_extended_lab)
 
+    total_neigh_counts = cle.pull(
+        generate_touch_counting_image(cle.push(extended_lab_img))
+    )
+    pos_neigh_pos = cle.pull(
+        generate_touch_counting_image(cle.push(filtered_extended_lab))
+    )
+    neg_neigh_neg = cle.pull(
+        generate_touch_counting_image(cle.push(opposite_filtered_extended_lab))
+    )
+
+    neg_neigh_counts, pos_neigh_counts = adjusted_cell_touch_images(
+        total_neigh_counts, neg_neigh_neg, pos_neigh_pos, binary_filt
+    )
+
     stack = [
         extended_lab_img,
-        cle.pull(generate_touch_counting_image(cle.push(extended_lab_img))),
-        cle.pull(generate_touch_counting_image(g_filtered_extended_lab)),
-        cle.pull(
-            generate_touch_counting_image(cle.push(opposite_filtered_extended_lab))
-        ),
+        filtered_extended_lab,
+        opposite_filtered_extended_lab,
+        total_neigh_counts,
+        pos_neigh_counts,
+        neg_neigh_counts,
     ]
 
     if calc_clones:
@@ -221,13 +254,15 @@ def get_all_labeled_clones_unmerged_and_merged(
     total_seg_labels, labels_to_keep: dict, calc_clones: bool
 ):
     img_list = list()
-    first_dim = 4 + int(calc_clones)
+    first_dim = 6 + int(calc_clones)
     for key in total_seg_labels.coords["img_name"].values:
         try:
             img_list.append(
                 da.from_delayed(
                     calc_neighbours(
-                        total_seg_labels.loc[key, ...].data, labels_to_keep[key], calc_clones
+                        total_seg_labels.loc[key, ...].data,
+                        labels_to_keep[key],
+                        calc_clones,
                     ),
                     shape=(first_dim,) + total_seg_labels.shape[1:],
                     dtype=np.uint16,
