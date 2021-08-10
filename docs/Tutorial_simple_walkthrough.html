@@ -6,8 +6,8 @@ title: Simple Walkthrough
 keywords: fastai
 sidebar: home_sidebar
 
-summary: "For a more detailed walkthrough, please see individual tutorials."
-description: "For a more detailed walkthrough, please see individual tutorials."
+summary: "This tutorial provides a brief demonstration of py_clone_detective's core functionality. For a more detailed walkthrough, please see individual tutorials."
+description: "This tutorial provides a brief demonstration of py_clone_detective's core functionality. For a more detailed walkthrough, please see individual tutorials."
 nb_path: "03_Tutorial_simple_walkthrough.ipynb"
 ---
 <!--
@@ -31,13 +31,77 @@ nb_path: "03_Tutorial_simple_walkthrough.ipynb"
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Initiate-Dask-dashboard-(optional)">Initiate Dask dashboard (optional)<a class="anchor-link" href="#Initiate-Dask-dashboard-(optional)"> </a></h2>
+<h2 id="Background">Background<a class="anchor-link" href="#Background"> </a></h2>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Most functions in py_clone_detector are parallelised using <a href="https://dask.org/">Dask</a>. When using the Dask distributed scheduler, we can access an interactive dashboard that details the status, progress and history of our computations. While especially useful when working on a remote cluster, the interactive dashboard is a great addition even when working locally (e.g. MacBook).</p>
+<h3 id="Example-Dataset">Example Dataset<a class="anchor-link" href="#Example-Dataset"> </a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The example dataset used in this tutorial contains 2D immunofluorescence images of the <em>Drosophila</em> intestine obtained using a spinning-disc confocal microscope. The dataset is describes a "MARCM" experiment from the following <a href="https://doi.org/10.1016/j.celrep.2020.108423">paper</a>.</p>
+<p>MARCM is a genetic technique whereby mitotic recombination generates GFP-labelled homozygous mutant cells from heterozygous precursors. Over time, individually labelled cells divide adjacent to each other and create "clones" of mutant cells, surrounded by unlabelled wild-type cells:</p>
+<p>{% include image.html file="/py_clone_detective/docs/images/marcm_explanation.png" %}</p>
+<blockquote><p>Left:Genetic labelling by MARCM. Right: Labelled cells grow over time into 'clones'.</p>
+</blockquote>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>In this dataset, intestines were imaged using four channels:</p>
+<ul>
+<li>C0 : DAPI (nuclear marker)</li>
+<li>C1 : GFP (clone marker)</li>
+<li>C2 : PDM1 staining (EnteroCyte marker)</li>
+<li>C3 : Prospero staining (EndoEndocrine marker)</li>
+</ul>
+<p>{% include image.html width="400" max-width="400" file="/py_clone_detective/docs/images/marcm_slide2-01.png" %}</p>
+<blockquote><p>composite image</p>
+</blockquote>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Experimental-Aim">Experimental Aim<a class="anchor-link" href="#Experimental-Aim"> </a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Dataset images contain cells positive for an EnteroCyte marker, cells positive an EnteroEndocrine marker, and cells negative for both - stem/progenitor cells.</p>
+<p>We aim to:</p>
+<ul>
+<li>Quantify the number and type of cells present in each image.</li>
+<li>Classify whether each cell resides outside or inside a clone.</li>
+</ul>
+<p>As only cells inside a clone are mutant for our gene of interest, we can determine if our gene of interest regulates <strong>cell differentiation</strong> by comparing the percentage of each cell type inside vs. outside a clone. We can measure if our gene of interest regulates <strong>cell proliferation</strong> by comparing the number of cells per mutant clone, to the number of cells per control clone (clones generated in wild-type animals lacking any mutation).</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Walkthrough">Walkthrough<a class="anchor-link" href="#Walkthrough"> </a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Initiate-Dask-dashboard-(optional)">Initiate Dask dashboard (optional)<a class="anchor-link" href="#Initiate-Dask-dashboard-(optional)"> </a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Most functions in py_clone_detector are parallelised using <a href="https://dask.org/">Dask</a>. When using the Dask distributed scheduler, we can access an interactive dashboard that details our computations' status, progress, and history. While especially useful when working on a remote cluster, the interactive dashboard is a great addition even when working locally (e.g. MacBook).</p>
 
 </div>
 </div>
@@ -46,6 +110,8 @@ nb_path: "03_Tutorial_simple_walkthrough.ipynb"
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>For example, here is what the dashboard looks like when measuring cell properties using the <a href="/py_clone_detective/clone_counters.html#CloneCounter.make_measurements("><code>CloneCounter.make_measurements()</code></a>) call described below. Each line of the 'Task Stream' corresponds to one of 8 logical cores on my MacBook Pro.</p>
 <p><img src="/py_clone_detective/docs/images/dask.gif" alt="SegmentLocal" title="dask"></p>
+<blockquote><p>example Dask dashboard</p>
+</blockquote>
 
 </div>
 </div>
@@ -93,7 +159,8 @@ nb_path: "03_Tutorial_simple_walkthrough.ipynb"
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Import-and-instantiate-CloneCounter-subclass:">Import and instantiate CloneCounter subclass:<a class="anchor-link" href="#Import-and-instantiate-CloneCounter-subclass:"> </a></h2><p>The LazyCloneCounter subclass uses Dask to lazy load image series that maybe too large to fit in RAM. If your data is small enough to fit into RAM, you can speed things up by using the PersistentCloneCounter subclass.</p>
+<h3 id="Import-and-instantiate-CloneCounter-subclass:">Import and instantiate CloneCounter subclass:<a class="anchor-link" href="#Import-and-instantiate-CloneCounter-subclass:"> </a></h3><p>The LazyCloneCounter subclass uses Dask to lazy load image series that may be too large to fit in RAM. If your data is small enough to fit into RAM, you can speed things up using the PersistentCloneCounter subclass.</p>
+<p>For more details, see the advanced tutorial.</p>
 
 </div>
 </div>
@@ -118,10 +185,19 @@ nb_path: "03_Tutorial_simple_walkthrough.ipynb"
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>We intialise a LazyCloneCounter with four required arguments:</p>
-<p>1) <strong>exp_name</strong> : str -&gt; name of the experiment
-2) <strong>img_name_regex</strong> : str -&gt; regular expression used to extract unique identifies from image filenames
-3) <strong>pixel_size</strong> : str -&gt; pixel size in $\mu m^{2}$
-4) <strong>tot_seg_ch</strong> : str -&gt; image channel used to define the total number of cells e.g. DAPI channel.</p>
+<ul>
+<li><strong>exp_name</strong> : str -&gt; name of the experiment</li>
+<li><strong>img_name_regex</strong> : str -&gt; regular expression used to extract unique identifies from image filenames</li>
+<li><strong>pixel_size</strong> : str -&gt; pixel size in $\mu m^{2}$</li>
+<li><strong>tot_seg_ch</strong> : str -&gt; image channel used to define the total number of cells e.g. DAPI channel.</li>
+</ul>
+<p>In this experiment, images are labelled as follows:</p>
+<ul>
+<li><em>'a1'</em> if from a wild-type animal. <em>'a2'</em> if from a mutant animal.</li>
+<li><em>'g01'</em> for gut 1. <em>'g02'</em> for gut 2 etc.</li>
+<li><em>'p1'</em> for position 1. <em>'p2'</em> for position 2 etc.</li>
+</ul>
+<p>Image names such as <em>'a1g01p1'</em> can thus be parsed using the regular expression "a\dg\d\dp\d".</p>
 
 </div>
 </div>
@@ -150,20 +226,14 @@ nb_path: "03_Tutorial_simple_walkthrough.ipynb"
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Load-images-and-segmentations">Load images and segmentations<a class="anchor-link" href="#Load-images-and-segmentations"> </a></h2>
+<h3 id="Load-images-and-segmentations">Load images and segmentations<a class="anchor-link" href="#Load-images-and-segmentations"> </a></h3>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>We add images to the LazyCloneCounter instance by passing filename "glob" for each of the image channel.</p>
-<p>In this experiment, there are four image channels:</p>
-<ul>
-<li>C0 : DAPI (nuclear marker)</li>
-<li>C1 : GFP (clone marker)</li>
-<li>C2 : PDM1 staining (EnteroCyte marker)</li>
-<li>C3 : Prospero staining (EndoEndocrine marker)</li>
-</ul>
+<p>We add images to the LazyCloneCounter instance by passing a filename "glob" for each of the image channel.</p>
+<p>In this experiment, there are four image channels (C0, C1, C2 and C3).</p>
 
 </div>
 </div>
@@ -1509,7 +1579,7 @@ Data variables:
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Measure-cell-properties">Measure cell properties<a class="anchor-link" href="#Measure-cell-properties"> </a></h2>
+<h3 id="Measure-cell-properties">Measure cell properties<a class="anchor-link" href="#Measure-cell-properties"> </a></h3>
 </div>
 </div>
 </div>
