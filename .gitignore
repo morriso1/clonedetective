@@ -141,3 +141,7 @@ checklink/cookies.txt
 
 # dask stuff
 dask-worker-space
+
+# stuff for rendering docs locally
+docs/.bundle/
+docs/vendor/
