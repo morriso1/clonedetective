@@ -9,6 +9,18 @@ entries:
     - output: web,pdf
       title: Overview
       url: /
+    output: web
+    title: py_clone_detective
+  - folderitems:
+    - output: web,pdf
+      title: Simple Walkthrough
+      url: Tutorial_simple_walkthrough.html
+    - output: web,pdf
+      title: Example nuclei segmentation using StarDist
+      url: Tutorial_StarDist_segmentation.html
+    output: web
+    title: Tutorials
+  - folderitems:
     - output: web,pdf
       title: Utils
       url: utils.html
@@ -18,13 +30,7 @@ entries:
     - output: web,pdf
       title: Clone Analysis Functions
       url: clone_analysis.html
-    - output: web,pdf
-      title: Simple Walkthrough
-      url: Tutorial_simple_walkthrough.html
-    - output: web,pdf
-      title: Example nuclei segmentation using StarDist
-      url: Tutorial_StarDist_segmentation.html
     output: web
-    title: py_clone_detective
+    title: Documentation
   output: web
   title: Sidebar

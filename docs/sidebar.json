@@ -1,10 +1,14 @@
 {
   "py_clone_detective": {
-    "Overview": "/",
-    "Utils": "utils.html",
-    "CloneCounter Classes": "clone_counters.html",
-    "Clone Analysis Functions": "clone_analysis.html",
+    "Overview": "/"
+  },
+  "Tutorials": {
     "Simple Walkthrough": "Tutorial_simple_walkthrough.html",
     "Example nuclei segmentation using StarDist": "Tutorial_StarDist_segmentation.html"
+  },
+  "Documentation": {
+    "Utils": "utils.html",
+    "CloneCounter Classes": "clone_counters.html",
+    "Clone Analysis Functions": "clone_analysis.html"
   }
 }
