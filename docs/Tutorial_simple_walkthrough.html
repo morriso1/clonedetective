@@ -2419,7 +2419,7 @@ As a default,<a href="/py_clone_detective/clone_counters.html#CloneCounter.make_
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Add-clones-and-determine-the-number-of-touching-neighbours">Add clones and determine the number of touching neighbours<a class="anchor-link" href="#Add-clones-and-determine-the-number-of-touching-neighbours"> </a></h3>
+<h3 id="Testing-out-thresholds">Testing out thresholds<a class="anchor-link" href="#Testing-out-thresholds"> </a></h3>
 </div>
 </div>
 </div>
@@ -2474,8 +2474,8 @@ As a default,<a href="/py_clone_detective/clone_counters.html#CloneCounter.make_
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>From this test, we can see that a mean intensity threshold of 1000 appears roughly suitable, as its binary image on the left keeps most of the GFP positive cells, while exclude GFP negative cells.</p>
-<p>If we were still unhappy with this as a simple threshold, we could increase our stringency by adding after property to threshold on. Below, we keep a mean intensity threshold constant at 1000, while varying an additional eccentricity threshold:</p>
+<p>From this test, we can see that a mean intensity threshold of 1000 appears roughly suitable, as its binary image on the left keeps most of the GFP positive cells, while excluding GFP negative cells.</p>
+<p>If we were still unhappy with this as a simple threshold, we could increase stringency by adding another threshold on a different cell measurement. Below, we keep a mean intensity threshold constant at 1000, while varying an additional eccentricity threshold:</p>
 
 </div>
 </div>
@@ -2525,6 +2525,18 @@ As a default,<a href="/py_clone_detective/clone_counters.html#CloneCounter.make_
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>In this example, most cells are pretty round and so both eccentricity == 0 and eccentricity == 0.3 look suitable.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Add-clones-and-determine-the-number-of-touching-neighbours">Add clones and determine the number of touching neighbours<a class="anchor-link" href="#Add-clones-and-determine-the-number-of-touching-neighbours"> </a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <p>Once we have decided on a threshold, we can plug it into the <a href="/py_clone_detective/clone_counters.html#CloneCounter.add_clones_and_neighbouring_labels"><code>CloneCounter.add_clones_and_neighbouring_labels</code></a> method and apply it to all images:</p>
 
 </div>
@@ -3529,7 +3541,7 @@ Data variables:
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>To illustrate what these new images are, lets plot and walkthrough them for a particular <code>img_name</code>. To aid explanation, lets also first plot the original total segmentation image.</p>
+<p>To illustrate what these new images are, lets plot a set for a particular <code>img_name</code>. To aid explanation, lets also first plot the original total segmentation image.</p>
 <p>Below if a little function to help with plotting:</p>
 
 </div>
