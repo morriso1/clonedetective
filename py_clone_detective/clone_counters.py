@@ -3,6 +3,7 @@
 __all__ = ['CloneCounter', 'LazyCloneCounter', 'PersistentCloneCounter']
 
 # Cell
+import re
 from functools import partial, reduce
 from glob import glob
 from typing import Callable
@@ -12,6 +13,7 @@ import dask.dataframe as dd
 import numpy as np
 import pandas as pd
 import xarray as xr
+from matplotlib import pyplot as plt
 from skimage import measure
 
 from py_clone_detective import clone_analysis as ca
@@ -26,6 +28,7 @@ from .utils import (
     img_path_to_xarr,
     last2dims,
     lazy_props,
+    plot_threshold_imgs_side_by_side,
     reorder_df_to_put_ch_info_first,
     update_1st_coord_and_dim_of_xarr,
 )
@@ -193,6 +196,44 @@ class CloneCounter:
         self.results_overlaps = df[
             ["img_name", "C0_labels", "colocalisation_ch", "is_in_label"]
         ]
+
+    def testing_possible_thresholds(
+        self,
+        int_img: str,
+        int_img_ch: str,
+        seg_img_ch: str,
+        threshold_list: list,
+        threshold_constant: int = None,
+        threshold_query: str = "mean_intensity > threshold_list & eccentricity > threshold_constant",
+    ):
+        img = (
+            self.image_data["images"]
+            .sel(img_channels=int_img_ch, img_name=int_img)
+            .compute()
+        ).data
+
+        seg = (
+            self.image_data["segmentations"]
+            .sel(seg_channels=seg_img_ch, img_name=int_img)
+            .compute()
+        ).data
+
+        df = self.results_measurements.query(
+            "int_img == @int_img & int_img_ch == @int_img_ch & seg_ch == @seg_img_ch"
+        )
+
+        if threshold_constant is not None:
+            threshold_query = re.sub(
+                "threshold_constant", str(threshold_constant), threshold_query
+            )
+
+        thresh_img_dict = dict()
+        for value in threshold_list:
+            specific_query = re.sub("threshold_list", str(value), threshold_query)
+            to_keep = df.query(specific_query)["label"].values
+            thresh_img_dict[specific_query] = np.isin(seg, to_keep)
+
+        plot_threshold_imgs_side_by_side(img, thresh_img_dict)
 
     def filter_labels_update_measurements_df_and_to_dict(
         self, query_for_pd: str, name_for_query: str
