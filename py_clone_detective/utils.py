@@ -3,8 +3,8 @@
 __all__ = ['clean_img_names', 'check_lists_identical', 'img_path_to_xarr', 'last2dims',
            'check_channels_input_suitable_and_return_channels', 'extend_region_properties_list',
            'add_scale_regionprops_table_area_measurements', 'lazy_props', 'reorder_df_to_put_ch_info_first',
-           'region_overlap', 'calculate_overlap', 'generate_touch_counting_image', 'adjusted_cell_touch_images',
-           'calc_neighbours', 'get_all_labeled_clones_unmerged_and_merged',
+           'plot_threshold_imgs_side_by_side', 'region_overlap', 'calculate_overlap', 'generate_touch_counting_image',
+           'adjusted_cell_touch_images', 'calc_neighbours', 'get_all_labeled_clones_unmerged_and_merged',
            'determine_labels_across_other_images_using_centroids', 'calculate_corresponding_labels',
            'update_1st_coord_and_dim_of_xarr']
 
@@ -146,6 +146,25 @@ def reorder_df_to_put_ch_info_first(df):
     first_cols.extend(df.columns)
     first_cols = sorted(set(first_cols), key=first_cols.index)
     return df[first_cols]
+
+# Cell
+def plot_threshold_imgs_side_by_side(img, thresh_img_dict):
+    fig = plt.figure(figsize=(6, 3 * len(thresh_img_dict)))
+    fig.suptitle(" ")
+    subfigs = fig.subfigures(nrows=len(thresh_img_dict), ncols=1)
+
+    for subfig, (key, value) in zip(subfigs, thresh_img_dict.items()):
+        subfig.suptitle(key, y=0.95)
+
+        # create 1x2 subplots per subfig
+        ax = subfig.subplots(nrows=1, ncols=2)
+        ax[0].imshow(value, cmap="gray")
+        ax[1].imshow(img, cmap="gray")
+        ax[0].axis("off")
+        ax[1].axis("off")
+
+    plt.tight_layout()
+    plt.subplots_adjust(top=0.85)
 
 # Cell
 def region_overlap(
