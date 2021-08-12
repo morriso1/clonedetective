@@ -250,15 +250,15 @@ def calc_neighbours(lab_img, to_keep, calc_clones):
 
     stack = [
         extended_lab_img,
-        filtered_extended_lab,
         opposite_filtered_extended_lab,
+        filtered_extended_lab,
         total_neigh_counts,
         pos_neigh_counts,
         neg_neigh_counts,
     ]
 
     if calc_clones:
-        stack.append(
+        stack.insert(3,
             cle.pull(
                 cle.connected_components_labeling_box(
                     cle.merge_touching_labels(g_filtered_extended_lab)

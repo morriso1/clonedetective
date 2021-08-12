@@ -281,15 +281,15 @@ class CloneCounter:
     ):
         new_coord = [
             "extended_tot_seg_labels",
-            f"{name_for_query}_pos_labels",
             f"{name_for_query}_neg_labels",
+            f"{name_for_query}_pos_labels",
             "total_neighbour_counts",
             f"{name_for_query}pos_neigh_counts",
             f"{name_for_query}neg_neigh_counts",
         ]
 
         if calc_clones:
-            new_coord.append(f"{name_for_query}_clone")
+            new_coord.insert(3, f"{name_for_query}_clone")
 
         clone_coords, clone_dims = update_1st_coord_and_dim_of_xarr(
             self.image_data["images"],
