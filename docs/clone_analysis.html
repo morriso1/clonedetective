@@ -317,44 +317,14 @@ additional_agg_functions = {"mean_intensity": [np.mean, np.std]}</p>
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">exp</span><span class="o">.</span><span class="n">results_measurements</span> <span class="o">=</span> <span class="n">exp</span><span class="o">.</span><span class="n">results_measurements</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span>
     <span class="s2">&quot;total_intensity = mean_intensity * area&quot;</span>
 <span class="p">)</span>
-</pre></div>
 
-    </div>
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">exp</span><span class="o">.</span><span class="n">add_clones_and_neighbouring_labels</span><span class="p">(</span>
+<span class="n">exp</span><span class="o">.</span><span class="n">add_clones_and_neighbouring_labels</span><span class="p">(</span>
     <span class="n">query_for_pd</span><span class="o">=</span><span class="s1">&#39;int_img_ch == &quot;C2&quot; &amp; total_intensity &gt; 5e5&#39;</span><span class="p">,</span>
     <span class="n">name_for_query</span><span class="o">=</span><span class="s2">&quot;C2&quot;</span><span class="p">,</span>
     <span class="n">calc_clones</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
 <span class="p">)</span>
-</pre></div>
 
-    </div>
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">exp</span><span class="o">.</span><span class="n">add_clones_and_neighbouring_labels</span><span class="p">(</span>
+<span class="n">exp</span><span class="o">.</span><span class="n">add_clones_and_neighbouring_labels</span><span class="p">(</span>
     <span class="n">query_for_pd</span><span class="o">=</span><span class="s1">&#39;int_img_ch == &quot;C3&quot; &amp; mean_intensity &gt; 5000&#39;</span><span class="p">,</span>
     <span class="n">name_for_query</span><span class="o">=</span><span class="s2">&quot;C3&quot;</span><span class="p">,</span>
     <span class="n">calc_clones</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
