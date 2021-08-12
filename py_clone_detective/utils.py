@@ -253,8 +253,8 @@ def calc_neighbours(lab_img, to_keep, calc_clones):
         opposite_filtered_extended_lab,
         filtered_extended_lab,
         total_neigh_counts,
-        pos_neigh_counts,
         neg_neigh_counts,
+        pos_neigh_counts,
     ]
 
     if calc_clones:

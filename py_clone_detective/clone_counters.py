@@ -284,8 +284,8 @@ class CloneCounter:
             f"{name_for_query}_neg_labels",
             f"{name_for_query}_pos_labels",
             "total_neighbour_counts",
-            f"{name_for_query}pos_neigh_counts",
             f"{name_for_query}neg_neigh_counts",
+            f"{name_for_query}pos_neigh_counts",
         ]
 
         if calc_clones:
