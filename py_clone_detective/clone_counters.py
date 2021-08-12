@@ -94,7 +94,7 @@ class CloneCounter:
         sk_df.index.rename(["img_name", "C0_labels"], inplace=True)
         return pd.merge(ov_df, sk_df, left_index=True, right_index=True)
 
-    def determine_seg_img_channel_pairs(
+    def _determine_seg_img_channel_pairs(
         self, seg_channels: list = None, img_channels: list = None
     ):
         seg_channels = check_channels_input_suitable_and_return_channels(
@@ -122,7 +122,7 @@ class CloneCounter:
         **kwargs,
     ):
 
-        self.determine_seg_img_channel_pairs(seg_channels, img_channels)
+        self._determine_seg_img_channel_pairs(seg_channels, img_channels)
 
         properties = extend_region_properties_list(extra_properties)
 
@@ -235,7 +235,7 @@ class CloneCounter:
 
         plot_threshold_imgs_side_by_side(img, thresh_img_dict)
 
-    def filter_labels_update_measurements_df_and_to_dict(
+    def _filter_labels_update_measurements_df_and_to_dict(
         self, query_for_pd: str, name_for_query: str
     ):
 
@@ -260,7 +260,7 @@ class CloneCounter:
             .to_dict()
         )
 
-    def get_centroids_list(self):
+    def _get_centroids_list(self):
         df = self.results_measurements.query("int_img_ch == @self.tot_seg_ch")
         centroids_list = list()
         for img_name in df["int_img"].unique():
@@ -297,7 +297,7 @@ class CloneCounter:
             new_dim=f"{name_for_query}_neighbours",
         )
 
-        labels_to_keep = self.filter_labels_update_measurements_df_and_to_dict(
+        labels_to_keep = self._filter_labels_update_measurements_df_and_to_dict(
             query_for_pd, name_for_query
         )
 
@@ -314,7 +314,7 @@ class CloneCounter:
             attrs={f"{self.tot_seg_ch}_labels_kept_query": query_for_pd},
         )
 
-    def colabels_to_df(self, colabels, name_for_query):
+    def _colabels_to_df(self, colabels, name_for_query):
         return (
             xr.DataArray(
                 colabels,
@@ -340,10 +340,9 @@ class CloneCounter:
         )
 
     def measure_clones_and_neighbouring_labels(self, name_for_query):
-        self.get_centroids_list()
         colabels = calculate_corresponding_labels(
             self.image_data[name_for_query].data,
-            self.get_centroids_list(),
+            self._get_centroids_list(),
             self.image_data[name_for_query].shape[0],
             self.tot_seg_ch_max_labels,
         )
@@ -351,7 +350,7 @@ class CloneCounter:
         if not hasattr(self, "results_clones_and_neighbour_counts"):
             self.results_clones_and_neighbour_counts = dict()
 
-        self.results_clones_and_neighbour_counts[name_for_query] = self.colabels_to_df(
+        self.results_clones_and_neighbour_counts[name_for_query] = self._colabels_to_df(
             colabels, name_for_query
         )
 
