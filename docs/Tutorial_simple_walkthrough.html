@@ -3848,7 +3848,7 @@ Data variables:
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>We also define a preEC cell type, which have a large nuclei but are not positive for PDM1 staining or Prospero staining.</p>
+<p>We also define a preEC cell type, which have large nuclei but are not positive for PDM1 staining or Prospero staining.</p>
 
 </div>
 </div>
@@ -3861,7 +3861,7 @@ Data variables:
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">exp</span><span class="o">.</span><span class="n">add_clones_and_neighbouring_labels</span><span class="p">(</span>
-    <span class="n">query_for_pd</span><span class="o">=</span><span class="s1">&#39;int_img_ch == &quot;C2&quot; &amp; seg_ch == &quot;C0&quot; &amp; total_intensity &lt; 5e5 &amp; area_um2 &gt; 50&#39;</span><span class="p">,</span>
+    <span class="n">query_for_pd</span><span class="o">=</span><span class="s1">&#39;not EC_pos &amp; not EE_pos &amp; area_um2 &gt; 50&#39;</span><span class="p">,</span>
     <span class="n">name_for_query</span><span class="o">=</span><span class="s2">&quot;preEC&quot;</span><span class="p">,</span>
     <span class="n">calc_clones</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
 <span class="p">)</span>
@@ -3876,7 +3876,7 @@ Data variables:
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Finally, we define a progenitor cell population of Intestinal Stem Cells (ISCs) and EnteroBlasts (EBs). These are negative for both Pro</p>
+<p>Finally, we define a progenitor cell population of Intestinal Stem Cells (ISCs) and EnteroBlasts (EBs). These have small nuclei and are negative for Prospero and PDM1 staining.</p>
 
 </div>
 </div>
@@ -3889,323 +3889,13 @@ Data variables:
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">exp</span><span class="o">.</span><span class="n">add_clones_and_neighbouring_labels</span><span class="p">(</span>
-    <span class="n">query_for_pd</span><span class="o">=</span><span class="s1">&#39;int_img_ch == &quot;C2&quot; &amp; seg_ch == &quot;C0&quot; &amp; total_intensity &lt; 5e5 &amp; area_um2 &lt; 50&#39;</span><span class="p">,</span>
+    <span class="n">query_for_pd</span><span class="o">=</span><span class="s1">&#39;not EC_pos &amp; not EE_pos &amp; area_um2 &lt; 50&#39;</span><span class="p">,</span>
     <span class="n">name_for_query</span><span class="o">=</span><span class="s2">&quot;ISC_or_EB&quot;</span><span class="p">,</span>
     <span class="n">calc_clones</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 
     </div>
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">exp</span><span class="o">.</span><span class="n">results_measurements</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;EC_pos == EE_pos == True&quot;</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_html rendered_html output_subarea output_execute_result">
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>seg_ch</th>
-      <th>int_img_ch</th>
-      <th>seg_img</th>
-      <th>int_img</th>
-      <th>label</th>
-      <th>area</th>
-      <th>mean_intensity</th>
-      <th>centroid-0</th>
-      <th>centroid-1</th>
-      <th>eccentricity</th>
-      <th>area_um2</th>
-      <th>C1_pos</th>
-      <th>total_intensity</th>
-      <th>EC_pos</th>
-      <th>preEC_pos</th>
-      <th>EE_pos</th>
-      <th>ISC_or_EB_pos</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>276</th>
-      <td>C0</td>
-      <td>C0</td>
-      <td>a1g01p1</td>
-      <td>a1g01p1</td>
-      <td>70</td>
-      <td>633</td>
-      <td>5179.017378</td>
-      <td>246.238547</td>
-      <td>677.533965</td>
-      <td>0.840966</td>
-      <td>47.870625</td>
-      <td>True</td>
-      <td>3278318.0</td>
-      <td>True</td>
-      <td>False</td>
-      <td>True</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>277</th>
-      <td>C0</td>
-      <td>C1</td>
-      <td>a1g01p1</td>
-      <td>a1g01p1</td>
-      <td>70</td>
-      <td>633</td>
-      <td>5321.210111</td>
-      <td>246.238547</td>
-      <td>677.533965</td>
-      <td>0.840966</td>
-      <td>47.870625</td>
-      <td>True</td>
-      <td>3368326.0</td>
-      <td>True</td>
-      <td>False</td>
-      <td>True</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>278</th>
-      <td>C0</td>
-      <td>C2</td>
-      <td>a1g01p1</td>
-      <td>a1g01p1</td>
-      <td>70</td>
-      <td>633</td>
-      <td>1456.003160</td>
-      <td>246.238547</td>
-      <td>677.533965</td>
-      <td>0.840966</td>
-      <td>47.870625</td>
-      <td>True</td>
-      <td>921650.0</td>
-      <td>True</td>
-      <td>False</td>
-      <td>True</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>279</th>
-      <td>C0</td>
-      <td>C3</td>
-      <td>a1g01p1</td>
-      <td>a1g01p1</td>
-      <td>70</td>
-      <td>633</td>
-      <td>5870.906793</td>
-      <td>246.238547</td>
-      <td>677.533965</td>
-      <td>0.840966</td>
-      <td>47.870625</td>
-      <td>True</td>
-      <td>3716284.0</td>
-      <td>True</td>
-      <td>False</td>
-      <td>True</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>560</th>
-      <td>C0</td>
-      <td>C0</td>
-      <td>a1g01p1</td>
-      <td>a1g01p1</td>
-      <td>141</td>
-      <td>882</td>
-      <td>5170.695011</td>
-      <td>419.170068</td>
-      <td>119.404762</td>
-      <td>0.582299</td>
-      <td>66.701250</td>
-      <td>False</td>
-      <td>4560553.0</td>
-      <td>True</td>
-      <td>False</td>
-      <td>True</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-    </tr>
-    <tr>
-      <th>76699</th>
-      <td>C0</td>
-      <td>C3</td>
-      <td>a2g09p3</td>
-      <td>a2g09p3</td>
-      <td>65</td>
-      <td>368</td>
-      <td>6457.035326</td>
-      <td>201.076087</td>
-      <td>315.375000</td>
-      <td>0.827675</td>
-      <td>27.830000</td>
-      <td>False</td>
-      <td>2376189.0</td>
-      <td>True</td>
-      <td>False</td>
-      <td>True</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>78696</th>
-      <td>C0</td>
-      <td>C0</td>
-      <td>a2g10p2</td>
-      <td>a2g10p2</td>
-      <td>41</td>
-      <td>654</td>
-      <td>4658.697248</td>
-      <td>277.941896</td>
-      <td>733.157492</td>
-      <td>0.773488</td>
-      <td>49.458750</td>
-      <td>False</td>
-      <td>3046788.0</td>
-      <td>True</td>
-      <td>False</td>
-      <td>True</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>78697</th>
-      <td>C0</td>
-      <td>C1</td>
-      <td>a2g10p2</td>
-      <td>a2g10p2</td>
-      <td>41</td>
-      <td>654</td>
-      <td>87.758410</td>
-      <td>277.941896</td>
-      <td>733.157492</td>
-      <td>0.773488</td>
-      <td>49.458750</td>
-      <td>False</td>
-      <td>57394.0</td>
-      <td>True</td>
-      <td>False</td>
-      <td>True</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>78698</th>
-      <td>C0</td>
-      <td>C2</td>
-      <td>a2g10p2</td>
-      <td>a2g10p2</td>
-      <td>41</td>
-      <td>654</td>
-      <td>1997.519878</td>
-      <td>277.941896</td>
-      <td>733.157492</td>
-      <td>0.773488</td>
-      <td>49.458750</td>
-      <td>False</td>
-      <td>1306378.0</td>
-      <td>True</td>
-      <td>False</td>
-      <td>True</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>78699</th>
-      <td>C0</td>
-      <td>C3</td>
-      <td>a2g10p2</td>
-      <td>a2g10p2</td>
-      <td>41</td>
-      <td>654</td>
-      <td>6077.879205</td>
-      <td>277.941896</td>
-      <td>733.157492</td>
-      <td>0.773488</td>
-      <td>49.458750</td>
-      <td>False</td>
-      <td>3974933.0</td>
-      <td>True</td>
-      <td>False</td>
-      <td>True</td>
-      <td>False</td>
-    </tr>
-  </tbody>
-</table>
-<p>140 rows × 17 columns</p>
-</div>
-</div>
-
-</div>
-
 </div>
 </div>
 
