@@ -148,23 +148,24 @@ def reorder_df_to_put_ch_info_first(df):
     return df[first_cols]
 
 # Cell
-def plot_threshold_imgs_side_by_side(img, thresh_img_dict):
-    fig = plt.figure(figsize=(6, 3 * len(thresh_img_dict)))
+def plot_threshold_imgs_side_by_side(img, thresh_img_dict, int_img_ch, seg_img_ch):
+    fig, axes = plt.subplots(
+        nrows=len(thresh_img_dict), ncols=2, figsize=(6, 3 * len(thresh_img_dict))
+    )
     fig.suptitle(" ")
-    subfigs = fig.subfigures(nrows=len(thresh_img_dict), ncols=1)
 
-    for subfig, (key, value) in zip(subfigs, thresh_img_dict.items()):
-        subfig.suptitle(key, y=0.95)
+    for ax, (key, value) in zip(axes, thresh_img_dict.items()):
+        #separate long query across mulitple lines
+        key = re.sub(r"&", r"\n&", key)
 
-        # create 1x2 subplots per subfig
-        ax = subfig.subplots(nrows=1, ncols=2)
         ax[0].imshow(value, cmap="gray")
+        ax[0].set_title(f"{seg_img_ch} labels that meet threshold:\n{key}")
         ax[1].imshow(img, cmap="gray")
+        ax[1].set_title(f"{int_img_ch} channel image")
         ax[0].axis("off")
         ax[1].axis("off")
 
     plt.tight_layout()
-    plt.subplots_adjust(top=0.85)
 
 # Cell
 def region_overlap(

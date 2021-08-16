@@ -233,7 +233,7 @@ class CloneCounter:
             to_keep = df.query(specific_query)["label"].values
             thresh_img_dict[specific_query] = np.isin(seg, to_keep)
 
-        plot_threshold_imgs_side_by_side(img, thresh_img_dict)
+        plot_threshold_imgs_side_by_side(img, thresh_img_dict, int_img_ch, seg_img_ch)
 
     def _filter_labels_update_measurements_df_and_to_dict(
         self, query_for_pd: str, name_for_query: str
