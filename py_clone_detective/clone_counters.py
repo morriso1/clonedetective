@@ -350,12 +350,12 @@ class CloneCounter:
         if not hasattr(self, "results_clones_and_neighbour_counts"):
             self.results_clones_and_neighbour_counts = dict()
 
-        self.results_clones_and_neighbour_counts[name_for_query] = self._colabels_to_df(
-            colabels, name_for_query
-        )
+        df = self._colabels_to_df(colabels, name_for_query)
 
-        self.results_clones_and_neighbour_counts[name_for_query].index.rename(
-            ["int_img", "label"], inplace=True
+        df.index.rename(["int_img", "label"], inplace=True)
+
+        self.results_clones_and_neighbour_counts[name_for_query] = df.drop(
+            columns=df.filter(regex=r"labels").columns
         )
 
     def combine_neighbour_counts_and_measurements(self):
@@ -373,11 +373,7 @@ class CloneCounter:
             list_df,
         )
 
-        cols_to_drop = merged_df.filter(regex="_labels|extra").columns.tolist() + [
-            "extended_tot_seg_labels"
-        ]
-
-        return merged_df.drop(columns=cols_to_drop)
+        return merged_df.drop(columns=merged_df.filter(regex="extra").columns)
 
 # Cell
 class LazyCloneCounter(CloneCounter):
