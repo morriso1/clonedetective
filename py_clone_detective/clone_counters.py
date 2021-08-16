@@ -373,7 +373,7 @@ class CloneCounter:
             list_df,
         )
 
-        return merged_df.drop(columns=merged_df.filter(regex="extra").columns)
+        return merged_df.drop(columns=merged_df.filter(regex="extra").columns).reset_index()
 
 # Cell
 class LazyCloneCounter(CloneCounter):
