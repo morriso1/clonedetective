@@ -4485,8 +4485,8 @@ Data variables:
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">statsmodels.formula.api</span> <span class="k">as</span> <span class="nn">smf</span>
-<span class="kn">import</span> <span class="nn">statsmodels.api</span> <span class="k">as</span> <span class="nn">sm</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">statsmodels.api</span> <span class="k">as</span> <span class="nn">sm</span>
+<span class="kn">import</span> <span class="nn">statsmodels.formula.api</span> <span class="k">as</span> <span class="nn">smf</span>
 </pre></div>
 
     </div>
@@ -4586,8 +4586,8 @@ Data variables:
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Next, let's investigate whether the types of cells inside and outside are different in ctrl and mutant animals. This information will help us determine whether are gene of interest affects <strong>cell differentiation</strong>.</p>
-<p>First, since we already know that 'mutant' clones possess fewer cells than 'ctrl' clones, it useful to summarise cell types a percentage.</p>
+<p>Next, let's investigate whether the types of cells inside and outside clones are different in ctrl and mutant animals. This information will help us determine whether our gene of interest affects <strong>cell differentiation</strong>.</p>
+<p>First, since we already know that 'mutant' clones possess fewer cells than 'ctrl' clones, it is helpful to summarise cell types as a percentage.</p>
 
 </div>
 </div>
@@ -4928,68 +4928,13 @@ Data variables:
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">lm</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="s2">&quot;perc_cell_num ~ comp_g_cs_ct&quot;</span><span class="p">,</span> <span class="n">tidy_percentage_df</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
-<span class="n">stat_df</span> <span class="o">=</span> <span class="n">lm</span><span class="o">.</span><span class="n">t_test_pairwise</span><span class="p">(</span>
-    <span class="s2">&quot;comp_g_cs_ct&quot;</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;fdr_bh&quot;</span>
-<span class="p">)</span><span class="o">.</span><span class="n">result_frame</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
-
+<span class="n">stat_df</span> <span class="o">=</span> <span class="n">lm</span><span class="o">.</span><span class="n">t_test_pairwise</span><span class="p">(</span><span class="s2">&quot;comp_g_cs_ct&quot;</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;fdr_bh&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">result_frame</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="c1"># clean up column names</span>
 <span class="n">stat_df</span> <span class="o">=</span> <span class="n">stat_df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span>
-    <span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;index&quot;</span><span class="p">:</span> <span class="s2">&quot;comparisons&quot;</span><span class="p">,</span> <span class="s2">&quot;pvalue-fdr_bh&quot;</span><span class="p">:</span> <span class="s2">&quot;pvalue_fdr_bh&quot;</span><span class="p">}</span>
+    <span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;index&quot;</span><span class="p">:</span> <span class="s2">&quot;comparisons&quot;</span><span class="p">,</span> <span class="s2">&quot;pvalue-fdr_bh&quot;</span><span class="p">:</span> <span class="s2">&quot;pvalue_fdr_bh&quot;</span><span class="p">,</span> <span class="s2">&quot;reject-fdr_bh&quot;</span><span class="p">:</span><span class="s2">&quot;reject_fdr_bh&quot;</span><span class="p">}</span>
 <span class="p">)</span>
-</pre></div>
 
-    </div>
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">comparisons</span> <span class="o">=</span> <span class="n">stat_df</span><span class="p">[</span><span class="s1">&#39;comparisons&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">expand</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">comparisons</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;group_1&#39;</span><span class="p">,</span> <span class="s1">&#39;group_2&#39;</span><span class="p">]</span>
-<span class="n">stat_df</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">comparisons</span><span class="p">[</span><span class="s1">&#39;group_1&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">comparisons</span><span class="p">[</span><span class="s1">&#39;group_1&#39;</span><span class="p">])</span>
-<span class="n">stat_df</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">comparisons</span><span class="p">[</span><span class="s1">&#39;group_2&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">comparisons</span><span class="p">[</span><span class="s1">&#39;group_2&#39;</span><span class="p">])</span>
-<span class="n">stat_df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;comparisons&#39;</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">to_filter</span> <span class="o">=</span> <span class="n">stat_df</span><span class="p">[</span><span class="s1">&#39;group_1&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">,</span> <span class="n">expand</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="n">stat_df</span><span class="p">[</span><span class="s1">&#39;group_2&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">,</span> <span class="n">expand</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">2</span><span class="p">]</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">stat_df</span><span class="p">[</span><span class="n">to_filter</span><span class="p">]</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<span class="n">stat_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 
     </div>
@@ -5021,8 +4966,7 @@ Data variables:
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>group_1</th>
-      <th>group_2</th>
+      <th>comparisons</th>
       <th>coef</th>
       <th>std err</th>
       <th>t</th>
@@ -5030,14 +4974,150 @@ Data variables:
       <th>Conf. Int. Low</th>
       <th>Conf. Int. Upp.</th>
       <th>pvalue_fdr_bh</th>
-      <th>reject-fdr_bh</th>
+      <th>reject_fdr_bh</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>ctrl_IC_EE-ctrl_IC_EC</td>
+      <td>-38.305810</td>
+      <td>2.294371</td>
+      <td>-16.695562</td>
+      <td>1.255696e-58</td>
+      <td>-42.805461</td>
+      <td>-33.806158</td>
+      <td>9.417720e-58</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>ctrl_IC_ISCorEB-ctrl_IC_EC</td>
+      <td>15.114012</td>
+      <td>2.294371</td>
+      <td>6.587432</td>
+      <td>5.726200e-11</td>
+      <td>10.614360</td>
+      <td>19.613663</td>
+      <td>1.090705e-10</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>ctrl_IC_preEC-ctrl_IC_EC</td>
+      <td>-40.919283</td>
+      <td>2.294371</td>
+      <td>-17.834642</td>
+      <td>4.545324e-66</td>
+      <td>-45.418934</td>
+      <td>-36.419631</td>
+      <td>4.545324e-65</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>ctrl_OC_EC-ctrl_IC_EC</td>
+      <td>0.342318</td>
+      <td>4.210434</td>
+      <td>0.081302</td>
+      <td>9.352098e-01</td>
+      <td>-7.915060</td>
+      <td>8.599696</td>
+      <td>9.510608e-01</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>ctrl_OC_EE-ctrl_IC_EC</td>
+      <td>-36.421580</td>
+      <td>4.210434</td>
+      <td>-8.650314</td>
+      <td>1.047014e-17</td>
+      <td>-44.678958</td>
+      <td>-28.164202</td>
+      <td>2.617535e-17</td>
+      <td>True</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>For now, we are interested in comparing percentage cell types inside and outside of ctrl and mutant clones. We, therefore, filter out comparisons between different cell types, e.g. EEs vs ECs:</p>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">comparisons</span> <span class="o">=</span> <span class="n">stat_df</span><span class="p">[</span><span class="s2">&quot;comparisons&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="n">expand</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">comparisons</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;group_1&quot;</span><span class="p">,</span> <span class="s2">&quot;group_2&quot;</span><span class="p">]</span>
+<span class="n">to_filter</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">comparisons</span><span class="p">[</span><span class="s2">&quot;group_1&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span> <span class="n">expand</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">2</span><span class="p">]</span>
+    <span class="o">==</span> <span class="n">comparisons</span><span class="p">[</span><span class="s2">&quot;group_2&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span> <span class="n">expand</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">2</span><span class="p">]</span>
+<span class="p">)</span>
+<span class="n">stat_df</span><span class="p">[</span><span class="n">to_filter</span><span class="p">]</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>comparisons</th>
+      <th>coef</th>
+      <th>std err</th>
+      <th>t</th>
+      <th>P&gt;|t|</th>
+      <th>Conf. Int. Low</th>
+      <th>Conf. Int. Upp.</th>
+      <th>pvalue_fdr_bh</th>
+      <th>reject_fdr_bh</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>3</th>
-      <td>ctrl_OC_EC</td>
-      <td>ctrl_IC_EC</td>
+      <td>ctrl_OC_EC-ctrl_IC_EC</td>
       <td>0.342318</td>
       <td>4.210434</td>
       <td>0.081302</td>
@@ -5049,8 +5129,7 @@ Data variables:
     </tr>
     <tr>
       <th>7</th>
-      <td>mut_IC_EC</td>
-      <td>ctrl_IC_EC</td>
+      <td>mut_IC_EC-ctrl_IC_EC</td>
       <td>-22.738055</td>
       <td>2.196693</td>
       <td>-10.351040</td>
@@ -5062,8 +5141,7 @@ Data variables:
     </tr>
     <tr>
       <th>11</th>
-      <td>mut_OC_EC</td>
-      <td>ctrl_IC_EC</td>
+      <td>mut_OC_EC-ctrl_IC_EC</td>
       <td>-8.560362</td>
       <td>4.264411</td>
       <td>-2.007396</td>
@@ -5075,8 +5153,7 @@ Data variables:
     </tr>
     <tr>
       <th>18</th>
-      <td>ctrl_OC_EE</td>
-      <td>ctrl_IC_EE</td>
+      <td>ctrl_OC_EE-ctrl_IC_EE</td>
       <td>1.884230</td>
       <td>4.210434</td>
       <td>0.447514</td>
@@ -5088,8 +5165,7 @@ Data variables:
     </tr>
     <tr>
       <th>22</th>
-      <td>mut_IC_EE</td>
-      <td>ctrl_IC_EE</td>
+      <td>mut_IC_EE-ctrl_IC_EE</td>
       <td>3.571779</td>
       <td>2.196693</td>
       <td>1.625980</td>
@@ -5119,7 +5195,7 @@ Data variables:
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">stat_df</span><span class="p">[</span><span class="n">to_filter</span><span class="p">]</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;pvalue_fdr_bh &lt; 0.05&quot;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">stat_df</span><span class="p">[</span><span class="n">to_filter</span><span class="p">]</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;reject_fdr_bh&quot;</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -5151,8 +5227,7 @@ Data variables:
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>group_1</th>
-      <th>group_2</th>
+      <th>comparisons</th>
       <th>coef</th>
       <th>std err</th>
       <th>t</th>
@@ -5160,14 +5235,13 @@ Data variables:
       <th>Conf. Int. Low</th>
       <th>Conf. Int. Upp.</th>
       <th>pvalue_fdr_bh</th>
-      <th>reject-fdr_bh</th>
+      <th>reject_fdr_bh</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>7</th>
-      <td>mut_IC_EC</td>
-      <td>ctrl_IC_EC</td>
+      <td>mut_IC_EC-ctrl_IC_EC</td>
       <td>-22.738055</td>
       <td>2.196693</td>
       <td>-10.351040</td>
@@ -5179,8 +5253,7 @@ Data variables:
     </tr>
     <tr>
       <th>36</th>
-      <td>mut_IC_ISCorEB</td>
-      <td>ctrl_IC_ISCorEB</td>
+      <td>mut_IC_ISCorEB-ctrl_IC_ISCorEB</td>
       <td>18.864522</td>
       <td>2.196693</td>
       <td>8.587692</td>
@@ -5192,8 +5265,7 @@ Data variables:
     </tr>
     <tr>
       <th>57</th>
-      <td>mut_IC_EC</td>
-      <td>ctrl_OC_EC</td>
+      <td>mut_IC_EC-ctrl_OC_EC</td>
       <td>-23.080373</td>
       <td>4.158014</td>
       <td>-5.550817</td>
@@ -5205,8 +5277,7 @@ Data variables:
     </tr>
     <tr>
       <th>78</th>
-      <td>mut_IC_ISCorEB</td>
-      <td>ctrl_OC_ISCorEB</td>
+      <td>mut_IC_ISCorEB-ctrl_OC_ISCorEB</td>
       <td>21.386977</td>
       <td>4.158014</td>
       <td>5.143556</td>
@@ -5218,8 +5289,7 @@ Data variables:
     </tr>
     <tr>
       <th>95</th>
-      <td>mut_OC_EC</td>
-      <td>mut_IC_EC</td>
+      <td>mut_OC_EC-mut_IC_EC</td>
       <td>14.177692</td>
       <td>4.212662</td>
       <td>3.365495</td>
@@ -5231,8 +5301,7 @@ Data variables:
     </tr>
     <tr>
       <th>108</th>
-      <td>mut_OC_ISCorEB</td>
-      <td>mut_IC_ISCorEB</td>
+      <td>mut_OC_ISCorEB-mut_IC_ISCorEB</td>
       <td>-14.296138</td>
       <td>4.212662</td>
       <td>-3.393611</td>
