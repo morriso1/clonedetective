@@ -32,9 +32,10 @@ pip install not yet supported but will be soon!
 
 ## How to use
 
-Please see the tutorials:
-1) [Example walkthrough](https://morriso1.github.io/py_clone_detective/Tutorial_Walkthrough.html)
+Please see the tutorials:  
+1) [Example walkthrough](https://morriso1.github.io/py_clone_detective/Tutorial_Walkthrough.html)  
 2) [Downstream Analysis using Python](https://morriso1.github.io/py_clone_detective/Tutorial_Downstream_Analysis_Python.html)  
 3) [Downstream Analysis using R](https://morriso1.github.io/py_clone_detective/Tutorial_Downstream_Analysis_R.html)  
 4) [Generating nuclei segmentation using StarDist](https://morriso1.github.io/py_clone_detective/Tutorial_StarDist_Segmentation.html)  
+
 In progress, more to come!
