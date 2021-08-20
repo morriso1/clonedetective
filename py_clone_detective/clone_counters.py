@@ -205,7 +205,7 @@ class CloneCounter:
         threshold_list: list,
         threshold_constant: int = None,
         threshold_query: str = "mean_intensity > threshold_list & eccentricity > threshold_constant",
-        **kwargs
+        **kwargs,
     ):
         img = (
             self.image_data["images"]
@@ -236,9 +236,9 @@ class CloneCounter:
 
         plot_new_images(
             [img, seg] + list(thresh_img_dict.values()),
-            [f"{int_img_ch} intensity image", f"{self.tot_seg_ch} segmentation"] + list(thresh_img_dict.keys()),
-            figure_shape=(2, 3),
-            **kwargs
+            [f"{int_img_ch} intensity image", f"{self.tot_seg_ch} segmentation"]
+            + list(thresh_img_dict.keys()),
+            **kwargs,
         )
 
     def _filter_labels_update_measurements_df_and_to_dict(

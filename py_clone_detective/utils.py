@@ -3,17 +3,19 @@
 __all__ = ['clean_img_names', 'check_lists_identical', 'img_path_to_xarr', 'last2dims',
            'check_channels_input_suitable_and_return_channels', 'extend_region_properties_list',
            'add_scale_regionprops_table_area_measurements', 'lazy_props', 'reorder_df_to_put_ch_info_first',
-           'is_label_image', 'generate_random_cmap', 'what_cmap', 'plot_new_images', 'plot_threshold_imgs_side_by_side',
-           'region_overlap', 'calculate_overlap', 'generate_touch_counting_image', 'adjusted_cell_touch_images',
-           'calc_neighbours', 'get_all_labeled_clones_unmerged_and_merged',
+           'is_label_image', 'generate_random_cmap', 'what_cmap', 'figure_rows_columns', 'plot_new_images',
+           'plot_threshold_imgs_side_by_side', 'region_overlap', 'calculate_overlap', 'generate_touch_counting_image',
+           'adjusted_cell_touch_images', 'calc_neighbours', 'get_all_labeled_clones_unmerged_and_merged',
            'determine_labels_across_other_images_using_centroids', 'calculate_corresponding_labels',
            'update_1st_coord_and_dim_of_xarr']
 
 # Cell
 import os
 import re
+import string
 from functools import partial, wraps
 from glob import glob
+from itertools import zip_longest
 from typing import List
 
 import dask.array as da
@@ -164,6 +166,10 @@ def what_cmap(img, img_cmap, label_cmap):
     return label_cmap if is_label_image(img) else img_cmap
 
 # Cell
+def figure_rows_columns(total_fig_axes: int, rows=3):
+    return (np.ceil(total_fig_axes / rows).astype(int), rows)
+
+# Cell
 def plot_new_images(
     images,
     label_text,
@@ -174,8 +180,8 @@ def plot_new_images(
     colorbar=False,
     **kwargs,
 ):
-    import string
-    from itertools import zip_longest
+    if figure_shape is None:
+        figure_shape = figure_rows_columns(len(images))
 
     fig, ax = plt.subplots(
         nrows=figure_shape[0],
