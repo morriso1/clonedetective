@@ -3,8 +3,9 @@
 __all__ = ['clean_img_names', 'check_lists_identical', 'img_path_to_xarr', 'last2dims',
            'check_channels_input_suitable_and_return_channels', 'extend_region_properties_list',
            'add_scale_regionprops_table_area_measurements', 'lazy_props', 'reorder_df_to_put_ch_info_first',
-           'plot_threshold_imgs_side_by_side', 'region_overlap', 'calculate_overlap', 'generate_touch_counting_image',
-           'adjusted_cell_touch_images', 'calc_neighbours', 'get_all_labeled_clones_unmerged_and_merged',
+           'is_label_image', 'generate_random_cmap', 'what_cmap', 'plot_new_images', 'plot_threshold_imgs_side_by_side',
+           'region_overlap', 'calculate_overlap', 'generate_touch_counting_image', 'adjusted_cell_touch_images',
+           'calc_neighbours', 'get_all_labeled_clones_unmerged_and_merged',
            'determine_labels_across_other_images_using_centroids', 'calculate_corresponding_labels',
            'update_1st_coord_and_dim_of_xarr']
 
@@ -17,6 +18,7 @@ from typing import List
 
 import dask.array as da
 import dask.dataframe as dd
+import matplotlib
 import numba
 import numpy as np
 import pandas as pd
@@ -148,6 +150,65 @@ def reorder_df_to_put_ch_info_first(df):
     return df[first_cols]
 
 # Cell
+def is_label_image(img):
+    return np.unique(img).shape[0] < 2000
+
+# Cell
+def generate_random_cmap(num_of_colors=2000):
+    colors = np.random.rand(num_of_colors, 3)
+    colors[0, :] = 0
+    return matplotlib.colors.ListedColormap(colors)
+
+# Cell
+def what_cmap(img, img_cmap, label_cmap):
+    return label_cmap if is_label_image(img) else img_cmap
+
+# Cell
+def plot_new_images(
+    images,
+    label_text,
+    label_letter=None,
+    figure_shape=None,
+    img_cmap="gray",
+    label_cmap=None,
+    colorbar=False,
+    **kwargs,
+):
+    import string
+    from itertools import zip_longest
+
+    fig, ax = plt.subplots(
+        nrows=figure_shape[0],
+        ncols=figure_shape[1],
+        figsize=(figure_shape[1] * 4, figure_shape[0] * 4),
+    )
+
+    if label_cmap is None:
+        label_cmap = generate_random_cmap()
+
+    if label_letter is None:
+        label_letter = string.ascii_lowercase[: len(label_text)]
+
+    for (img, ax, letter, text) in zip_longest(
+        images, ax.flatten(), label_letter, label_text
+    ):
+        if img is not None:
+            im = ax.imshow(img, cmap=what_cmap(img, img_cmap, label_cmap), **kwargs)
+            ax.set_title(f"({letter}) {text}")
+            ax.axis("off")
+        else:
+            ax.set_axis_off()
+    if colorbar:
+        fig2, cax = plt.subplots(figsize=(figure_shape[1], 1))
+        plt.colorbar(im, cax=cax, orientation="horizontal")
+        cax.set_title("number of neighbours")
+        fig.axes.append(cax)
+
+    plt.tight_layout()
+
+# Cell
+
+## not currently in use
 def plot_threshold_imgs_side_by_side(img, thresh_img_dict, int_img_ch, seg_img_ch):
     fig, axes = plt.subplots(
         nrows=len(thresh_img_dict), ncols=2, figsize=(6, 3 * len(thresh_img_dict))
@@ -155,7 +216,7 @@ def plot_threshold_imgs_side_by_side(img, thresh_img_dict, int_img_ch, seg_img_c
     fig.suptitle(" ")
 
     for ax, (key, value) in zip(axes, thresh_img_dict.items()):
-        #separate long query across mulitple lines
+        # separate long query across mulitple lines
         key = re.sub(r"&", r"\n&", key)
 
         ax[0].imshow(value, cmap="gray")
@@ -259,12 +320,13 @@ def calc_neighbours(lab_img, to_keep, calc_clones):
     ]
 
     if calc_clones:
-        stack.insert(3,
+        stack.insert(
+            3,
             cle.pull(
                 cle.connected_components_labeling_box(
                     cle.merge_touching_labels(g_filtered_extended_lab)
                 )
-            )
+            ),
         )
 
     return np.stack(stack).astype(np.uint16)

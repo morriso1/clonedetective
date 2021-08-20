@@ -28,7 +28,7 @@ from .utils import (
     img_path_to_xarr,
     last2dims,
     lazy_props,
-    plot_threshold_imgs_side_by_side,
+    plot_new_images,
     reorder_df_to_put_ch_info_first,
     update_1st_coord_and_dim_of_xarr,
 )
@@ -205,6 +205,7 @@ class CloneCounter:
         threshold_list: list,
         threshold_constant: int = None,
         threshold_query: str = "mean_intensity > threshold_list & eccentricity > threshold_constant",
+        **kwargs
     ):
         img = (
             self.image_data["images"]
@@ -231,9 +232,14 @@ class CloneCounter:
         for value in threshold_list:
             specific_query = re.sub("threshold_list", str(value), threshold_query)
             to_keep = df.query(specific_query)["label"].values
-            thresh_img_dict[specific_query] = np.isin(seg, to_keep)
+            thresh_img_dict[specific_query] = np.isin(seg, to_keep) * seg
 
-        plot_threshold_imgs_side_by_side(img, thresh_img_dict, int_img_ch, seg_img_ch)
+        plot_new_images(
+            [img, seg] + list(thresh_img_dict.values()),
+            [f"{int_img_ch} intensity image", f"{self.tot_seg_ch} segmentation"] + list(thresh_img_dict.keys()),
+            figure_shape=(2, 3),
+            **kwargs
+        )
 
     def _filter_labels_update_measurements_df_and_to_dict(
         self, query_for_pd: str, name_for_query: str
@@ -373,7 +379,9 @@ class CloneCounter:
             list_df,
         )
 
-        return merged_df.drop(columns=merged_df.filter(regex="extra").columns).reset_index()
+        return merged_df.drop(
+            columns=merged_df.filter(regex="extra").columns
+        ).reset_index()
 
 # Cell
 class LazyCloneCounter(CloneCounter):
