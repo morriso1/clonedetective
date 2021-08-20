@@ -3,8 +3,10 @@
     "Overview": "/"
   },
   "Tutorials": {
-    "Simple Walkthrough": "Tutorial_simple_walkthrough.html",
-    "Example nuclei segmentation using StarDist": "Tutorial_StarDist_segmentation.html"
+    "Example Walkthrough": "Tutorial_Walkthrough.html",
+    "Downstream Analysis - Python": "Tutorial_Downstream_Analysis_Python.html",
+    "Downstream Analysis - R": "Tutorial_Downstream_Analysis_R.html",
+    "Example StarDist Nuclei segmentation": "Tutorial_StarDist_Segmentation.html"
   },
   "Documentation": {
     "Utils": "utils.html",

@@ -13,11 +13,17 @@ entries:
     title: py_clone_detective
   - folderitems:
     - output: web,pdf
-      title: Simple Walkthrough
-      url: Tutorial_simple_walkthrough.html
+      title: Example Walkthrough
+      url: Tutorial_Walkthrough.html
     - output: web,pdf
-      title: Example nuclei segmentation using StarDist
-      url: Tutorial_StarDist_segmentation.html
+      title: Downstream Analysis - Python
+      url: Tutorial_Downstream_Analysis_Python.html
+    - output: web,pdf
+      title: Downstream Analysis - R
+      url: Tutorial_Downstream_Analysis_R.html
+    - output: web,pdf
+      title: Example StarDist Nuclei segmentation
+      url: Tutorial_StarDist_Segmentation.html
     output: web
     title: Tutorials
   - folderitems:
