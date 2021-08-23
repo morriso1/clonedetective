@@ -18,6 +18,7 @@ from skimage import measure
 
 from py_clone_detective import clone_analysis as ca
 from .utils import (
+    RGB_image_from_CYX_img,
     add_scale_regionprops_table_area_measurements,
     calculate_corresponding_labels,
     calculate_overlap,
@@ -209,7 +210,7 @@ class CloneCounter:
     ):
         img = (
             self.image_data["images"]
-            .sel(img_channels=int_img_ch, img_name=int_img)
+            .sel(img_channels=[self.tot_seg_ch, int_img_ch], img_name=int_img)
             .compute()
         ).data
 
@@ -235,8 +236,9 @@ class CloneCounter:
             thresh_img_dict[specific_query] = np.isin(seg, to_keep) * seg
 
         plot_new_images(
-            [img, seg] + list(thresh_img_dict.values()),
-            [f"{int_img_ch} intensity image", f"{self.tot_seg_ch} segmentation"]
+            [RGB_image_from_CYX_img(red=None, green=img[1, ...], blue=img[0, ...]), seg]
+            + list(thresh_img_dict.values()),
+            [f"{self.tot_seg_ch} + {int_img_ch} intensity image", f"{self.tot_seg_ch} segmentation"]
             + list(thresh_img_dict.keys()),
             **kwargs,
         )

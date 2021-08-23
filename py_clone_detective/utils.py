@@ -213,7 +213,7 @@ def plot_new_images(
     plt.tight_layout()
 
 # Cell
-def RGB_image_from_CYX_img(red=None, green=None, blue=None, ref_ch=2, clims=(2,70)):
+def RGB_image_from_CYX_img(red=None, green=None, blue=None, ref_ch=2, clims=(2,50)):
     RGB_image = list([red, green, blue])
     for i in range(len(RGB_image)):
         if RGB_image[i] is None:
