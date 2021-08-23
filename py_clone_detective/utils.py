@@ -4,10 +4,10 @@ __all__ = ['clean_img_names', 'check_lists_identical', 'img_path_to_xarr', 'last
            'check_channels_input_suitable_and_return_channels', 'extend_region_properties_list',
            'add_scale_regionprops_table_area_measurements', 'lazy_props', 'reorder_df_to_put_ch_info_first',
            'is_label_image', 'generate_random_cmap', 'what_cmap', 'figure_rows_columns', 'plot_new_images',
-           'plot_threshold_imgs_side_by_side', 'region_overlap', 'calculate_overlap', 'generate_touch_counting_image',
-           'adjusted_cell_touch_images', 'calc_neighbours', 'get_all_labeled_clones_unmerged_and_merged',
-           'determine_labels_across_other_images_using_centroids', 'calculate_corresponding_labels',
-           'update_1st_coord_and_dim_of_xarr']
+           'RGB_image_from_CYX_img', 'plot_threshold_imgs_side_by_side', 'region_overlap', 'calculate_overlap',
+           'generate_touch_counting_image', 'adjusted_cell_touch_images', 'calc_neighbours',
+           'get_all_labeled_clones_unmerged_and_merged', 'determine_labels_across_other_images_using_centroids',
+           'calculate_corresponding_labels', 'update_1st_coord_and_dim_of_xarr']
 
 # Cell
 import os
@@ -30,7 +30,7 @@ from dask import delayed
 from dask_image.imread import imread
 from matplotlib import pyplot as plt
 from scipy.stats import mode
-from skimage import measure, segmentation
+from skimage import measure, segmentation, exposure, img_as_ubyte
 
 # Cell
 def clean_img_names(img_path_glob: str, img_name_regex: str):
@@ -211,6 +211,18 @@ def plot_new_images(
         fig.axes.append(cax)
 
     plt.tight_layout()
+
+# Cell
+def RGB_image_from_CYX_img(red=None, green=None, blue=None, ref_ch=2, clims=(2,70)):
+    RGB_image = list([red, green, blue])
+    for i in range(len(RGB_image)):
+        if RGB_image[i] is None:
+            RGB_image[i] = np.zeros(RGB_image[ref_ch].shape, dtype=np.uint8)
+        else:
+            RGB_image[i] = img_as_ubyte(RGB_image[i].copy())
+            RGB_image[i] = exposure.rescale_intensity(RGB_image[i], in_range=clims)
+
+    return np.stack(RGB_image, axis=2)
 
 # Cell
 
