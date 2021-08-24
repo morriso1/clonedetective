@@ -24,7 +24,9 @@ from .utils import (
     calculate_corresponding_labels,
     calculate_overlap,
     check_channels_input_suitable_and_return_channels,
+    concat_list_of_thresholds_to_string,
     extend_region_properties_list,
+    four_ch_CYX_img_to_three_ch_CYX_img,
     get_all_labeled_clones_unmerged_and_merged,
     img_path_to_xarr,
     last2dims,
@@ -32,7 +34,6 @@ from .utils import (
     plot_new_images,
     reorder_df_to_put_ch_info_first,
     update_1st_coord_and_dim_of_xarr,
-    concat_list_of_thresholds_to_string
 )
 
 # Cell
@@ -200,14 +201,8 @@ class CloneCounter:
         ]
 
     def testing_possible_thresholds(
-        self, int_img: str, int_img_ch: str, thresholds: list, **kwargs,
+        self, int_img: str, thresholds: list, **kwargs,
     ):
-        img = (
-            self.image_data["images"]
-            .sel(img_channels=[self.tot_seg_ch, int_img_ch], img_name=int_img)
-            .compute()
-        ).data
-
         seg = (
             self.image_data["segmentations"]
             .sel(seg_channels=self.tot_seg_ch, img_name=int_img)
@@ -223,11 +218,21 @@ class CloneCounter:
             thresh = concat_list_of_thresholds_to_string(thresh)
             thresh_img_dict[thresh] = np.isin(seg, to_keep) * seg
 
+        img = (self.image_data["images"].sel(img_name=int_img).compute()).data
+
+        if img.shape[0] == 4:
+            img = four_ch_CYX_img_to_three_ch_CYX_img(img)
+
         plot_new_images(
-            [RGB_image_from_CYX_img(red=None, green=img[1, ...], blue=img[0, ...]), seg]
+            [
+                RGB_image_from_CYX_img(
+                    red=img[2, ...], green=img[1, ...], blue=img[0, ...]
+                ),
+                seg,
+            ]
             + list(thresh_img_dict.values()),
             [
-                f"{self.tot_seg_ch} + {int_img_ch} intensity image",
+                f"composite image",
                 f"{self.tot_seg_ch} segmentation",
             ]
             + list(thresh_img_dict.keys()),
