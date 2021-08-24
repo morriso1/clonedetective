@@ -13,7 +13,6 @@ __all__ = ['clean_img_names', 'check_lists_identical', 'img_path_to_xarr', 'last
 import os
 import re
 import string
-from functools import partial, wraps
 from glob import glob
 from itertools import zip_longest
 from typing import List
@@ -57,7 +56,7 @@ def img_path_to_xarr(
     img_name_regex: str,
     pixel_size: float = 0.275,
     ch_name_for_first_dim: str = "images",
-    **channel_path_globs
+    **channel_path_globs,
 ):
     imgs = list()
     channels = list()
@@ -213,7 +212,7 @@ def plot_new_images(
     plt.tight_layout()
 
 # Cell
-def RGB_image_from_CYX_img(red=None, green=None, blue=None, ref_ch=2, clims=(2,50)):
+def RGB_image_from_CYX_img(red=None, green=None, blue=None, ref_ch=2, clims=(2, 50)):
     RGB_image = list([red, green, blue])
     for i in range(len(RGB_image)):
         if RGB_image[i] is None:

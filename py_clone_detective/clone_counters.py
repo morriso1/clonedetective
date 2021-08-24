@@ -23,7 +23,6 @@ from .utils import (
     calculate_corresponding_labels,
     calculate_overlap,
     check_channels_input_suitable_and_return_channels,
-    determine_labels_across_other_images_using_centroids,
     extend_region_properties_list,
     get_all_labeled_clones_unmerged_and_merged,
     img_path_to_xarr,
@@ -238,7 +237,10 @@ class CloneCounter:
         plot_new_images(
             [RGB_image_from_CYX_img(red=None, green=img[1, ...], blue=img[0, ...]), seg]
             + list(thresh_img_dict.values()),
-            [f"{self.tot_seg_ch} + {int_img_ch} intensity image", f"{self.tot_seg_ch} segmentation"]
+            [
+                f"{self.tot_seg_ch} + {int_img_ch} intensity image",
+                f"{self.tot_seg_ch} segmentation",
+            ]
             + list(thresh_img_dict.keys()),
             **kwargs,
         )
@@ -405,7 +407,7 @@ class LazyCloneCounter(CloneCounter):
         self,
         additional_func_to_map: Callable = None,
         ad_func_kwargs: dict = None,
-        **channel_path_globs
+        **channel_path_globs,
     ):
         self.image_data["segmentations"] = super().add_segmentations(
             additional_func_to_map, ad_func_kwargs, **channel_path_globs
