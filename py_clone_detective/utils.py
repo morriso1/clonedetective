@@ -4,7 +4,7 @@ __all__ = ['clean_img_names', 'check_lists_identical', 'img_path_to_xarr', 'last
            'check_channels_input_suitable_and_return_channels', 'extend_region_properties_list',
            'add_scale_regionprops_table_area_measurements', 'lazy_props', 'reorder_df_to_put_ch_info_first',
            'is_label_image', 'generate_random_cmap', 'what_cmap', 'figure_rows_columns', 'plot_new_images',
-           'RGB_image_from_CYX_img', 'four_ch_CYX_img_to_three_ch_RGB_image', 'plot_threshold_imgs_side_by_side',
+           'RGB_image_from_CYX_img', 'four_ch_CYX_img_to_three_ch_CYX_img', 'plot_threshold_imgs_side_by_side',
            'region_overlap', 'calculate_overlap', 'calc_allfilt_from_thresholds', 'concat_list_of_thresholds_to_string',
            'generate_touch_counting_image', 'adjusted_cell_touch_images', 'calc_neighbours',
            'get_all_labeled_clones_unmerged_and_merged', 'determine_labels_across_other_images_using_centroids',
@@ -231,7 +231,7 @@ def RGB_image_from_CYX_img(red=None, green=None, blue=None, ref_ch=2, clims=(2, 
     return np.stack(RGB_image, axis=2)
 
 # Cell
-def four_ch_CYX_img_to_three_ch_RGB_image(img):
+def four_ch_CYX_img_to_three_ch_CYX_img(img):
     img[0] = img[0] + img[3]
     img[1] = img[1] + img[3]
     img[2] = img[2] + img[3]
