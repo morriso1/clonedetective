@@ -20,6 +20,7 @@ from py_clone_detective import clone_analysis as ca
 from .utils import (
     RGB_image_from_CYX_img,
     add_scale_regionprops_table_area_measurements,
+    calc_allfilt_from_thresholds,
     calculate_corresponding_labels,
     calculate_overlap,
     check_channels_input_suitable_and_return_channels,
@@ -31,6 +32,7 @@ from .utils import (
     plot_new_images,
     reorder_df_to_put_ch_info_first,
     update_1st_coord_and_dim_of_xarr,
+    concat_list_of_thresholds_to_string
 )
 
 # Cell
@@ -198,14 +200,7 @@ class CloneCounter:
         ]
 
     def testing_possible_thresholds(
-        self,
-        int_img: str,
-        int_img_ch: str,
-        seg_img_ch: str,
-        threshold_list: list,
-        threshold_constant: int = None,
-        threshold_query: str = "mean_intensity > threshold_list & eccentricity > threshold_constant",
-        **kwargs,
+        self, int_img: str, int_img_ch: str, thresholds: list, **kwargs,
     ):
         img = (
             self.image_data["images"]
@@ -215,24 +210,18 @@ class CloneCounter:
 
         seg = (
             self.image_data["segmentations"]
-            .sel(seg_channels=seg_img_ch, img_name=int_img)
+            .sel(seg_channels=self.tot_seg_ch, img_name=int_img)
             .compute()
         ).data
 
-        df = self.results_measurements.query(
-            "int_img == @int_img & int_img_ch == @int_img_ch & seg_ch == @seg_img_ch"
-        )
-
-        if threshold_constant is not None:
-            threshold_query = re.sub(
-                "threshold_constant", str(threshold_constant), threshold_query
-            )
+        df = self.results_measurements.query("int_img == @int_img")
 
         thresh_img_dict = dict()
-        for value in threshold_list:
-            specific_query = re.sub("threshold_list", str(value), threshold_query)
-            to_keep = df.query(specific_query)["label"].values
-            thresh_img_dict[specific_query] = np.isin(seg, to_keep) * seg
+        for thresh in thresholds:
+            all_filt = calc_allfilt_from_thresholds(thresh, df)
+            to_keep = all_filt[all_filt].reset_index()["label"].values
+            thresh = concat_list_of_thresholds_to_string(thresh)
+            thresh_img_dict[thresh] = np.isin(seg, to_keep) * seg
 
         plot_new_images(
             [RGB_image_from_CYX_img(red=None, green=img[1, ...], blue=img[0, ...]), seg]
@@ -246,23 +235,10 @@ class CloneCounter:
         )
 
     def _filter_labels(self, thresholds: list, thresh_name: str, calc_clone: bool):
-        df = self.results_measurements.copy()
-        filt_l = list()
-
-        # loop through and accumulate filter masks
-        for thresh in thresholds:
-            filt_l.append(df.eval(thresh))
-
-        # combine filter masks together
-        all_filt = (
-            pd.DataFrame(
-                np.stack(filt_l, axis=1),
-                index=pd.MultiIndex.from_frame(df[["int_img", "label"]]),
-            )
-            .groupby(["int_img", "label"])
-            .any()
-            .all(axis=1)
+        all_filt = calc_allfilt_from_thresholds(
+            thresholds, self.results_measurements.copy()
         )
+
         if calc_clone:
             all_filt.name = f"{thresh_name}_clonepos"
 

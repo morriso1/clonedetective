@@ -5,9 +5,10 @@ __all__ = ['clean_img_names', 'check_lists_identical', 'img_path_to_xarr', 'last
            'add_scale_regionprops_table_area_measurements', 'lazy_props', 'reorder_df_to_put_ch_info_first',
            'is_label_image', 'generate_random_cmap', 'what_cmap', 'figure_rows_columns', 'plot_new_images',
            'RGB_image_from_CYX_img', 'plot_threshold_imgs_side_by_side', 'region_overlap', 'calculate_overlap',
-           'generate_touch_counting_image', 'adjusted_cell_touch_images', 'calc_neighbours',
-           'get_all_labeled_clones_unmerged_and_merged', 'determine_labels_across_other_images_using_centroids',
-           'calculate_corresponding_labels', 'update_1st_coord_and_dim_of_xarr']
+           'calc_allfilt_from_thresholds', 'concat_list_of_thresholds_to_string', 'generate_touch_counting_image',
+           'adjusted_cell_touch_images', 'calc_neighbours', 'get_all_labeled_clones_unmerged_and_merged',
+           'determine_labels_across_other_images_using_centroids', 'calculate_corresponding_labels',
+           'update_1st_coord_and_dim_of_xarr']
 
 # Cell
 import os
@@ -272,6 +273,30 @@ def calculate_overlap(img, num_of_segs=4, preallocate_value=1000):
         for i in range(l.shape[0]):
             l[i, label_no] = region_overlap(label_no, img[i + 1, ...], img[0, ...])
     return l[None, ...]
+
+# Cell
+def calc_allfilt_from_thresholds(thresholds:list, df):
+    filt_l = list()
+
+    # loop through and accumulate filter masks
+    for thresh in thresholds:
+        filt_l.append(df.eval(thresh))
+
+    # combine filter masks together
+    return (
+        pd.DataFrame(
+            np.stack(filt_l, axis=1),
+            index=pd.MultiIndex.from_frame(df[["int_img", "label"]]),
+        )
+        .groupby(["int_img", "label"])
+        .any()
+        .all(axis=1)
+    )
+
+# Cell
+def concat_list_of_thresholds_to_string(thresholds):
+    thresholds = "\n\n".join(thresholds)
+    return(re.sub(r"&", r"&\n", thresholds))
 
 # Cell
 def generate_touch_counting_image(g_img):
