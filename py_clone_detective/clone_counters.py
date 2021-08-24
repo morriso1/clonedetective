@@ -245,7 +245,7 @@ class CloneCounter:
             **kwargs,
         )
 
-    def _filter_labels(self, thresholds: list, thresh_name: str):
+    def _filter_labels(self, thresholds: list, thresh_name: str, calc_clone: bool):
         df = self.results_measurements.copy()
         filt_l = list()
 
@@ -263,7 +263,12 @@ class CloneCounter:
             .any()
             .all(axis=1)
         )
-        all_filt.name = f"{thresh_name}_pos"
+        if calc_clone:
+            all_filt.name = f"{thresh_name}_clonepos"
+
+        else:
+            all_filt.name = f"{thresh_name}_pos"
+
         return (
             all_filt[all_filt == True]
             .reset_index()
@@ -302,7 +307,9 @@ class CloneCounter:
             new_dim=f"{thresh_name}_neighbours",
         )
 
-        labels_to_keep, all_filt = self._filter_labels(thresholds, thresh_name)
+        labels_to_keep, all_filt = self._filter_labels(
+            thresholds, thresh_name, calc_clones
+        )
 
         self._update_measurements_df_with_all_filt(all_filt)
 
@@ -355,6 +362,9 @@ class CloneCounter:
             .query("label == ext_tot_seg_labs")
         )
 
+    def mutually_exclusive_cell_types(self):
+        return (self.results_measurements.filter(regex="_pos").sum(axis=1) == 1).all()
+
     def measure_clones_and_neighbouring_labels(self, thresh_name):
         colabels = calculate_corresponding_labels(
             self.image_data[thresh_name].data,
@@ -395,8 +405,8 @@ class CloneCounter:
 
         # fillna in case merge of results_clones_and_neighbour_counts creates NaN
         # when a img_name contains none of a specific cell type
-        merged_df[merged_df.filter(regex="clone|nc").columns] = (
-            merged_df.filter(regex="clone|nc").fillna(0).astype(np.uint16)
+        merged_df[merged_df.filter(regex="clone$|nc").columns] = (
+            merged_df.filter(regex="clone$|nc").fillna(0).astype(np.uint16)
         )
 
         return merged_df
