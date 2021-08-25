@@ -274,7 +274,8 @@ class CloneCounter:
             on=["int_img", "label"],
         )
         self.results_measurements.drop(
-            columns=self.results_measurements.filter(regex="_unwanted").columns, inplace=True
+            columns=self.results_measurements.filter(regex="_unwanted").columns,
+            inplace=True,
         )
 
     def add_clones_and_neighbouring_labels(
@@ -362,7 +363,7 @@ class CloneCounter:
     def complete_set_of_cell_types(self):
         return (self.results_measurements.filter(regex="_pos").sum(axis=1) > 0).all()
 
-    def measure_clones_and_neighbouring_labels(self, thresh_name):
+    def measure_clones_and_neighbouring_labels_for_ind_thresh(self, thresh_name):
         colabels = calculate_corresponding_labels(
             self.image_data[thresh_name].data,
             self._get_centroids_list(),
@@ -380,6 +381,9 @@ class CloneCounter:
         self.results_clones_and_neighbour_counts[thresh_name] = df.drop(
             columns=df.filter(regex=r"labs").columns
         )
+
+    #     def measure_clones_and_neighbouring_labels(self):
+    #         for
 
     def combine_neighbour_counts_and_measurements(self):
         list_df = list(self.results_clones_and_neighbour_counts.values()) + [
@@ -443,6 +447,10 @@ class LazyCloneCounter(CloneCounter):
         self.image_data[thresh_name] = super().add_clones_and_neighbouring_labels(
             thresholds, thresh_name, calc_clones
         )
+        if not hasattr(self, "defined_thresholds"):
+            self.defined_thresholds = dict()
+
+        self.defined_thresholds[thresh_name] = thresholds
 
 # Cell
 class PersistentCloneCounter(CloneCounter):
@@ -485,3 +493,7 @@ class PersistentCloneCounter(CloneCounter):
             .add_clones_and_neighbouring_labels(thresholds, thresh_name, calc_clones)
             .persist()
         )
+        if not hasattr(self, "defined_thresholds"):
+            self.defined_thresholds = dict()
+
+        self.defined_thresholds[thresh_name] = thresholds
