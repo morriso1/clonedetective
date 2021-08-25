@@ -105,7 +105,7 @@ nb_path: "05_Tutorial_Downstream_Analysis_R.ipynb"
 <table class="dataframe">
 <caption>A tibble: 6 × 29</caption>
 <thead>
-	<tr><th scope=col>int_img</th><th scope=col>label</th><th scope=col>GFP_clone</th><th scope=col>GFPneg_neigh_counts</th><th scope=col>GFPpos_neigh_counts</th><th scope=col>total_neighbour_counts</th><th scope=col>ECneg_neigh_counts</th><th scope=col>ECpos_neigh_counts</th><th scope=col>EEneg_neigh_counts</th><th scope=col>EEpos_neigh_counts</th><th scope=col>⋯</th><th scope=col>centroid-0</th><th scope=col>centroid-1</th><th scope=col>eccentricity</th><th scope=col>area_um2</th><th scope=col>GFP_pos</th><th scope=col>total_intensity</th><th scope=col>EC_pos</th><th scope=col>EE_pos</th><th scope=col>preEC_pos</th><th scope=col>ISCorEB_pos</th></tr>
+	<tr><th scope=col>int_img</th><th scope=col>label</th><th scope=col>GFP_clone</th><th scope=col>GFPneg_nc</th><th scope=col>GFPpos_nc</th><th scope=col>tot_nc</th><th scope=col>ECneg_nc</th><th scope=col>ECpos_nc</th><th scope=col>EEneg_nc</th><th scope=col>EEpos_nc</th><th scope=col>⋯</th><th scope=col>centroid-0</th><th scope=col>centroid-1</th><th scope=col>eccentricity</th><th scope=col>area_um2</th><th scope=col>GFP_clonepos</th><th scope=col>total_intensity</th><th scope=col>EC_pos</th><th scope=col>EE_pos</th><th scope=col>preEC_pos</th><th scope=col>ISCorEB_pos</th></tr>
 	<tr><th scope=col>&lt;chr&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>⋯</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;lgl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;lgl&gt;</th><th scope=col>&lt;lgl&gt;</th><th scope=col>&lt;lgl&gt;</th><th scope=col>&lt;lgl&gt;</th></tr>
 </thead>
 <tbody>
@@ -188,6 +188,51 @@ nb_path: "05_Tutorial_Downstream_Analysis_R.ipynb"
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_text output_error">
+<pre>
+Error: Can&#39;t subset columns that don&#39;t exist.
+<span class="ansi-red-fg">✖</span> Column `EC` doesn&#39;t exist.
+Traceback:
+
+1. count_df %&gt;% pivot_longer(cols = EC:ISCorEB, names_to = &#34;cell_type&#34;, 
+ .     values_to = &#34;cell_num&#34;) %&gt;% mutate(cell_type = factor(cell_type, 
+ .     levels = c(&#34;EE&#34;, &#34;EC&#34;, &#34;preEC&#34;, &#34;ISCorEB&#34;)))
+2. mutate(., cell_type = factor(cell_type, levels = c(&#34;EE&#34;, &#34;EC&#34;, 
+ .     &#34;preEC&#34;, &#34;ISCorEB&#34;)))
+3. pivot_longer(., cols = EC:ISCorEB, names_to = &#34;cell_type&#34;, values_to = &#34;cell_num&#34;)
+4. pivot_longer.data.frame(., cols = EC:ISCorEB, names_to = &#34;cell_type&#34;, 
+ .     values_to = &#34;cell_num&#34;)
+5. build_longer_spec(data, !!cols, names_to = names_to, values_to = values_to, 
+ .     names_prefix = names_prefix, names_sep = names_sep, names_pattern = names_pattern, 
+ .     names_ptypes = names_ptypes, names_transform = names_transform)
+6. tidyselect::eval_select(enquo(cols), data[unique(names(data))])
+7. eval_select_impl(data, names(data), as_quosure(expr, env), include = include, 
+ .     exclude = exclude, strict = strict, name_spec = name_spec, 
+ .     allow_rename = allow_rename)
+8. with_subscript_errors(vars_select_eval(vars, expr, strict, data = x, 
+ .     name_spec = name_spec, uniquely_named = uniquely_named, allow_rename = allow_rename, 
+ .     type = type), type = type)
+9. tryCatch(instrument_base_errors(expr), vctrs_error_subscript = function(cnd) {
+ .     cnd$subscript_action &lt;- subscript_action(type)
+ .     cnd$subscript_elt &lt;- &#34;column&#34;
+ .     cnd_signal(cnd)
+ . })
+10. tryCatchList(expr, classes, parentenv, handlers)
+11. tryCatchOne(expr, names, parentenv, handlers[[1L]])
+12. value[[3L]](cond)
+13. cnd_signal(cnd)
+14. rlang:::signal_abort(x)</pre>
+</div>
+</div>
+
 </div>
 </div>
 

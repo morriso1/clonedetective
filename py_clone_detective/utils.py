@@ -4,7 +4,7 @@ __all__ = ['clean_img_names', 'check_lists_identical', 'img_path_to_xarr', 'last
            'check_channels_input_suitable_and_return_channels', 'extend_region_properties_list',
            'add_scale_regionprops_table_area_measurements', 'lazy_props', 'reorder_df_to_put_ch_info_first',
            'is_label_image', 'generate_random_cmap', 'what_cmap', 'figure_rows_columns', 'auto_figure_size',
-           'plot_new_images', 'RGB_image_from_CYX_img', 'four_ch_CYX_img_to_three_ch_CYX_img',
+           'crop_RGB_img_to_square', 'plot_new_images', 'RGB_image_from_CYX_img', 'four_ch_CYX_img_to_three_ch_CYX_img',
            'plot_threshold_imgs_side_by_side', 'region_overlap', 'calculate_overlap', 'calc_allfilt_from_thresholds',
            'concat_list_of_thresholds_to_string', 'generate_touch_counting_image', 'adjusted_cell_touch_images',
            'calc_neighbours', 'get_all_labeled_clones_unmerged_and_merged',
@@ -173,6 +173,21 @@ def figure_rows_columns(total_fig_axes: int, rows=3):
 # Cell
 def auto_figure_size(figure_shape):
     return figure_shape[1] * 4, figure_shape[0] * 4
+
+# Cell
+def crop_RGB_img_to_square(RGB_img):
+    y, x = RGB_img.shape[:2]
+    if y > x:
+        y_min = (y - x) // 2
+        y_max = y - y_min
+        return RGB_img[y_min:y_max, :]
+    elif x > y:
+        x_min = (x - y) // 2
+        x_max = x - x_min
+        return RGB_img[:, x_min:x_max]
+    else:
+        print('already a square!')
+        return RGB_img
 
 # Cell
 def plot_new_images(

@@ -268,7 +268,13 @@ class CloneCounter:
 
     def _update_measurements_df_with_all_filt(self, all_filt):
         self.results_measurements = pd.merge(
-            self.results_measurements, all_filt, on=["int_img", "label"]
+            self.results_measurements,
+            all_filt,
+            suffixes=("_unwanted", None),
+            on=["int_img", "label"],
+        )
+        self.results_measurements.drop(
+            columns=self.results_measurements.filter(regex="_unwanted").columns, inplace=True
         )
 
     def add_clones_and_neighbouring_labels(
@@ -351,7 +357,10 @@ class CloneCounter:
         )
 
     def mutually_exclusive_cell_types(self):
-        return (self.results_measurements.filter(regex="_pos").sum(axis=1) == 1).all()
+        return (self.results_measurements.filter(regex="_pos").sum(axis=1) <= 1).all()
+
+    def complete_set_of_cell_types(self):
+        return (self.results_measurements.filter(regex="_pos").sum(axis=1) > 0).all()
 
     def measure_clones_and_neighbouring_labels(self, thresh_name):
         colabels = calculate_corresponding_labels(
