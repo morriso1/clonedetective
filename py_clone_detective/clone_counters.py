@@ -382,6 +382,11 @@ class CloneCounter:
         )
 
     def measure_all_clones_and_neighbouring_labels(self):
+        if not self.mutually_exclusive_cell_types():
+            raise AttributeError('cell types are not mutually exclusive')
+        if not self.complete_set_of_cell_types():
+            raise AttributeError('cell types are not complete')
+
         for key in self.defined_thresholds.keys():
             self.measure_clones_and_neighbouring_labels_for_ind_thresh(thresh_name=key)
 
