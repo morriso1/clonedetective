@@ -49,6 +49,8 @@ class CloneCounter:
         self.img_name_regex = img_name_regex
         self.pixel_size = pixel_size
         self.tot_seg_ch = tot_seg_ch
+        self.results_clones_and_neighbour_counts = dict()
+        self.defined_thresholds = dict()
 
     def add_images(self, **channel_path_globs):
         return img_path_to_xarr(
@@ -371,9 +373,6 @@ class CloneCounter:
             self.tot_seg_ch_max_labels,
         )
 
-        if not hasattr(self, "results_clones_and_neighbour_counts"):
-            self.results_clones_and_neighbour_counts = dict()
-
         df = self._colabels_to_df(colabels, thresh_name)
 
         df.index.rename(["int_img", "label"], inplace=True)
@@ -382,8 +381,8 @@ class CloneCounter:
             columns=df.filter(regex=r"labs").columns
         )
 
-    #     def measure_clones_and_neighbouring_labels(self):
-    #         for
+#     def measure_clones_and_neighbouring_labels(self):
+#         for key in self.defined_thresholds
 
     def combine_neighbour_counts_and_measurements(self):
         list_df = list(self.results_clones_and_neighbour_counts.values()) + [
@@ -447,9 +446,6 @@ class LazyCloneCounter(CloneCounter):
         self.image_data[thresh_name] = super().add_clones_and_neighbouring_labels(
             thresholds, thresh_name, calc_clones
         )
-        if not hasattr(self, "defined_thresholds"):
-            self.defined_thresholds = dict()
-
         self.defined_thresholds[thresh_name] = thresholds
 
 # Cell
@@ -493,7 +489,4 @@ class PersistentCloneCounter(CloneCounter):
             .add_clones_and_neighbouring_labels(thresholds, thresh_name, calc_clones)
             .persist()
         )
-        if not hasattr(self, "defined_thresholds"):
-            self.defined_thresholds = dict()
-
         self.defined_thresholds[thresh_name] = thresholds
