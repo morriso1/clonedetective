@@ -201,7 +201,12 @@ class CloneCounter:
         ]
 
     def testing_possible_thresholds(
-        self, int_img: str, thresholds: list, **kwargs,
+        self,
+        int_img: str,
+        thresholds: list,
+        figure_shape=None,
+        figure_size=None,
+        **kwargs,
     ):
         seg = (
             self.image_data["segmentations"]
@@ -223,19 +228,21 @@ class CloneCounter:
         if img.shape[0] == 4:
             img = four_ch_CYX_img_to_three_ch_CYX_img(img)
 
+        imgs_to_plot = [
+            RGB_image_from_CYX_img(red=img[2], green=img[1], blue=img[0]),
+            seg,
+        ] + list(thresh_img_dict.values())
+
+        labels_to_plot = [
+            f"composite image",
+            f"{self.tot_seg_ch} segmentation",
+        ] + list(thresh_img_dict.keys())
+
         plot_new_images(
-            [
-                RGB_image_from_CYX_img(
-                    red=img[2, ...], green=img[1, ...], blue=img[0, ...]
-                ),
-                seg,
-            ]
-            + list(thresh_img_dict.values()),
-            [
-                f"composite image",
-                f"{self.tot_seg_ch} segmentation",
-            ]
-            + list(thresh_img_dict.keys()),
+            imgs_to_plot,
+            labels_to_plot,
+            figure_shape=figure_shape,
+            figure_size=figure_size,
             **kwargs,
         )
 

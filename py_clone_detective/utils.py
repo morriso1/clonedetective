@@ -3,12 +3,13 @@
 __all__ = ['clean_img_names', 'check_lists_identical', 'img_path_to_xarr', 'last2dims',
            'check_channels_input_suitable_and_return_channels', 'extend_region_properties_list',
            'add_scale_regionprops_table_area_measurements', 'lazy_props', 'reorder_df_to_put_ch_info_first',
-           'is_label_image', 'generate_random_cmap', 'what_cmap', 'figure_rows_columns', 'plot_new_images',
-           'RGB_image_from_CYX_img', 'four_ch_CYX_img_to_three_ch_CYX_img', 'plot_threshold_imgs_side_by_side',
-           'region_overlap', 'calculate_overlap', 'calc_allfilt_from_thresholds', 'concat_list_of_thresholds_to_string',
-           'generate_touch_counting_image', 'adjusted_cell_touch_images', 'calc_neighbours',
-           'get_all_labeled_clones_unmerged_and_merged', 'determine_labels_across_other_images_using_centroids',
-           'calculate_corresponding_labels', 'update_1st_coord_and_dim_of_xarr']
+           'is_label_image', 'generate_random_cmap', 'what_cmap', 'figure_rows_columns', 'auto_figure_size',
+           'plot_new_images', 'RGB_image_from_CYX_img', 'four_ch_CYX_img_to_three_ch_CYX_img',
+           'plot_threshold_imgs_side_by_side', 'region_overlap', 'calculate_overlap', 'calc_allfilt_from_thresholds',
+           'concat_list_of_thresholds_to_string', 'generate_touch_counting_image', 'adjusted_cell_touch_images',
+           'calc_neighbours', 'get_all_labeled_clones_unmerged_and_merged',
+           'determine_labels_across_other_images_using_centroids', 'calculate_corresponding_labels',
+           'update_1st_coord_and_dim_of_xarr']
 
 # Cell
 import os
@@ -170,11 +171,16 @@ def figure_rows_columns(total_fig_axes: int, rows=3):
     return (np.ceil(total_fig_axes / rows).astype(int), rows)
 
 # Cell
+def auto_figure_size(figure_shape):
+    return figure_shape[1] * 4, figure_shape[0] * 4
+
+# Cell
 def plot_new_images(
     images,
     label_text,
     label_letter=None,
     figure_shape=None,
+    figure_size=None,
     img_cmap="gray",
     label_cmap=None,
     colorbar=False,
@@ -183,10 +189,13 @@ def plot_new_images(
     if figure_shape is None:
         figure_shape = figure_rows_columns(len(images))
 
+    if figure_size is None:
+        figure_size = auto_figure_size(figure_shape)
+
     fig, ax = plt.subplots(
         nrows=figure_shape[0],
         ncols=figure_shape[1],
-        figsize=(figure_shape[1] * 4, figure_shape[0] * 4),
+        figsize=figure_size,
     )
 
     if label_cmap is None:
