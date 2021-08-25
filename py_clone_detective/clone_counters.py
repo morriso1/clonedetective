@@ -381,8 +381,9 @@ class CloneCounter:
             columns=df.filter(regex=r"labs").columns
         )
 
-#     def measure_clones_and_neighbouring_labels(self):
-#         for key in self.defined_thresholds
+    def measure_all_clones_and_neighbouring_labels(self):
+        for key in self.defined_thresholds.keys():
+            self.measure_clones_and_neighbouring_labels_for_ind_thresh(thresh_name=key)
 
     def combine_neighbour_counts_and_measurements(self):
         list_df = list(self.results_clones_and_neighbour_counts.values()) + [
