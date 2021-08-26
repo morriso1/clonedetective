@@ -186,7 +186,7 @@ def crop_RGB_img_to_square(RGB_img):
         x_max = x - x_min
         return RGB_img[:, x_min:x_max]
     else:
-        print('already a square!')
+        print("already a square!")
         return RGB_img
 
 # Cell
@@ -199,6 +199,7 @@ def plot_new_images(
     img_cmap="gray",
     label_cmap=None,
     colorbar=False,
+    colorbar_title="number of neighbours",
     **kwargs,
 ):
     if figure_shape is None:
@@ -208,9 +209,7 @@ def plot_new_images(
         figure_size = auto_figure_size(figure_shape)
 
     fig, ax = plt.subplots(
-        nrows=figure_shape[0],
-        ncols=figure_shape[1],
-        figsize=figure_size,
+        nrows=figure_shape[0], ncols=figure_shape[1], figsize=figure_size,
     )
 
     if label_cmap is None:
@@ -231,7 +230,7 @@ def plot_new_images(
     if colorbar:
         fig2, cax = plt.subplots(figsize=(figure_shape[1], 1))
         plt.colorbar(im, cax=cax, orientation="horizontal")
-        cax.set_title("number of neighbours")
+        cax.set_title(colorbar_title)
         fig.axes.append(cax)
 
     plt.tight_layout()
