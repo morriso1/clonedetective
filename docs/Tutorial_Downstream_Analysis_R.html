@@ -721,7 +721,7 @@ height=120
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">model</span> <span class="o">&lt;-</span> <span class="n">lm</span><span class="p">(</span><span class="n">perc_cell_num</span> <span class="o">~</span> <span class="mi">0</span> <span class="o">+</span> <span class="n">comp_g_cs_ct</span><span class="p">,</span> <span class="n">perc_df_tidy</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">model</span> <span class="o">&lt;-</span> <span class="n">lm</span><span class="p">(</span><span class="n">perc_cell_num</span> <span class="o">~</span> <span class="n">comp_g_cs_ct</span><span class="p">,</span> <span class="n">perc_df_tidy</span><span class="p">)</span>
 
 <span class="n">G</span> <span class="o">=</span> <span class="n">glht</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">mcp</span><span class="p">(</span><span class="n">comp_g_cs_ct</span> <span class="o">=</span> <span class="n">t</span><span class="p">(</span><span class="n">contr</span><span class="p">)))</span>
 
@@ -746,7 +746,7 @@ height=120
 Multiple Comparisons of Means: User-defined Contrasts
 
 
-Fit: lm(formula = perc_cell_num ~ 0 + comp_g_cs_ct, data = perc_df_tidy)
+Fit: lm(formula = perc_cell_num ~ comp_g_cs_ct, data = perc_df_tidy)
 
 Linear Hypotheses:
                                       Estimate Std. Error t value Pr(&gt;|t|)    
