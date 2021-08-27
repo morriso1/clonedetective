@@ -70,7 +70,7 @@ nb_path: "03_Tutorial_Walkthrough.ipynb"
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Experimental-Aim">Experimental Aim<a class="anchor-link" href="#Experimental-Aim"> </a></h3>
+<h3 id="Experimental-Aims">Experimental Aims<a class="anchor-link" href="#Experimental-Aims"> </a></h3>
 </div>
 </div>
 </div>
@@ -79,10 +79,11 @@ nb_path: "03_Tutorial_Walkthrough.ipynb"
 <p>Dataset images contain cells positive for an EnteroCyte marker, cells positive for an EnteroEndocrine marker, and cells negative for both - stem/progenitor cells.</p>
 <p>We aim to:</p>
 <ul>
-<li>Quantify the number and type of cells present in each image.</li>
-<li>Classify whether each cell resides outside or inside a clone.</li>
+<li>Quantify the number and type of cells present in each image.  </li>
+<li>Classify whether each cell resides outside or inside a clone.  </li>
+<li>Calculate the number of neighbours each cell has and what type of cell each of those neighbours are.</li>
 </ul>
-<p>As only cells inside a clone are mutant for our gene of interest, we can determine if our gene of interest regulates <strong>cell differentiation</strong> by comparing the percentage of each cell type inside vs. outside a clone. We can measure if our gene of interest regulates <strong>cell proliferation</strong> by comparing the number of cells per mutant clone, to the number of cells per control clone i.e. clones generated in wild-type animals lacking any mutation.</p>
+<p>As only cells inside a clone are mutant for our gene of interest, we can determine if our gene of interest regulates <strong>cell differentiation</strong> by comparing the percentage of each cell type inside vs. outside a clone. We can measure if our gene of interest regulates <strong>cell proliferation</strong> by comparing the number of cells per mutant clone, to the number of cells per control clone i.e. clones generated in wild-type animals lacking any mutation. Finally, we can determine whether our mutation of interest affects <strong>local tissue cell arrangement and structure</strong> by comparing each cell type's number and type of neighbours inside vs outside a clone.</p>
 
 </div>
 </div>
@@ -160,7 +161,7 @@ nb_path: "03_Tutorial_Walkthrough.ipynb"
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Import-and-instantiate-CloneCounter-subclass:">Import and instantiate CloneCounter subclass:<a class="anchor-link" href="#Import-and-instantiate-CloneCounter-subclass:"> </a></h3><p>The LazyCloneCounter subclass uses Dask to lazy load image series that may be too large to fit in RAM. If your data is small enough to fit into RAM, you can speed things up using the PersistentCloneCounter subclass.</p>
+<h3 id="Import-and-instantiate-CloneCounter-subclass">Import and instantiate CloneCounter subclass<a class="anchor-link" href="#Import-and-instantiate-CloneCounter-subclass"> </a></h3><p>The LazyCloneCounter subclass uses Dask to lazy load image series that may be too large to fit in RAM. If your data is small enough to fit into RAM, you can speed things up using the PersistentCloneCounter subclass.</p>
 <p>For more details, see the advanced tutorial (coming soon).</p>
 
 </div>
@@ -2467,7 +2468,7 @@ As a default,<a href="/py_clone_detective/clone_counters.html#CloneCounter.make_
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Testing-out-thresholds">Testing out thresholds<a class="anchor-link" href="#Testing-out-thresholds"> </a></h3>
+<h3 id="Test-thresholds-to-define-cells-as-GFP-positive-or-negative">Test thresholds to define cells as GFP positive or negative<a class="anchor-link" href="#Test-thresholds-to-define-cells-as-GFP-positive-or-negative"> </a></h3>
 </div>
 </div>
 </div>
@@ -2592,7 +2593,7 @@ As a default,<a href="/py_clone_detective/clone_counters.html#CloneCounter.make_
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Add-clones-and-calculate-the-number-of-touching-neighbours">Add clones and calculate the number of touching neighbours<a class="anchor-link" href="#Add-clones-and-calculate-the-number-of-touching-neighbours"> </a></h3>
+<h3 id="Define-clones-and-calculate-numbers-of-touching-neighbours">Define clones and calculate numbers of touching neighbours<a class="anchor-link" href="#Define-clones-and-calculate-numbers-of-touching-neighbours"> </a></h3>
 </div>
 </div>
 </div>
@@ -3784,13 +3785,13 @@ Data variables:
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Calculate-number-of-touching-neighbours-for-remaining-non-clone-image-channels">Calculate number of touching neighbours for remaining non-clone image channels<a class="anchor-link" href="#Calculate-number-of-touching-neighbours-for-remaining-non-clone-image-channels"> </a></h3>
+<h3 id="Calculate-numbers-of-touching-neighbours-for-non-clone-image-channels">Calculate numbers of touching neighbours for non-clone image channels<a class="anchor-link" href="#Calculate-numbers-of-touching-neighbours-for-non-clone-image-channels"> </a></h3>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>As well as a GFP channel, our dataset contains fluorescence channels for PDM1 (channel C2)  and Prospero (channel C3) immunostains. Since PDM1 markers EnteroCyte (EE) cells, and Prospero markers EnteroEndocrine (EE) cells, we can use thresholds to define these cell types within our images.</p>
+<p>As well as a GFP channel, our dataset contains fluorescence channels for PDM1 (channel C2)  and Prospero (channel C3) immunostains. Since PDM1 marks EnteroCyte (EE) cells, and Prospero marks EnteroEndocrine (EE) cells, we can use thresholds to define these cell types within our images.</p>
 <p>{% include image.html file="/py_clone_detective/docs/images/labelled_cell_types_attempt_2.png" %}</p>
 <blockquote><p>Cropped image of intestine stained with <span style="color:blue">DAPI</span>, <span style="color:green">GFP</span>, <span style="color:red">PDM1</span> and <span style="color:gray">Prospero</span> with labelled cell types</p>
 </blockquote>
