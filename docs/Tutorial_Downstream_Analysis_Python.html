@@ -923,7 +923,7 @@ nb_path: "04_Tutorial_Downstream_Analysis_Python.ipynb"
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Using statsmodels and patsy, we set up a ContrastMatrix for our desired comparisons.</p>
+<p>We next set up a contrast matrix for our desired comparisons.</p>
 <p>Our first set of contrasts compares the percentage of each cell type <u>inside mutant vs ctrl</u> clones:</p>
 
 </div>
@@ -1002,7 +1002,10 @@ nb_path: "04_Tutorial_Downstream_Analysis_Python.ipynb"
     <span class="k">for</span> <span class="n">contrast</span> <span class="ow">in</span> <span class="n">desired_contrasts</span><span class="p">:</span>
         <span class="n">group_A</span><span class="p">,</span> <span class="n">group_B</span> <span class="o">=</span> <span class="n">contrast</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">)</span>
         <span class="n">l</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">levels</span><span class="o">.</span><span class="n">replace</span><span class="p">({</span><span class="sa">f</span><span class="s1">&#39;^</span><span class="si">{</span><span class="n">group_A</span><span class="si">}</span><span class="s1">$&#39;</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;^</span><span class="si">{</span><span class="n">group_B</span><span class="si">}</span><span class="s1">$&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;.&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">},</span> <span class="n">regex</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
-    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">l</span><span class="p">)</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">levels</span><span class="o">.</span><span class="n">values</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">desired_contrasts</span>
+    <span class="k">return</span> <span class="n">df</span>
 </pre></div>
 
     </div>
@@ -1027,206 +1030,7 @@ nb_path: "04_Tutorial_Downstream_Analysis_Python.ipynb"
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">matrix</span> <span class="o">=</span> <span class="n">create_contrast_matrix</span><span class="p">(</span><span class="n">contrasts</span><span class="p">,</span> <span class="n">tidy_percentage_df</span><span class="p">[</span><span class="s2">&quot;comp_g_cs_ct&quot;</span><span class="p">])</span>
-
-<span class="kn">from</span> <span class="nn">patsy.contrasts</span> <span class="kn">import</span> <span class="n">ContrastMatrix</span>
-
-<span class="n">c_matrix</span> <span class="o">=</span> <span class="n">ContrastMatrix</span><span class="p">(</span><span class="n">matrix</span><span class="o">=</span><span class="n">matrix</span><span class="p">,</span> <span class="n">column_suffixes</span><span class="o">=</span><span class="n">contrasts</span><span class="p">)</span>
-<span class="n">c_matrix</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>ContrastMatrix(array([[ 1,  0,  0,  0,  0,  0,  0,  0,  0,  0],
-                      [ 0,  0,  0,  0,  1,  0,  0,  0,  0,  0],
-                      [ 0,  1,  0,  0,  0,  0,  0,  0,  0,  0],
-                      [ 0,  0,  0,  1,  0,  0,  0,  0,  0,  0],
-                      [ 0,  0,  1,  0,  0,  0,  0,  0,  0,  0],
-                      [ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0],
-                      [ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0],
-                      [ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0],
-                      [ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0],
-                      [ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0],
-                      [-1,  0,  0,  0,  0,  1,  0,  0,  0,  0],
-                      [ 0,  0,  0,  0, -1,  0,  0,  0,  0,  1],
-                      [ 0, -1,  0,  0,  0,  0,  1,  0,  0,  0],
-                      [ 0,  0,  0, -1,  0,  0,  0,  0,  1,  0],
-                      [ 0,  0, -1,  0,  0,  0,  0,  1,  0,  0],
-                      [ 0,  0,  0,  0,  0, -1,  0,  0,  0,  0],
-                      [ 0,  0,  0,  0,  0,  0,  0,  0,  0, -1],
-                      [ 0,  0,  0,  0,  0,  0, -1,  0,  0,  0],
-                      [ 0,  0,  0,  0,  0,  0,  0,  0, -1,  0],
-                      [ 0,  0,  0,  0,  0,  0,  0, -1,  0,  0]]),
-               [&#39;mut_IC_EC-ctrl_IC_EC&#39;,
-                &#39;mut_IC_EE-ctrl_IC_EE&#39;,
-                &#39;mut_IC_preEC-ctrl_IC_preEC&#39;,
-                &#39;mut_IC_ISCorEB-ctrl_IC_ISCorEB&#39;,
-                &#39;mut_IC_ECEE-ctrl_IC_ECEE&#39;,
-                &#39;mut_OC_EC-mut_IC_EC&#39;,
-                &#39;mut_OC_EE-mut_IC_EE&#39;,
-                &#39;mut_OC_preEC-mut_IC_preEC&#39;,
-                &#39;mut_OC_ISCorEB-mut_IC_ISCorEB&#39;,
-                &#39;mut_OC_ECEE-mut_IC_ECEE&#39;])</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Finally, we construct a 'ordinary least squares' (ols) model using statsmodels and test our desired contrasts:</p>
-
-</div>
-</div>
-</div>
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">lm</span> <span class="o">=</span> <span class="n">ols</span><span class="p">(</span><span class="s2">&quot;perc_cell_num ~ 0 + C(comp_g_cs_ct, c_matrix)&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">tidy_percentage_df</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
-<span class="n">lm</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_html rendered_html output_subarea output_execute_result">
-<table class="simpletable">
-<caption>OLS Regression Results</caption>
-<tr>
-  <th>Dep. Variable:</th>      <td>perc_cell_num</td>  <th>  R-squared (uncentered):</th>      <td>   0.371</td> 
-</tr>
-<tr>
-  <th>Model:</th>                   <td>OLS</td>       <th>  Adj. R-squared (uncentered):</th> <td>   0.368</td> 
-</tr>
-<tr>
-  <th>Method:</th>             <td>Least Squares</td>  <th>  F-statistic:       </th>          <td>   145.4</td> 
-</tr>
-<tr>
-  <th>Date:</th>             <td>Fri, 27 Aug 2021</td> <th>  Prob (F-statistic):</th>          <td>9.74e-240</td>
-</tr>
-<tr>
-  <th>Time:</th>                 <td>08:51:04</td>     <th>  Log-Likelihood:    </th>          <td> -11984.</td> 
-</tr>
-<tr>
-  <th>No. Observations:</th>      <td>  2480</td>      <th>  AIC:               </th>          <td>2.399e+04</td>
-</tr>
-<tr>
-  <th>Df Residuals:</th>          <td>  2470</td>      <th>  BIC:               </th>          <td>2.405e+04</td>
-</tr>
-<tr>
-  <th>Df Model:</th>              <td>    10</td>      <th>                     </th>              <td> </td>    
-</tr>
-<tr>
-  <th>Covariance Type:</th>      <td>nonrobust</td>    <th>                     </th>              <td> </td>    
-</tr>
-</table>
-<table class="simpletable">
-<tr>
-                             <td></td>                                <th>coef</th>     <th>std err</th>      <th>t</th>      <th>P>|t|</th>  <th>[0.025</th>    <th>0.975]</th>  
-</tr>
-<tr>
-  <th>C(comp_g_cs_ct, c_matrix)mut_IC_EC-ctrl_IC_EC</th>           <td>   28.8560</td> <td>    2.033</td> <td>   14.191</td> <td> 0.000</td> <td>   24.869</td> <td>   32.843</td>
-</tr>
-<tr>
-  <th>C(comp_g_cs_ct, c_matrix)mut_IC_EE-ctrl_IC_EE</th>           <td>    0.9954</td> <td>    2.033</td> <td>    0.490</td> <td> 0.624</td> <td>   -2.992</td> <td>    4.983</td>
-</tr>
-<tr>
-  <th>C(comp_g_cs_ct, c_matrix)mut_IC_preEC-ctrl_IC_preEC</th>     <td>   -0.1357</td> <td>    2.033</td> <td>   -0.067</td> <td> 0.947</td> <td>   -4.123</td> <td>    3.852</td>
-</tr>
-<tr>
-  <th>C(comp_g_cs_ct, c_matrix)mut_IC_ISCorEB-ctrl_IC_ISCorEB</th> <td>   31.1806</td> <td>    2.033</td> <td>   15.335</td> <td> 0.000</td> <td>   27.193</td> <td>   35.168</td>
-</tr>
-<tr>
-  <th>C(comp_g_cs_ct, c_matrix)mut_IC_ECEE-ctrl_IC_ECEE</th>       <td>    0.3561</td> <td>    2.033</td> <td>    0.175</td> <td> 0.861</td> <td>   -3.631</td> <td>    4.343</td>
-</tr>
-<tr>
-  <th>C(comp_g_cs_ct, c_matrix)mut_OC_EC-mut_IC_EC</th>            <td>   36.8841</td> <td>    2.577</td> <td>   14.311</td> <td> 0.000</td> <td>   31.830</td> <td>   41.938</td>
-</tr>
-<tr>
-  <th>C(comp_g_cs_ct, c_matrix)mut_OC_EE-mut_IC_EE</th>            <td>    5.9188</td> <td>    2.577</td> <td>    2.296</td> <td> 0.022</td> <td>    0.865</td> <td>   10.973</td>
-</tr>
-<tr>
-  <th>C(comp_g_cs_ct, c_matrix)mut_OC_preEC-mut_IC_preEC</th>      <td>    0.0707</td> <td>    2.577</td> <td>    0.027</td> <td> 0.978</td> <td>   -4.983</td> <td>    5.125</td>
-</tr>
-<tr>
-  <th>C(comp_g_cs_ct, c_matrix)mut_OC_ISCorEB-mut_IC_ISCorEB</th>  <td>   85.3523</td> <td>    2.577</td> <td>   33.116</td> <td> 0.000</td> <td>   80.298</td> <td>   90.406</td>
-</tr>
-<tr>
-  <th>C(comp_g_cs_ct, c_matrix)mut_OC_ECEE-mut_IC_ECEE</th>        <td>    0.7368</td> <td>    2.577</td> <td>    0.286</td> <td> 0.775</td> <td>   -4.317</td> <td>    5.791</td>
-</tr>
-</table>
-<table class="simpletable">
-<tr>
-  <th>Omnibus:</th>       <td>1090.006</td> <th>  Durbin-Watson:     </th> <td>   1.310</td>
-</tr>
-<tr>
-  <th>Prob(Omnibus):</th>  <td> 0.000</td>  <th>  Jarque-Bera (JB):  </th> <td>5848.366</td>
-</tr>
-<tr>
-  <th>Skew:</th>           <td> 2.049</td>  <th>  Prob(JB):          </th> <td>    0.00</td>
-</tr>
-<tr>
-  <th>Kurtosis:</th>       <td> 9.308</td>  <th>  Cond. No.          </th> <td>    2.44</td>
-</tr>
-</table><br/><br/>Notes:<br/>[1] R² is computed without centering (uncentered) since the model does not contain a constant.<br/>[2] Standard Errors assume that the covariance matrix of the errors is correctly specified.
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Alternative approach:</strong><br>
-If we did not have specific contrast we were interested, we could perform FDR adjusted pairwise t-tests for all possible comparisons:</p>
-
-</div>
-</div>
-</div>
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">lm</span> <span class="o">=</span> <span class="n">ols</span><span class="p">(</span><span class="s2">&quot;perc_cell_num ~ comp_g_cs_ct&quot;</span><span class="p">,</span> <span class="n">tidy_percentage_df</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
-<span class="n">stat_df</span> <span class="o">=</span> <span class="n">lm</span><span class="o">.</span><span class="n">t_test_pairwise</span><span class="p">(</span><span class="s2">&quot;comp_g_cs_ct&quot;</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;fdr_bh&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">result_frame</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
-<span class="c1"># clean up column names</span>
-<span class="n">stat_df</span> <span class="o">=</span> <span class="n">stat_df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span>
-    <span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;index&quot;</span><span class="p">:</span> <span class="s2">&quot;comparisons&quot;</span><span class="p">,</span> <span class="s2">&quot;pvalue-fdr_bh&quot;</span><span class="p">:</span> <span class="s2">&quot;pvalue_fdr_bh&quot;</span><span class="p">,</span> <span class="s2">&quot;reject-fdr_bh&quot;</span><span class="p">:</span><span class="s2">&quot;reject_fdr_bh&quot;</span><span class="p">}</span>
-<span class="p">)</span>
-
-<span class="n">stat_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<span class="n">matrix</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 
     </div>
@@ -1258,77 +1062,143 @@ If we did not have specific contrast we were interested, we could perform FDR ad
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>comparisons</th>
-      <th>coef</th>
-      <th>std err</th>
-      <th>t</th>
-      <th>P&gt;|t|</th>
-      <th>Conf. Int. Low</th>
-      <th>Conf. Int. Upp.</th>
-      <th>pvalue_fdr_bh</th>
-      <th>reject_fdr_bh</th>
+      <th>ctrl_IC_EC</th>
+      <th>ctrl_IC_ECEE</th>
+      <th>ctrl_IC_EE</th>
+      <th>ctrl_IC_ISCorEB</th>
+      <th>ctrl_IC_preEC</th>
+      <th>ctrl_OC_EC</th>
+      <th>ctrl_OC_ECEE</th>
+      <th>ctrl_OC_EE</th>
+      <th>ctrl_OC_ISCorEB</th>
+      <th>ctrl_OC_preEC</th>
+      <th>mut_IC_EC</th>
+      <th>mut_IC_ECEE</th>
+      <th>mut_IC_EE</th>
+      <th>mut_IC_ISCorEB</th>
+      <th>mut_IC_preEC</th>
+      <th>mut_OC_EC</th>
+      <th>mut_OC_ECEE</th>
+      <th>mut_OC_EE</th>
+      <th>mut_OC_ISCorEB</th>
+      <th>mut_OC_preEC</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th>0</th>
-      <td>ctrl_IC_ECEE-ctrl_IC_EC</td>
-      <td>-39.891379</td>
-      <td>2.056819</td>
-      <td>-19.394698</td>
-      <td>4.329382e-78</td>
-      <td>-43.924654</td>
-      <td>-35.858104</td>
-      <td>3.917060e-77</td>
-      <td>True</td>
+      <th>mut_IC_EC-ctrl_IC_EC</th>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>-1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
     </tr>
     <tr>
-      <th>1</th>
-      <td>ctrl_IC_EE-ctrl_IC_EC</td>
-      <td>-37.393937</td>
-      <td>2.056819</td>
-      <td>-18.180472</td>
-      <td>2.108592e-69</td>
-      <td>-41.427213</td>
-      <td>-33.360662</td>
-      <td>1.669302e-68</td>
-      <td>True</td>
+      <th>mut_IC_EE-ctrl_IC_EE</th>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>-1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
     </tr>
     <tr>
-      <th>2</th>
-      <td>ctrl_IC_ISCorEB-ctrl_IC_EC</td>
-      <td>15.231241</td>
-      <td>2.056819</td>
-      <td>7.405242</td>
-      <td>1.788585e-13</td>
-      <td>11.197966</td>
-      <td>19.264517</td>
-      <td>3.775902e-13</td>
-      <td>True</td>
+      <th>mut_IC_preEC-ctrl_IC_preEC</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>-1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
     </tr>
     <tr>
-      <th>3</th>
-      <td>ctrl_IC_preEC-ctrl_IC_EC</td>
-      <td>-40.377428</td>
-      <td>2.056819</td>
-      <td>-19.631009</td>
-      <td>7.902032e-80</td>
-      <td>-44.410703</td>
-      <td>-36.344153</td>
-      <td>8.341034e-79</td>
-      <td>True</td>
+      <th>mut_IC_ISCorEB-ctrl_IC_ISCorEB</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>-1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
     </tr>
     <tr>
-      <th>4</th>
-      <td>ctrl_OC_EC-ctrl_IC_EC</td>
-      <td>0.106221</td>
-      <td>3.774499</td>
-      <td>0.028142</td>
-      <td>9.775514e-01</td>
-      <td>-7.295303</td>
-      <td>7.507745</td>
-      <td>9.939052e-01</td>
-      <td>False</td>
+      <th>mut_IC_ECEE-ctrl_IC_ECEE</th>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>-1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
     </tr>
   </tbody>
 </table>
@@ -1345,7 +1215,7 @@ If we did not have specific contrast we were interested, we could perform FDR ad
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Filtering to look at our favourite comparisons:</p>
+<p>Finally, we use statsmodels to construct a 'ordinary least squares' (ols) model and perform t-tests for our desired contrasts:</p>
 
 </div>
 </div>
@@ -1357,7 +1227,11 @@ If we did not have specific contrast we were interested, we could perform FDR ad
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">stat_df</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;comparisons in @contrasts&quot;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">lm</span> <span class="o">=</span> <span class="n">ols</span><span class="p">(</span><span class="s2">&quot;perc_cell_num ~ comp_g_cs_ct&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">tidy_percentage_df</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+
+<span class="n">t_test_df</span> <span class="o">=</span> <span class="n">lm</span><span class="o">.</span><span class="n">t_test</span><span class="p">(</span><span class="n">matrix</span><span class="p">)</span><span class="o">.</span><span class="n">summary_frame</span><span class="p">()</span> 
+<span class="n">t_test_df</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">matrix</span><span class="o">.</span><span class="n">index</span>
+<span class="n">t_test_df</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span> <span class="c1"># round for easier reading</span>
 </pre></div>
 
     </div>
@@ -1389,136 +1263,290 @@ If we did not have specific contrast we were interested, we could perform FDR ad
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>comparisons</th>
       <th>coef</th>
       <th>std err</th>
       <th>t</th>
       <th>P&gt;|t|</th>
       <th>Conf. Int. Low</th>
       <th>Conf. Int. Upp.</th>
-      <th>pvalue_fdr_bh</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>mut_IC_EC-ctrl_IC_EC</th>
+      <td>63.2526</td>
+      <td>3.1975</td>
+      <td>19.7822</td>
+      <td>0.0000</td>
+      <td>56.9826</td>
+      <td>69.5226</td>
+    </tr>
+    <tr>
+      <th>mut_IC_EE-ctrl_IC_EE</th>
+      <td>-3.5784</td>
+      <td>1.9693</td>
+      <td>-1.8171</td>
+      <td>0.0693</td>
+      <td>-7.4400</td>
+      <td>0.2831</td>
+    </tr>
+    <tr>
+      <th>mut_IC_preEC-ctrl_IC_preEC</th>
+      <td>-0.3014</td>
+      <td>1.9693</td>
+      <td>-0.1530</td>
+      <td>0.8784</td>
+      <td>-4.1629</td>
+      <td>3.5602</td>
+    </tr>
+    <tr>
+      <th>mut_IC_ISCorEB-ctrl_IC_ISCorEB</th>
+      <td>-18.9017</td>
+      <td>1.9693</td>
+      <td>-9.5984</td>
+      <td>0.0000</td>
+      <td>-22.7633</td>
+      <td>-15.0401</td>
+    </tr>
+    <tr>
+      <th>mut_IC_ECEE-ctrl_IC_ECEE</th>
+      <td>0.0152</td>
+      <td>1.9693</td>
+      <td>0.0077</td>
+      <td>0.9938</td>
+      <td>-3.8464</td>
+      <td>3.8768</td>
+    </tr>
+    <tr>
+      <th>mut_OC_EC-mut_IC_EC</th>
+      <td>-14.1202</td>
+      <td>3.7765</td>
+      <td>-3.7390</td>
+      <td>0.0002</td>
+      <td>-21.5256</td>
+      <td>-6.7147</td>
+    </tr>
+    <tr>
+      <th>mut_OC_EE-mut_IC_EE</th>
+      <td>0.1986</td>
+      <td>3.7765</td>
+      <td>0.0526</td>
+      <td>0.9581</td>
+      <td>-7.2068</td>
+      <td>7.6041</td>
+    </tr>
+    <tr>
+      <th>mut_OC_preEC-mut_IC_preEC</th>
+      <td>-0.9642</td>
+      <td>3.7765</td>
+      <td>-0.2553</td>
+      <td>0.7985</td>
+      <td>-8.3696</td>
+      <td>6.4413</td>
+    </tr>
+    <tr>
+      <th>mut_OC_ISCorEB-mut_IC_ISCorEB</th>
+      <td>14.9803</td>
+      <td>3.7765</td>
+      <td>3.9667</td>
+      <td>0.0001</td>
+      <td>7.5748</td>
+      <td>22.3857</td>
+    </tr>
+    <tr>
+      <th>mut_OC_ECEE-mut_IC_ECEE</th>
+      <td>-0.0945</td>
+      <td>3.7765</td>
+      <td>-0.0250</td>
+      <td>0.9800</td>
+      <td>-7.5000</td>
+      <td>7.3109</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>However, as we are performing multiple comparisons, we need to adjust our p values. We can do that using the Benjamini/Hochberg false-discovery rate procedure:</p>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">statsmodels.stats.multitest</span> <span class="kn">import</span> <span class="n">fdrcorrection</span>
+
+<span class="n">fdr_results</span> <span class="o">=</span> <span class="n">fdrcorrection</span><span class="p">(</span><span class="n">t_test_df</span><span class="p">[</span><span class="s1">&#39;P&gt;|t|&#39;</span><span class="p">])</span>
+
+<span class="n">t_test_df</span><span class="p">[</span><span class="s1">&#39;pval_fdr_bh&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">fdr_results</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">t_test_df</span><span class="p">[</span><span class="s1">&#39;reject_fdr_bh&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">fdr_results</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="n">t_test_df</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span> <span class="c1"># round for easier reading</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>coef</th>
+      <th>std err</th>
+      <th>t</th>
+      <th>P&gt;|t|</th>
+      <th>Conf. Int. Low</th>
+      <th>Conf. Int. Upp.</th>
+      <th>pval_fdr_bh</th>
       <th>reject_fdr_bh</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th>9</th>
-      <td>mut_IC_EC-ctrl_IC_EC</td>
-      <td>-22.766303</td>
-      <td>1.969254</td>
-      <td>-11.560876</td>
-      <td>3.851297e-30</td>
-      <td>-26.627870</td>
-      <td>-18.904736</td>
-      <td>1.463493e-29</td>
+      <th>mut_IC_EC-ctrl_IC_EC</th>
+      <td>63.2526</td>
+      <td>3.1975</td>
+      <td>19.7822</td>
+      <td>0.0000</td>
+      <td>56.9826</td>
+      <td>69.5226</td>
+      <td>0.0000</td>
       <td>True</td>
     </tr>
     <tr>
-      <th>28</th>
-      <td>mut_IC_ECEE-ctrl_IC_ECEE</td>
-      <td>-0.015204</td>
-      <td>1.969254</td>
-      <td>-0.007721</td>
-      <td>9.938405e-01</td>
-      <td>-3.876771</td>
-      <td>3.846363</td>
-      <td>9.988273e-01</td>
+      <th>mut_IC_EE-ctrl_IC_EE</th>
+      <td>-3.5784</td>
+      <td>1.9693</td>
+      <td>-1.8171</td>
+      <td>0.0693</td>
+      <td>-7.4400</td>
+      <td>0.2831</td>
+      <td>0.1386</td>
       <td>False</td>
     </tr>
     <tr>
-      <th>46</th>
-      <td>mut_IC_EE-ctrl_IC_EE</td>
-      <td>3.578422</td>
-      <td>1.969254</td>
-      <td>1.817146</td>
-      <td>6.931636e-02</td>
-      <td>-0.283145</td>
-      <td>7.439990</td>
-      <td>1.062106e-01</td>
+      <th>mut_IC_preEC-ctrl_IC_preEC</th>
+      <td>-0.3014</td>
+      <td>1.9693</td>
+      <td>-0.1530</td>
+      <td>0.8784</td>
+      <td>-4.1629</td>
+      <td>3.5602</td>
+      <td>0.9938</td>
       <td>False</td>
     </tr>
     <tr>
-      <th>63</th>
-      <td>mut_IC_ISCorEB-ctrl_IC_ISCorEB</td>
-      <td>18.901716</td>
-      <td>1.969254</td>
-      <td>9.598414</td>
-      <td>1.918368e-21</td>
-      <td>15.040149</td>
-      <td>22.763283</td>
-      <td>5.282462e-21</td>
+      <th>mut_IC_ISCorEB-ctrl_IC_ISCorEB</th>
+      <td>-18.9017</td>
+      <td>1.9693</td>
+      <td>-9.5984</td>
+      <td>0.0000</td>
+      <td>-22.7633</td>
+      <td>-15.0401</td>
+      <td>0.0000</td>
       <td>True</td>
     </tr>
     <tr>
-      <th>79</th>
-      <td>mut_IC_preEC-ctrl_IC_preEC</td>
-      <td>0.301368</td>
-      <td>1.969254</td>
-      <td>0.153037</td>
-      <td>8.783818e-01</td>
-      <td>-3.560199</td>
-      <td>4.162935</td>
-      <td>9.862527e-01</td>
+      <th>mut_IC_ECEE-ctrl_IC_ECEE</th>
+      <td>0.0152</td>
+      <td>1.9693</td>
+      <td>0.0077</td>
+      <td>0.9938</td>
+      <td>-3.8464</td>
+      <td>3.8768</td>
+      <td>0.9938</td>
       <td>False</td>
     </tr>
     <tr>
-      <th>149</th>
-      <td>mut_OC_EC-mut_IC_EC</td>
-      <td>14.120186</td>
-      <td>3.776496</td>
-      <td>3.738965</td>
-      <td>1.889951e-04</td>
-      <td>6.714746</td>
-      <td>21.525627</td>
-      <td>3.149918e-04</td>
+      <th>mut_OC_EC-mut_IC_EC</th>
+      <td>-14.1202</td>
+      <td>3.7765</td>
+      <td>-3.7390</td>
+      <td>0.0002</td>
+      <td>-21.5256</td>
+      <td>-6.7147</td>
+      <td>0.0005</td>
       <td>True</td>
     </tr>
     <tr>
-      <th>158</th>
-      <td>mut_OC_ECEE-mut_IC_ECEE</td>
-      <td>0.094547</td>
-      <td>3.776496</td>
-      <td>0.025036</td>
-      <td>9.800287e-01</td>
-      <td>-7.310894</td>
-      <td>7.499987</td>
-      <td>9.939052e-01</td>
+      <th>mut_OC_EE-mut_IC_EE</th>
+      <td>0.1986</td>
+      <td>3.7765</td>
+      <td>0.0526</td>
+      <td>0.9581</td>
+      <td>-7.2068</td>
+      <td>7.6041</td>
+      <td>0.9938</td>
       <td>False</td>
     </tr>
     <tr>
-      <th>166</th>
-      <td>mut_OC_EE-mut_IC_EE</td>
-      <td>-0.198641</td>
-      <td>3.776496</td>
-      <td>-0.052599</td>
-      <td>9.580555e-01</td>
-      <td>-7.604082</td>
-      <td>7.206800</td>
-      <td>9.939052e-01</td>
+      <th>mut_OC_preEC-mut_IC_preEC</th>
+      <td>-0.9642</td>
+      <td>3.7765</td>
+      <td>-0.2553</td>
+      <td>0.7985</td>
+      <td>-8.3696</td>
+      <td>6.4413</td>
+      <td>0.9938</td>
       <td>False</td>
     </tr>
     <tr>
-      <th>173</th>
-      <td>mut_OC_ISCorEB-mut_IC_ISCorEB</td>
-      <td>-14.980271</td>
-      <td>3.776496</td>
-      <td>-3.966711</td>
-      <td>7.495353e-05</td>
-      <td>-22.385712</td>
-      <td>-7.574831</td>
-      <td>1.271533e-04</td>
+      <th>mut_OC_ISCorEB-mut_IC_ISCorEB</th>
+      <td>14.9803</td>
+      <td>3.7765</td>
+      <td>3.9667</td>
+      <td>0.0001</td>
+      <td>7.5748</td>
+      <td>22.3857</td>
+      <td>0.0002</td>
       <td>True</td>
     </tr>
     <tr>
-      <th>179</th>
-      <td>mut_OC_preEC-mut_IC_preEC</td>
-      <td>0.964180</td>
-      <td>3.776496</td>
-      <td>0.255311</td>
-      <td>7.985046e-01</td>
-      <td>-6.441261</td>
-      <td>8.369620</td>
-      <td>9.423346e-01</td>
+      <th>mut_OC_ECEE-mut_IC_ECEE</th>
+      <td>-0.0945</td>
+      <td>3.7765</td>
+      <td>-0.0250</td>
+      <td>0.9800</td>
+      <td>-7.5000</td>
+      <td>7.3109</td>
+      <td>0.9938</td>
       <td>False</td>
     </tr>
   </tbody>
