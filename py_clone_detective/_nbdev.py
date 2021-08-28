@@ -36,7 +36,9 @@ index = {"clean_img_names": "00_utils.ipynb",
          "LazyCloneCounter": "01_clone_counters.ipynb",
          "PersistentCloneCounter": "01_clone_counters.ipynb",
          "query_df_groupby_by_clone_channel": "02_clone_analysis.ipynb",
-         "create_stack_bar_plot": "02_clone_analysis.ipynb"}
+         "create_stack_bar_plot": "02_clone_analysis.ipynb",
+         "plot_stat_annotation": "02_clone_analysis.ipynb",
+         "pvals_to_stat_anots": "02_clone_analysis.ipynb"}
 
 modules = ["utils.py",
            "clone_counters.py",
