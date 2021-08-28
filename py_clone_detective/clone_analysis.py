@@ -129,5 +129,5 @@ def pvals_to_stat_anots(
     annotations=("****", "***", "**", "*", r"$^{ns}$"),
 ):
     return pd.cut(
-        t_test_df["pval_fdr_bh"], bins=(0,) + pval_thresholds, labels=annotations
+        pvals_arr, bins=(0,) + pval_thresholds, labels=annotations
     ).astype(str)
