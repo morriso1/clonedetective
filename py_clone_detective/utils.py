@@ -154,7 +154,19 @@ def check_channels_input_suitable_and_return_channels(
     return channels
 
 # Cell
-def extend_region_properties_list(extra_properties: list = None):
+def extend_region_properties_list(extra_properties: List = None) -> List:
+    """Adds more properties to scikit-image regionprops function. Defaults are ["label", "area", "mean_intensity", "centroid"].
+
+    Args:
+        extra_properties (List, optional): See scikit-image regionprops for possible extra properties. Defaults to None.
+
+    Raises:
+        TypeError: extra_properties must be a list.
+        e: remaining exceptions.
+
+    Returns:
+        List: extra properties appended to default properties.
+    """
     properties = ["label", "area", "mean_intensity", "centroid"]
     if extra_properties is None:
         pass
