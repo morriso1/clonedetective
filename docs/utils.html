@@ -57,11 +57,10 @@ nb_path: "00_utils.ipynb"
 </blockquote>
 <p>clean_img_names takes a "globbed" string pattern, searches for all files that match the pattern and extracts image names from each file using a regular expression.</p>
 <p>Args:
-    img_path_glob (str): [description]
-    img_name_regex (str): [description]</p>
-<p>Returns:</p>
-
-<pre><code>[type]: [description]</code></pre>
+    img_path_glob (str): A globbed string pattern e.g. "C1/*.tif"
+    img_name_regex (str): A regex pattern used to parse out image names from filenames e.g. r"\w\d\w\d\d\p\d"</p>
+<p>Returns:
+    list: Parsed image filenames stored in a list.</p>
 
 </div>
 
@@ -82,7 +81,7 @@ nb_path: "00_utils.ipynb"
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>An example of clean_img_names:</p>
+<p>Examples:</p>
 
 </div>
 </div>
@@ -148,7 +147,85 @@ nb_path: "00_utils.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="check_lists_identical" class="doc_header"><code>check_lists_identical</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/utils.py#L53" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>check_lists_identical</code>(<strong><code>list_of_lists</code></strong>)</p>
+<h4 id="check_lists_identical" class="doc_header"><code>check_lists_identical</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/utils.py#L53" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>check_lists_identical</code>(<strong><code>list_of_lists</code></strong>:<code>List</code>[<code>List</code>[<code>T</code>]])</p>
+</blockquote>
+<p>Checks if all lists within a list are identical. Raises a ValueError exception if not.</p>
+<p>Args:
+    list_of_lists (list[list]): List of lists. Can contain</p>
+<p>Raises:
+    ValueError: [description]</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Examples:</p>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">check_lists_identical</span><span class="p">([[</span><span class="s1">&#39;hello&#39;</span><span class="p">,</span> <span class="s1">&#39;goodbye&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;hello&#39;</span><span class="p">,</span> <span class="s1">&#39;goodbye&#39;</span><span class="p">]])</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">with</span> <span class="n">ExceptionExpected</span><span class="p">():</span>
+    <span class="n">check_lists_identical</span><span class="p">([[</span><span class="s1">&#39;hello&#39;</span><span class="p">,</span> <span class="s1">&#39;goodbye&#39;</span><span class="p">,</span> <span class="s1">&#39;morning&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;hello&#39;</span><span class="p">,</span> <span class="s1">&#39;goodbye&#39;</span><span class="p">]])</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="img_path_to_xarr" class="doc_header"><code>img_path_to_xarr</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/utils.py#L71" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>img_path_to_xarr</code>(<strong><code>img_name_regex</code></strong>:<code>str</code>, <strong><code>pixel_size</code></strong>:<code>float</code>=<em><code>0.275</code></em>, <strong><code>ch_name_for_first_dim</code></strong>:<code>str</code>=<em><code>'images'</code></em>, <strong>**<code>channel_path_globs</code></strong>)</p>
 </blockquote>
 
 </div>
@@ -179,38 +256,7 @@ nb_path: "00_utils.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="img_path_to_xarr" class="doc_header"><code>img_path_to_xarr</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/utils.py#L63" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>img_path_to_xarr</code>(<strong><code>img_name_regex</code></strong>:<code>str</code>, <strong><code>pixel_size</code></strong>:<code>float</code>=<em><code>0.275</code></em>, <strong><code>ch_name_for_first_dim</code></strong>:<code>str</code>=<em><code>'images'</code></em>, <strong>**<code>channel_path_globs</code></strong>)</p>
-</blockquote>
-
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_markdown rendered_html output_subarea ">
-<h4 id="last2dims" class="doc_header"><code>last2dims</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/utils.py#L91" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>last2dims</code>(<strong><code>f</code></strong>)</p>
+<h4 id="last2dims" class="doc_header"><code>last2dims</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/utils.py#L99" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>last2dims</code>(<strong><code>f</code></strong>)</p>
 </blockquote>
 
 </div>
@@ -247,7 +293,7 @@ nb_path: "00_utils.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="check_channels_input_suitable_and_return_channels" class="doc_header"><code>check_channels_input_suitable_and_return_channels</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/utils.py#L98" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>check_channels_input_suitable_and_return_channels</code>(<strong><code>channels</code></strong>, <strong><code>available_channels</code></strong>:<code>list</code>)</p>
+<h4 id="check_channels_input_suitable_and_return_channels" class="doc_header"><code>check_channels_input_suitable_and_return_channels</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/utils.py#L106" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>check_channels_input_suitable_and_return_channels</code>(<strong><code>channels</code></strong>, <strong><code>available_channels</code></strong>:<code>list</code>)</p>
 </blockquote>
 
 </div>
@@ -278,7 +324,7 @@ nb_path: "00_utils.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="extend_region_properties_list" class="doc_header"><code>extend_region_properties_list</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/utils.py#L118" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>extend_region_properties_list</code>(<strong><code>extra_properties</code></strong>:<code>list</code>=<em><code>None</code></em>)</p>
+<h4 id="extend_region_properties_list" class="doc_header"><code>extend_region_properties_list</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/utils.py#L126" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>extend_region_properties_list</code>(<strong><code>extra_properties</code></strong>:<code>list</code>=<em><code>None</code></em>)</p>
 </blockquote>
 
 </div>
@@ -309,7 +355,7 @@ nb_path: "00_utils.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="add_scale_regionprops_table_area_measurements" class="doc_header"><code>add_scale_regionprops_table_area_measurements</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/utils.py#L133" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>add_scale_regionprops_table_area_measurements</code>(<strong><code>df</code></strong>, <strong><code>pixel_size</code></strong>)</p>
+<h4 id="add_scale_regionprops_table_area_measurements" class="doc_header"><code>add_scale_regionprops_table_area_measurements</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/utils.py#L141" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>add_scale_regionprops_table_area_measurements</code>(<strong><code>df</code></strong>, <strong><code>pixel_size</code></strong>)</p>
 </blockquote>
 
 </div>
@@ -340,7 +386,7 @@ nb_path: "00_utils.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="Delayed('lazy_props-07ba8ce5-6b89-492d-bc44-82fd08e93d5b')" class="doc_header"><code>Delayed('lazy_props-07ba8ce5-6b89-492d-bc44-82fd08e93d5b')</code><a href="" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Delayed('lazy_props-07ba8ce5-6b89-492d-bc44-82fd08e93d5b')</code>()</p>
+<h4 id="Delayed('lazy_props-01fbaeb9-eb58-44d3-9d9f-0062c4a86b7f')" class="doc_header"><code>Delayed('lazy_props-01fbaeb9-eb58-44d3-9d9f-0062c4a86b7f')</code><a href="" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Delayed('lazy_props-01fbaeb9-eb58-44d3-9d9f-0062c4a86b7f')</code>()</p>
 </blockquote>
 
 </div>
@@ -371,7 +417,7 @@ nb_path: "00_utils.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="reorder_df_to_put_ch_info_first" class="doc_header"><code>reorder_df_to_put_ch_info_first</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/utils.py#L150" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>reorder_df_to_put_ch_info_first</code>(<strong><code>df</code></strong>)</p>
+<h4 id="reorder_df_to_put_ch_info_first" class="doc_header"><code>reorder_df_to_put_ch_info_first</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/utils.py#L158" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>reorder_df_to_put_ch_info_first</code>(<strong><code>df</code></strong>)</p>
 </blockquote>
 
 </div>
@@ -408,7 +454,7 @@ nb_path: "00_utils.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="is_label_image" class="doc_header"><code>is_label_image</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/utils.py#L162" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>is_label_image</code>(<strong><code>img</code></strong>)</p>
+<h4 id="is_label_image" class="doc_header"><code>is_label_image</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/utils.py#L170" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>is_label_image</code>(<strong><code>img</code></strong>)</p>
 </blockquote>
 
 </div>
@@ -439,7 +485,7 @@ nb_path: "00_utils.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="generate_random_cmap" class="doc_header"><code>generate_random_cmap</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/utils.py#L166" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>generate_random_cmap</code>(<strong><code>num_of_colors</code></strong>=<em><code>2000</code></em>)</p>
+<h4 id="generate_random_cmap" class="doc_header"><code>generate_random_cmap</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/utils.py#L174" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>generate_random_cmap</code>(<strong><code>num_of_colors</code></strong>=<em><code>2000</code></em>)</p>
 </blockquote>
 
 </div>
@@ -470,7 +516,7 @@ nb_path: "00_utils.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="what_cmap" class="doc_header"><code>what_cmap</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/utils.py#L172" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>what_cmap</code>(<strong><code>img</code></strong>, <strong><code>img_cmap</code></strong>, <strong><code>label_cmap</code></strong>)</p>
+<h4 id="what_cmap" class="doc_header"><code>what_cmap</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/utils.py#L180" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>what_cmap</code>(<strong><code>img</code></strong>, <strong><code>img_cmap</code></strong>, <strong><code>label_cmap</code></strong>)</p>
 </blockquote>
 
 </div>
@@ -501,7 +547,7 @@ nb_path: "00_utils.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="figure_rows_columns" class="doc_header"><code>figure_rows_columns</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/utils.py#L176" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>figure_rows_columns</code>(<strong><code>total_fig_axes</code></strong>:<code>int</code>, <strong><code>rows</code></strong>=<em><code>3</code></em>)</p>
+<h4 id="figure_rows_columns" class="doc_header"><code>figure_rows_columns</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/utils.py#L184" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>figure_rows_columns</code>(<strong><code>total_fig_axes</code></strong>:<code>int</code>, <strong><code>rows</code></strong>=<em><code>3</code></em>)</p>
 </blockquote>
 
 </div>
@@ -532,7 +578,7 @@ nb_path: "00_utils.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="auto_figure_size" class="doc_header"><code>auto_figure_size</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/utils.py#L180" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>auto_figure_size</code>(<strong><code>figure_shape</code></strong>)</p>
+<h4 id="auto_figure_size" class="doc_header"><code>auto_figure_size</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/utils.py#L188" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>auto_figure_size</code>(<strong><code>figure_shape</code></strong>)</p>
 </blockquote>
 
 </div>
@@ -563,7 +609,7 @@ nb_path: "00_utils.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="crop_RGB_img_to_square" class="doc_header"><code>crop_RGB_img_to_square</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/utils.py#L184" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>crop_RGB_img_to_square</code>(<strong><code>RGB_img</code></strong>)</p>
+<h4 id="crop_RGB_img_to_square" class="doc_header"><code>crop_RGB_img_to_square</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/utils.py#L192" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>crop_RGB_img_to_square</code>(<strong><code>RGB_img</code></strong>)</p>
 </blockquote>
 
 </div>
@@ -594,7 +640,7 @@ nb_path: "00_utils.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="plot_new_images" class="doc_header"><code>plot_new_images</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/utils.py#L199" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>plot_new_images</code>(<strong><code>images</code></strong>, <strong><code>label_text</code></strong>, <strong><code>label_letter</code></strong>=<em><code>None</code></em>, <strong><code>figure_shape</code></strong>=<em><code>None</code></em>, <strong><code>figure_size</code></strong>=<em><code>None</code></em>, <strong><code>img_cmap</code></strong>=<em><code>'gray'</code></em>, <strong><code>label_cmap</code></strong>=<em><code>None</code></em>, <strong><code>colorbar</code></strong>=<em><code>False</code></em>, <strong><code>colorbar_title</code></strong>=<em><code>'number of neighbours'</code></em>, <strong>**<code>kwargs</code></strong>)</p>
+<h4 id="plot_new_images" class="doc_header"><code>plot_new_images</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/utils.py#L207" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>plot_new_images</code>(<strong><code>images</code></strong>, <strong><code>label_text</code></strong>, <strong><code>label_letter</code></strong>=<em><code>None</code></em>, <strong><code>figure_shape</code></strong>=<em><code>None</code></em>, <strong><code>figure_size</code></strong>=<em><code>None</code></em>, <strong><code>img_cmap</code></strong>=<em><code>'gray'</code></em>, <strong><code>label_cmap</code></strong>=<em><code>None</code></em>, <strong><code>colorbar</code></strong>=<em><code>False</code></em>, <strong><code>colorbar_title</code></strong>=<em><code>'number of neighbours'</code></em>, <strong>**<code>kwargs</code></strong>)</p>
 </blockquote>
 
 </div>
@@ -625,7 +671,7 @@ nb_path: "00_utils.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="RGB_image_from_CYX_img" class="doc_header"><code>RGB_image_from_CYX_img</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/utils.py#L245" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>RGB_image_from_CYX_img</code>(<strong><code>red</code></strong>=<em><code>None</code></em>, <strong><code>green</code></strong>=<em><code>None</code></em>, <strong><code>blue</code></strong>=<em><code>None</code></em>, <strong><code>ref_ch</code></strong>=<em><code>2</code></em>, <strong><code>clims</code></strong>=<em><code>(2, 98)</code></em>)</p>
+<h4 id="RGB_image_from_CYX_img" class="doc_header"><code>RGB_image_from_CYX_img</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/utils.py#L253" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>RGB_image_from_CYX_img</code>(<strong><code>red</code></strong>=<em><code>None</code></em>, <strong><code>green</code></strong>=<em><code>None</code></em>, <strong><code>blue</code></strong>=<em><code>None</code></em>, <strong><code>ref_ch</code></strong>=<em><code>2</code></em>, <strong><code>clims</code></strong>=<em><code>(2, 98)</code></em>)</p>
 </blockquote>
 
 </div>
@@ -656,7 +702,7 @@ nb_path: "00_utils.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="four_ch_CYX_img_to_three_ch_CYX_img" class="doc_header"><code>four_ch_CYX_img_to_three_ch_CYX_img</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/utils.py#L263" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>four_ch_CYX_img_to_three_ch_CYX_img</code>(<strong><code>img</code></strong>)</p>
+<h4 id="four_ch_CYX_img_to_three_ch_CYX_img" class="doc_header"><code>four_ch_CYX_img_to_three_ch_CYX_img</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/utils.py#L271" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>four_ch_CYX_img_to_three_ch_CYX_img</code>(<strong><code>img</code></strong>)</p>
 </blockquote>
 
 </div>
@@ -687,7 +733,7 @@ nb_path: "00_utils.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="plot_threshold_imgs_side_by_side" class="doc_header"><code>plot_threshold_imgs_side_by_side</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/utils.py#L272" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>plot_threshold_imgs_side_by_side</code>(<strong><code>img</code></strong>, <strong><code>thresh_img_dict</code></strong>, <strong><code>int_img_ch</code></strong>, <strong><code>seg_img_ch</code></strong>)</p>
+<h4 id="plot_threshold_imgs_side_by_side" class="doc_header"><code>plot_threshold_imgs_side_by_side</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/utils.py#L280" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>plot_threshold_imgs_side_by_side</code>(<strong><code>img</code></strong>, <strong><code>thresh_img_dict</code></strong>, <strong><code>int_img_ch</code></strong>, <strong><code>seg_img_ch</code></strong>)</p>
 </blockquote>
 
 </div>
@@ -724,7 +770,7 @@ nb_path: "00_utils.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="region_overlap" class="doc_header"><code>region_overlap</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/utils.py#L292" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>region_overlap</code>(<strong><code>label_no</code></strong>, <strong><code>label_img_outer</code></strong>=<em><code>None</code></em>, <strong><code>label_img_inner</code></strong>=<em><code>None</code></em>, <strong><code>overlap_thresh</code></strong>=<em><code>0.5</code></em>)</p>
+<h4 id="region_overlap" class="doc_header"><code>region_overlap</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/utils.py#L300" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>region_overlap</code>(<strong><code>label_no</code></strong>, <strong><code>label_img_outer</code></strong>=<em><code>None</code></em>, <strong><code>label_img_inner</code></strong>=<em><code>None</code></em>, <strong><code>overlap_thresh</code></strong>=<em><code>0.5</code></em>)</p>
 </blockquote>
 
 </div>
@@ -755,7 +801,7 @@ nb_path: "00_utils.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="calculate_overlap" class="doc_header"><code>calculate_overlap</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/utils.py#L310" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>calculate_overlap</code>(<strong><code>img</code></strong>, <strong><code>num_of_segs</code></strong>=<em><code>4</code></em>, <strong><code>preallocate_value</code></strong>=<em><code>1000</code></em>)</p>
+<h4 id="calculate_overlap" class="doc_header"><code>calculate_overlap</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/utils.py#L318" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>calculate_overlap</code>(<strong><code>img</code></strong>, <strong><code>num_of_segs</code></strong>=<em><code>4</code></em>, <strong><code>preallocate_value</code></strong>=<em><code>1000</code></em>)</p>
 </blockquote>
 
 </div>
@@ -792,7 +838,7 @@ nb_path: "00_utils.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="calc_allfilt_from_thresholds" class="doc_header"><code>calc_allfilt_from_thresholds</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/utils.py#L320" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>calc_allfilt_from_thresholds</code>(<strong><code>thresholds</code></strong>:<code>list</code>, <strong><code>df</code></strong>)</p>
+<h4 id="calc_allfilt_from_thresholds" class="doc_header"><code>calc_allfilt_from_thresholds</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/utils.py#L328" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>calc_allfilt_from_thresholds</code>(<strong><code>thresholds</code></strong>:<code>list</code>, <strong><code>df</code></strong>)</p>
 </blockquote>
 
 </div>
@@ -823,7 +869,7 @@ nb_path: "00_utils.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="concat_list_of_thresholds_to_string" class="doc_header"><code>concat_list_of_thresholds_to_string</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/utils.py#L339" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>concat_list_of_thresholds_to_string</code>(<strong><code>thresholds</code></strong>)</p>
+<h4 id="concat_list_of_thresholds_to_string" class="doc_header"><code>concat_list_of_thresholds_to_string</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/utils.py#L347" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>concat_list_of_thresholds_to_string</code>(<strong><code>thresholds</code></strong>)</p>
 </blockquote>
 
 </div>
@@ -860,7 +906,7 @@ nb_path: "00_utils.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="generate_touch_counting_image" class="doc_header"><code>generate_touch_counting_image</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/utils.py#L344" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>generate_touch_counting_image</code>(<strong><code>g_img</code></strong>)</p>
+<h4 id="generate_touch_counting_image" class="doc_header"><code>generate_touch_counting_image</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/utils.py#L352" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>generate_touch_counting_image</code>(<strong><code>g_img</code></strong>)</p>
 </blockquote>
 
 </div>
@@ -891,7 +937,7 @@ nb_path: "00_utils.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="adjusted_cell_touch_images" class="doc_header"><code>adjusted_cell_touch_images</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/utils.py#L351" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>adjusted_cell_touch_images</code>(<strong><code>total_neigh_counts</code></strong>, <strong><code>neg_neigh_neg</code></strong>, <strong><code>pos_neigh_pos</code></strong>, <strong><code>pos_binary_image</code></strong>)</p>
+<h4 id="adjusted_cell_touch_images" class="doc_header"><code>adjusted_cell_touch_images</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/utils.py#L359" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>adjusted_cell_touch_images</code>(<strong><code>total_neigh_counts</code></strong>, <strong><code>neg_neigh_neg</code></strong>, <strong><code>pos_neigh_pos</code></strong>, <strong><code>pos_binary_image</code></strong>)</p>
 </blockquote>
 
 </div>
@@ -922,7 +968,7 @@ nb_path: "00_utils.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="Delayed('calc_neighbours-b1cd8e1a-ca0b-4f94-b6f6-30f3df6683bc')" class="doc_header"><code>Delayed('calc_neighbours-b1cd8e1a-ca0b-4f94-b6f6-30f3df6683bc')</code><a href="" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Delayed('calc_neighbours-b1cd8e1a-ca0b-4f94-b6f6-30f3df6683bc')</code>()</p>
+<h4 id="Delayed('calc_neighbours-da0b7dc1-cecd-44bb-9611-f2fac0297b93')" class="doc_header"><code>Delayed('calc_neighbours-da0b7dc1-cecd-44bb-9611-f2fac0297b93')</code><a href="" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Delayed('calc_neighbours-da0b7dc1-cecd-44bb-9611-f2fac0297b93')</code>()</p>
 </blockquote>
 
 </div>
@@ -953,7 +999,7 @@ nb_path: "00_utils.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="get_all_labeled_clones_unmerged_and_merged" class="doc_header"><code>get_all_labeled_clones_unmerged_and_merged</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/utils.py#L419" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_all_labeled_clones_unmerged_and_merged</code>(<strong><code>total_seg_labels</code></strong>, <strong><code>labels_to_keep</code></strong>:<code>dict</code>, <strong><code>calc_clones</code></strong>:<code>bool</code>)</p>
+<h4 id="get_all_labeled_clones_unmerged_and_merged" class="doc_header"><code>get_all_labeled_clones_unmerged_and_merged</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/utils.py#L427" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_all_labeled_clones_unmerged_and_merged</code>(<strong><code>total_seg_labels</code></strong>, <strong><code>labels_to_keep</code></strong>:<code>dict</code>, <strong><code>calc_clones</code></strong>:<code>bool</code>)</p>
 </blockquote>
 
 </div>
@@ -984,7 +1030,7 @@ nb_path: "00_utils.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="Delayed('determine_labels_across_other_images_using_centroids-60a10b65-80b9-449d-8a61-c8dc27e5f89f')" class="doc_header"><code>Delayed('determine_labels_across_other_images_using_centroids-60a10b65-80b9-449d-8a61-c8dc27e5f89f')</code><a href="" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Delayed('determine_labels_across_other_images_using_centroids-60a10b65-80b9-449d-8a61-c8dc27e5f89f')</code>()</p>
+<h4 id="Delayed('determine_labels_across_other_images_using_centroids-a9835361-f74b-43bd-84bc-635c0abacd41')" class="doc_header"><code>Delayed('determine_labels_across_other_images_using_centroids-a9835361-f74b-43bd-84bc-635c0abacd41')</code><a href="" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Delayed('determine_labels_across_other_images_using_centroids-a9835361-f74b-43bd-84bc-635c0abacd41')</code>()</p>
 </blockquote>
 
 </div>
@@ -1015,7 +1061,7 @@ nb_path: "00_utils.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="calculate_corresponding_labels" class="doc_header"><code>calculate_corresponding_labels</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/utils.py#L460" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>calculate_corresponding_labels</code>(<strong><code>labels</code></strong>, <strong><code>centroids_list</code></strong>, <strong><code>first_output_dim</code></strong>, <strong><code>second_output_dim</code></strong>)</p>
+<h4 id="calculate_corresponding_labels" class="doc_header"><code>calculate_corresponding_labels</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/utils.py#L468" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>calculate_corresponding_labels</code>(<strong><code>labels</code></strong>, <strong><code>centroids_list</code></strong>, <strong><code>first_output_dim</code></strong>, <strong><code>second_output_dim</code></strong>)</p>
 </blockquote>
 
 </div>
@@ -1052,7 +1098,7 @@ nb_path: "00_utils.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="update_1st_coord_and_dim_of_xarr" class="doc_header"><code>update_1st_coord_and_dim_of_xarr</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/utils.py#L480" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>update_1st_coord_and_dim_of_xarr</code>(<strong><code>xarr</code></strong>, <strong><code>new_coord</code></strong>:<code>list</code>, <strong><code>new_dim</code></strong>:<code>str</code>)</p>
+<h4 id="update_1st_coord_and_dim_of_xarr" class="doc_header"><code>update_1st_coord_and_dim_of_xarr</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/utils.py#L488" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>update_1st_coord_and_dim_of_xarr</code>(<strong><code>xarr</code></strong>, <strong><code>new_coord</code></strong>:<code>list</code>, <strong><code>new_dim</code></strong>:<code>str</code>)</p>
 </blockquote>
 
 </div>

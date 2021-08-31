@@ -17,7 +17,7 @@ import re
 import string
 from glob import glob
 from itertools import zip_longest
-from typing import List
+from typing import List, Union
 
 import dask.array as da
 import dask.dataframe as dd
@@ -34,15 +34,15 @@ from scipy.stats import mode
 from skimage import exposure, img_as_ubyte, measure, segmentation
 
 # Cell
-def clean_img_names(img_path_glob: str, img_name_regex: str):
+def clean_img_names(img_path_glob: str, img_name_regex: str) -> list:
     """clean_img_names takes a "globbed" string pattern, searches for all files that match the pattern and extracts image names from each file using a regular expression.
 
     Args:
-        img_path_glob (str): [description]
-        img_name_regex (str): [description]
+        img_path_glob (str): A globbed string pattern e.g. "C1/*.tif"
+        img_name_regex (str): A regex pattern used to parse out image names from filenames e.g. r"\w\d\w\d\d\p\d"
 
     Returns:
-        [type]: [description]
+        list: Parsed image filenames stored in a list.
     """
     return [
         re.findall(img_name_regex, os.path.basename(fn))[0]
@@ -50,7 +50,15 @@ def clean_img_names(img_path_glob: str, img_name_regex: str):
     ]
 
 # Cell
-def check_lists_identical(list_of_lists):
+def check_lists_identical(list_of_lists: List[List]):
+    """Checks if all lists within a list are identical. Raises a ValueError exception if not.
+
+    Args:
+        list_of_lists (list[list]): List of lists. Can contain
+
+    Raises:
+        ValueError: [description]
+    """
     list_a = list_of_lists[0]
 
     for l in list_of_lists:
