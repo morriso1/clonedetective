@@ -74,6 +74,17 @@ def img_path_to_xarr(
     ch_name_for_first_dim: str = "images",
     **channel_path_globs,
 ):
+    """Takes channel path globs and creates a dask backed xarray dataarray"
+
+    Args:
+        img_name_regex (str): A regex pattern used to parse out image names from filenames e.g. r"\w\d\w\d\d\p\d"
+        pixel_size (float, optional): Defaults to 0.275.
+        ch_name_for_first_dim (str, optional): Defaults to "images".
+        **channel_path_globs: required e.g. C0="data/MARCM_experiment/images/C0/*.tif"
+
+    Returns:
+        xarray dataarray: dask backed xarray dataarray of images
+    """
     imgs = list()
     channels = list()
     img_names = list()
