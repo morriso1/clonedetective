@@ -35,9 +35,15 @@ from skimage import exposure, img_as_ubyte, measure, segmentation
 
 # Cell
 def clean_img_names(img_path_glob: str, img_name_regex: str):
-    """clean_img_names takes a "globbed" string pattern, searches
-    for all files that match the pattern and extracts image names
-    from each file using a regular expression."""
+    """clean_img_names takes a "globbed" string pattern, searches for all files that match the pattern and extracts image names from each file using a regular expression.
+
+    Args:
+        img_path_glob (str): [description]
+        img_name_regex (str): [description]
+
+    Returns:
+        [type]: [description]
+    """
     return [
         re.findall(img_name_regex, os.path.basename(fn))[0]
         for fn in sorted(glob(img_path_glob))
