@@ -186,7 +186,7 @@ nb_path: "00_utils.ipynb"
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">check_lists_identical</span><span class="p">([[</span><span class="s1">&#39;hello&#39;</span><span class="p">,</span> <span class="s1">&#39;goodbye&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;hello&#39;</span><span class="p">,</span> <span class="s1">&#39;goodbye&#39;</span><span class="p">]])</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">check_lists_identical</span><span class="p">([[</span><span class="s2">&quot;hello&quot;</span><span class="p">,</span> <span class="s2">&quot;goodbye&quot;</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;hello&quot;</span><span class="p">,</span> <span class="s2">&quot;goodbye&quot;</span><span class="p">]])</span>
 </pre></div>
 
     </div>
@@ -211,7 +211,7 @@ nb_path: "00_utils.ipynb"
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">with</span> <span class="n">ExceptionExpected</span><span class="p">():</span>
-    <span class="n">check_lists_identical</span><span class="p">([[</span><span class="s1">&#39;hello&#39;</span><span class="p">,</span> <span class="s1">&#39;goodbye&#39;</span><span class="p">,</span> <span class="s1">&#39;morning&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;hello&#39;</span><span class="p">,</span> <span class="s1">&#39;goodbye&#39;</span><span class="p">]])</span>
+    <span class="n">check_lists_identical</span><span class="p">([[</span><span class="s2">&quot;hello&quot;</span><span class="p">,</span> <span class="s2">&quot;goodbye&quot;</span><span class="p">,</span> <span class="s2">&quot;morning&quot;</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;hello&quot;</span><span class="p">,</span> <span class="s2">&quot;goodbye&quot;</span><span class="p">]])</span>
 </pre></div>
 
     </div>
@@ -267,7 +267,8 @@ nb_path: "00_utils.ipynb"
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">xarr</span> <span class="o">=</span> <span class="n">img_path_to_xarr</span><span class="p">(</span><span class="n">img_name_regex</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;a\dg\d\dp\d&quot;</span><span class="p">,</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">xarr</span> <span class="o">=</span> <span class="n">img_path_to_xarr</span><span class="p">(</span>
+    <span class="n">img_name_regex</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;a\dg\d\dp\d&quot;</span><span class="p">,</span>
     <span class="n">C0</span><span class="o">=</span><span class="s2">&quot;data/MARCM_experiment/images/C0/*.tif&quot;</span><span class="p">,</span>
     <span class="n">C1</span><span class="o">=</span><span class="s2">&quot;data/MARCM_experiment/images/C1/*.tif&quot;</span><span class="p">,</span>
     <span class="n">C2</span><span class="o">=</span><span class="s2">&quot;data/MARCM_experiment/images/C2/*.tif&quot;</span><span class="p">,</span>
@@ -644,7 +645,7 @@ Coordinates:
   * images    (images) &lt;U2 &#x27;C0&#x27; &#x27;C1&#x27; &#x27;C2&#x27; &#x27;C3&#x27;
   * img_name  (img_name) &lt;U7 &#x27;a1g01p1&#x27; &#x27;a1g01p2&#x27; ... &#x27;a2g13p2&#x27; &#x27;a2g13p3&#x27;
   * y         (y) float64 0.0 0.275 0.55 0.825 1.1 ... 221.7 221.9 222.2 222.5
-  * x         (x) float64 0.0 0.275 0.55 0.825 1.1 ... 221.7 221.9 222.2 222.5</pre><div class='xr-wrap' hidden><div class='xr-header'><div class='xr-obj-type'>xarray.DataArray</div><div class='xr-array-name'>'stack-4a9a7b658cf09be0542e46e591c217bf'</div><ul class='xr-dim-list'><li><span class='xr-has-index'>images</span>: 4</li><li><span class='xr-has-index'>img_name</span>: 67</li><li><span class='xr-has-index'>y</span>: 810</li><li><span class='xr-has-index'>x</span>: 810</li></ul></div><ul class='xr-sections'><li class='xr-section-item'><div class='xr-array-wrap'><input id='section-0cade7b4-714e-4b80-9e0e-6b20db3c1b17' class='xr-array-in' type='checkbox' checked><label for='section-0cade7b4-714e-4b80-9e0e-6b20db3c1b17' title='Show/hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-array-preview xr-preview'><span>dask.array&lt;chunksize=(1, 1, 810, 810), meta=np.ndarray&gt;</span></div><div class='xr-array-data'><table>
+  * x         (x) float64 0.0 0.275 0.55 0.825 1.1 ... 221.7 221.9 222.2 222.5</pre><div class='xr-wrap' hidden><div class='xr-header'><div class='xr-obj-type'>xarray.DataArray</div><div class='xr-array-name'>'stack-4a9a7b658cf09be0542e46e591c217bf'</div><ul class='xr-dim-list'><li><span class='xr-has-index'>images</span>: 4</li><li><span class='xr-has-index'>img_name</span>: 67</li><li><span class='xr-has-index'>y</span>: 810</li><li><span class='xr-has-index'>x</span>: 810</li></ul></div><ul class='xr-sections'><li class='xr-section-item'><div class='xr-array-wrap'><input id='section-72b85c56-7d29-4169-82d7-4afbbd15f74d' class='xr-array-in' type='checkbox' checked><label for='section-72b85c56-7d29-4169-82d7-4afbbd15f74d' title='Show/hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-array-preview xr-preview'><span>dask.array&lt;chunksize=(1, 1, 810, 810), meta=np.ndarray&gt;</span></div><div class='xr-array-data'><table>
     <tr>
         <td>
             <table>
@@ -805,7 +806,7 @@ Coordinates:
 </svg>
         </td>
     </tr>
-</table></div></div></li><li class='xr-section-item'><input id='section-f4df120d-180e-4446-a3b0-681086cc8ee1' class='xr-section-summary-in' type='checkbox'  checked><label for='section-f4df120d-180e-4446-a3b0-681086cc8ee1' class='xr-section-summary' >Coordinates: <span>(4)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><ul class='xr-var-list'><li class='xr-var-item'><div class='xr-var-name'><span class='xr-has-index'>images</span></div><div class='xr-var-dims'>(images)</div><div class='xr-var-dtype'>&lt;U2</div><div class='xr-var-preview xr-preview'>&#x27;C0&#x27; &#x27;C1&#x27; &#x27;C2&#x27; &#x27;C3&#x27;</div><input id='attrs-0430b489-42c6-4c5f-866a-0b4334743824' class='xr-var-attrs-in' type='checkbox' disabled><label for='attrs-0430b489-42c6-4c5f-866a-0b4334743824' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-afb042f7-1e52-4917-a19c-da915e769fe1' class='xr-var-data-in' type='checkbox'><label for='data-afb042f7-1e52-4917-a19c-da915e769fe1' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'></dl></div><div class='xr-var-data'><pre>array([&#x27;C0&#x27;, &#x27;C1&#x27;, &#x27;C2&#x27;, &#x27;C3&#x27;], dtype=&#x27;&lt;U2&#x27;)</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span class='xr-has-index'>img_name</span></div><div class='xr-var-dims'>(img_name)</div><div class='xr-var-dtype'>&lt;U7</div><div class='xr-var-preview xr-preview'>&#x27;a1g01p1&#x27; &#x27;a1g01p2&#x27; ... &#x27;a2g13p3&#x27;</div><input id='attrs-1e0d9808-784c-48f2-b047-a42444e0c53f' class='xr-var-attrs-in' type='checkbox' disabled><label for='attrs-1e0d9808-784c-48f2-b047-a42444e0c53f' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-5d4adb64-902a-47e2-aca9-27dad73ab821' class='xr-var-data-in' type='checkbox'><label for='data-5d4adb64-902a-47e2-aca9-27dad73ab821' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'></dl></div><div class='xr-var-data'><pre>array([&#x27;a1g01p1&#x27;, &#x27;a1g01p2&#x27;, &#x27;a1g01p3&#x27;, &#x27;a1g02p1&#x27;, &#x27;a1g02p2&#x27;, &#x27;a1g02p3&#x27;,
+</table></div></div></li><li class='xr-section-item'><input id='section-c013d1fb-4860-406f-933e-7853892f01c6' class='xr-section-summary-in' type='checkbox'  checked><label for='section-c013d1fb-4860-406f-933e-7853892f01c6' class='xr-section-summary' >Coordinates: <span>(4)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><ul class='xr-var-list'><li class='xr-var-item'><div class='xr-var-name'><span class='xr-has-index'>images</span></div><div class='xr-var-dims'>(images)</div><div class='xr-var-dtype'>&lt;U2</div><div class='xr-var-preview xr-preview'>&#x27;C0&#x27; &#x27;C1&#x27; &#x27;C2&#x27; &#x27;C3&#x27;</div><input id='attrs-0b9e16f8-4ee1-4adb-af7b-87641f176e92' class='xr-var-attrs-in' type='checkbox' disabled><label for='attrs-0b9e16f8-4ee1-4adb-af7b-87641f176e92' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-5bc72ae8-fc15-4810-b12c-e3548c28eb50' class='xr-var-data-in' type='checkbox'><label for='data-5bc72ae8-fc15-4810-b12c-e3548c28eb50' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'></dl></div><div class='xr-var-data'><pre>array([&#x27;C0&#x27;, &#x27;C1&#x27;, &#x27;C2&#x27;, &#x27;C3&#x27;], dtype=&#x27;&lt;U2&#x27;)</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span class='xr-has-index'>img_name</span></div><div class='xr-var-dims'>(img_name)</div><div class='xr-var-dtype'>&lt;U7</div><div class='xr-var-preview xr-preview'>&#x27;a1g01p1&#x27; &#x27;a1g01p2&#x27; ... &#x27;a2g13p3&#x27;</div><input id='attrs-cad2c834-5dea-4778-a619-a35e244d3e46' class='xr-var-attrs-in' type='checkbox' disabled><label for='attrs-cad2c834-5dea-4778-a619-a35e244d3e46' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-e9c08ce9-339a-4351-9f31-deda397103a6' class='xr-var-data-in' type='checkbox'><label for='data-e9c08ce9-339a-4351-9f31-deda397103a6' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'></dl></div><div class='xr-var-data'><pre>array([&#x27;a1g01p1&#x27;, &#x27;a1g01p2&#x27;, &#x27;a1g01p3&#x27;, &#x27;a1g02p1&#x27;, &#x27;a1g02p2&#x27;, &#x27;a1g02p3&#x27;,
        &#x27;a1g03p1&#x27;, &#x27;a1g03p2&#x27;, &#x27;a1g03p3&#x27;, &#x27;a1g04p1&#x27;, &#x27;a1g04p2&#x27;, &#x27;a1g04p3&#x27;,
        &#x27;a1g05p1&#x27;, &#x27;a1g05p2&#x27;, &#x27;a1g05p3&#x27;, &#x27;a1g07p1&#x27;, &#x27;a1g07p2&#x27;, &#x27;a1g08p1&#x27;,
        &#x27;a1g08p2&#x27;, &#x27;a1g08p3&#x27;, &#x27;a1g09p1&#x27;, &#x27;a1g09p2&#x27;, &#x27;a1g09p3&#x27;, &#x27;a1g10p1&#x27;,
@@ -816,7 +817,7 @@ Coordinates:
        &#x27;a2g06p2&#x27;, &#x27;a2g06p3&#x27;, &#x27;a2g07p1&#x27;, &#x27;a2g07p2&#x27;, &#x27;a2g07p3&#x27;, &#x27;a2g08p1&#x27;,
        &#x27;a2g08p3&#x27;, &#x27;a2g09p1&#x27;, &#x27;a2g09p2&#x27;, &#x27;a2g09p3&#x27;, &#x27;a2g10p1&#x27;, &#x27;a2g10p2&#x27;,
        &#x27;a2g10p3&#x27;, &#x27;a2g11p1&#x27;, &#x27;a2g11p3&#x27;, &#x27;a2g12p1&#x27;, &#x27;a2g12p2&#x27;, &#x27;a2g13p2&#x27;,
-       &#x27;a2g13p3&#x27;], dtype=&#x27;&lt;U7&#x27;)</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span class='xr-has-index'>y</span></div><div class='xr-var-dims'>(y)</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>0.0 0.275 0.55 ... 222.2 222.5</div><input id='attrs-88a26076-a158-44a1-9bb4-cdde7ff83cbe' class='xr-var-attrs-in' type='checkbox' disabled><label for='attrs-88a26076-a158-44a1-9bb4-cdde7ff83cbe' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-be73c1c1-c2fb-4b44-b2c2-83ffc9837993' class='xr-var-data-in' type='checkbox'><label for='data-be73c1c1-c2fb-4b44-b2c2-83ffc9837993' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'></dl></div><div class='xr-var-data'><pre>array([  0.   ,   0.275,   0.55 , ..., 221.925, 222.2  , 222.475])</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span class='xr-has-index'>x</span></div><div class='xr-var-dims'>(x)</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>0.0 0.275 0.55 ... 222.2 222.5</div><input id='attrs-615d23ee-178c-49ed-b878-99d46abf9e20' class='xr-var-attrs-in' type='checkbox' disabled><label for='attrs-615d23ee-178c-49ed-b878-99d46abf9e20' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-62fcb530-db45-438e-a780-18a87cd994f3' class='xr-var-data-in' type='checkbox'><label for='data-62fcb530-db45-438e-a780-18a87cd994f3' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'></dl></div><div class='xr-var-data'><pre>array([  0.   ,   0.275,   0.55 , ..., 221.925, 222.2  , 222.475])</pre></div></li></ul></div></li><li class='xr-section-item'><input id='section-452d9874-2ebf-4681-885f-f1253de3fa14' class='xr-section-summary-in' type='checkbox' disabled ><label for='section-452d9874-2ebf-4681-885f-f1253de3fa14' class='xr-section-summary'  title='Expand/collapse section'>Attributes: <span>(0)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><dl class='xr-attrs'></dl></div></li></ul></div></div>
+       &#x27;a2g13p3&#x27;], dtype=&#x27;&lt;U7&#x27;)</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span class='xr-has-index'>y</span></div><div class='xr-var-dims'>(y)</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>0.0 0.275 0.55 ... 222.2 222.5</div><input id='attrs-b45f3c31-9aba-483a-8a68-9ccdc1ceb2df' class='xr-var-attrs-in' type='checkbox' disabled><label for='attrs-b45f3c31-9aba-483a-8a68-9ccdc1ceb2df' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-6ab23b96-9a55-4fe7-a3aa-f1c91b2637fe' class='xr-var-data-in' type='checkbox'><label for='data-6ab23b96-9a55-4fe7-a3aa-f1c91b2637fe' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'></dl></div><div class='xr-var-data'><pre>array([  0.   ,   0.275,   0.55 , ..., 221.925, 222.2  , 222.475])</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span class='xr-has-index'>x</span></div><div class='xr-var-dims'>(x)</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>0.0 0.275 0.55 ... 222.2 222.5</div><input id='attrs-e209619e-3b76-403a-8692-ca661d0f587d' class='xr-var-attrs-in' type='checkbox' disabled><label for='attrs-e209619e-3b76-403a-8692-ca661d0f587d' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-0c511f2a-effa-4cb0-93cb-7f4cde5d8b12' class='xr-var-data-in' type='checkbox'><label for='data-0c511f2a-effa-4cb0-93cb-7f4cde5d8b12' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'></dl></div><div class='xr-var-data'><pre>array([  0.   ,   0.275,   0.55 , ..., 221.925, 222.2  , 222.475])</pre></div></li></ul></div></li><li class='xr-section-item'><input id='section-6892292d-fe01-4549-97e9-b6367a046ef4' class='xr-section-summary-in' type='checkbox' disabled ><label for='section-6892292d-fe01-4549-97e9-b6367a046ef4' class='xr-section-summary'  title='Expand/collapse section'>Attributes: <span>(0)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><dl class='xr-attrs'></dl></div></li></ul></div></div>
 </div>
 
 </div>
@@ -855,8 +856,11 @@ Coordinates:
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="last2dims" class="doc_header"><code>last2dims</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/utils.py#L110" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>last2dims</code>(<strong><code>f</code></strong>)</p>
+<h4 id="last2dims" class="doc_header"><code>last2dims</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/utils.py#L110" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>last2dims</code>(<strong><code>f</code></strong>:<code>Callable</code>)</p>
 </blockquote>
+<p>Decorator function for operating on the last two dimensions of an array. Useful with dask map blocks.</p>
+<p>Args:
+    f (Callable): Function</p>
 
 </div>
 
@@ -871,6 +875,65 @@ Coordinates:
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Example:</p>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nd">@last2dims</span>
+<span class="k">def</span> <span class="nf">do_nothing</span><span class="p">(</span><span class="n">arr</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">arr</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">do_nothing</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">5</span><span class="p">))),</span> <span class="n">do_nothing</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">5</span><span class="p">)))</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>(array([[[1., 1., 1., 1., 1.]]]), (1, 1, 5))</pre>
+</div>
+
+</div>
+
+</div>
+</div>
 
 </div>
     {% endraw %}
@@ -892,7 +955,161 @@ Coordinates:
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="check_channels_input_suitable_and_return_channels" class="doc_header"><code>check_channels_input_suitable_and_return_channels</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/utils.py#L117" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>check_channels_input_suitable_and_return_channels</code>(<strong><code>channels</code></strong>, <strong><code>available_channels</code></strong>:<code>list</code>)</p>
+<h4 id="check_channels_input_suitable_and_return_channels" class="doc_header"><code>check_channels_input_suitable_and_return_channels</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/utils.py#L123" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>check_channels_input_suitable_and_return_channels</code>(<strong><code>channels</code></strong>:<code>List</code>[<code>T</code>], <strong><code>available_channels</code></strong>:<code>List</code>[<code>T</code>])</p>
+</blockquote>
+<p>Checks if inputted channels are within a available channels list. If so, return inputted channels. If no channels given, returns all available channels.</p>
+<p>Args:
+    channels (List): List of desired channels.
+    available_channels (List): List of available channels.</p>
+<p>Raises:
+    ValueError: channels are not in available channels.
+    TypeError: channels and availables channels must be of type list</p>
+<p>Returns:
+    List: channels to be used.</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Example:</p>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">check_channels_input_suitable_and_return_channels</span><span class="p">(</span>
+    <span class="p">[</span><span class="s2">&quot;C0&quot;</span><span class="p">,</span> <span class="s2">&quot;C1&quot;</span><span class="p">,</span> <span class="s2">&quot;C2&quot;</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;C0&quot;</span><span class="p">,</span> <span class="s2">&quot;C1&quot;</span><span class="p">,</span> <span class="s2">&quot;C2&quot;</span><span class="p">,</span> <span class="s2">&quot;C3&quot;</span><span class="p">]</span>
+<span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[&#39;C0&#39;, &#39;C1&#39;, &#39;C2&#39;]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">check_channels_input_suitable_and_return_channels</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;C0&quot;</span><span class="p">,</span> <span class="s2">&quot;C1&quot;</span><span class="p">,</span> <span class="s2">&quot;C2&quot;</span><span class="p">,</span> <span class="s2">&quot;C3&quot;</span><span class="p">])</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[&#39;C0&#39;, &#39;C1&#39;, &#39;C2&#39;, &#39;C3&#39;]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">assert</span> <span class="n">check_channels_input_suitable_and_return_channels</span><span class="p">(</span>
+    <span class="p">[</span><span class="s2">&quot;C0&quot;</span><span class="p">,</span> <span class="s2">&quot;C1&quot;</span><span class="p">,</span> <span class="s2">&quot;C2&quot;</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;C0&quot;</span><span class="p">,</span> <span class="s2">&quot;C1&quot;</span><span class="p">,</span> <span class="s2">&quot;C2&quot;</span><span class="p">,</span> <span class="s2">&quot;C3&quot;</span><span class="p">]</span>
+<span class="p">)</span> <span class="o">==</span> <span class="p">[</span><span class="s2">&quot;C0&quot;</span><span class="p">,</span> <span class="s2">&quot;C1&quot;</span><span class="p">,</span> <span class="s2">&quot;C2&quot;</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">with</span> <span class="n">ExceptionExpected</span><span class="p">():</span>
+    <span class="n">check_channels_input_suitable_and_return_channels</span><span class="p">(</span>
+        <span class="p">[</span><span class="s2">&quot;C0&quot;</span><span class="p">,</span> <span class="s2">&quot;C1&quot;</span><span class="p">,</span> <span class="s2">&quot;C4&quot;</span><span class="p">,</span> <span class="s2">&quot;C3&quot;</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;C0&quot;</span><span class="p">,</span> <span class="s2">&quot;C1&quot;</span><span class="p">,</span> <span class="s2">&quot;C2&quot;</span><span class="p">,</span> <span class="s2">&quot;C3&quot;</span><span class="p">]</span>
+    <span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="extend_region_properties_list" class="doc_header"><code>extend_region_properties_list</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/utils.py#L157" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>extend_region_properties_list</code>(<strong><code>extra_properties</code></strong>:<code>list</code>=<em><code>None</code></em>)</p>
 </blockquote>
 
 </div>
@@ -923,7 +1140,7 @@ Coordinates:
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="extend_region_properties_list" class="doc_header"><code>extend_region_properties_list</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/utils.py#L137" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>extend_region_properties_list</code>(<strong><code>extra_properties</code></strong>:<code>list</code>=<em><code>None</code></em>)</p>
+<h4 id="add_scale_regionprops_table_area_measurements" class="doc_header"><code>add_scale_regionprops_table_area_measurements</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/utils.py#L172" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>add_scale_regionprops_table_area_measurements</code>(<strong><code>df</code></strong>, <strong><code>pixel_size</code></strong>)</p>
 </blockquote>
 
 </div>
@@ -954,7 +1171,7 @@ Coordinates:
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="add_scale_regionprops_table_area_measurements" class="doc_header"><code>add_scale_regionprops_table_area_measurements</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/utils.py#L152" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>add_scale_regionprops_table_area_measurements</code>(<strong><code>df</code></strong>, <strong><code>pixel_size</code></strong>)</p>
+<h4 id="Delayed('lazy_props')" class="doc_header"><code>Delayed('lazy_props')</code><a href="" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Delayed('lazy_props')</code>()</p>
 </blockquote>
 
 </div>
@@ -985,38 +1202,7 @@ Coordinates:
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="Delayed('lazy_props-21f79b1d-d334-4681-aa99-c016e7a2b58e')" class="doc_header"><code>Delayed('lazy_props-21f79b1d-d334-4681-aa99-c016e7a2b58e')</code><a href="" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Delayed('lazy_props-21f79b1d-d334-4681-aa99-c016e7a2b58e')</code>()</p>
-</blockquote>
-
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_markdown rendered_html output_subarea ">
-<h4 id="reorder_df_to_put_ch_info_first" class="doc_header"><code>reorder_df_to_put_ch_info_first</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/utils.py#L169" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>reorder_df_to_put_ch_info_first</code>(<strong><code>df</code></strong>)</p>
+<h4 id="reorder_df_to_put_ch_info_first" class="doc_header"><code>reorder_df_to_put_ch_info_first</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/utils.py#L190" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>reorder_df_to_put_ch_info_first</code>(<strong><code>df</code></strong>)</p>
 </blockquote>
 
 </div>
@@ -1053,7 +1239,7 @@ Coordinates:
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="is_label_image" class="doc_header"><code>is_label_image</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/utils.py#L181" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>is_label_image</code>(<strong><code>img</code></strong>)</p>
+<h4 id="is_label_image" class="doc_header"><code>is_label_image</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/utils.py#L202" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>is_label_image</code>(<strong><code>img</code></strong>)</p>
 </blockquote>
 
 </div>
@@ -1084,7 +1270,7 @@ Coordinates:
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="generate_random_cmap" class="doc_header"><code>generate_random_cmap</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/utils.py#L185" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>generate_random_cmap</code>(<strong><code>num_of_colors</code></strong>=<em><code>2000</code></em>)</p>
+<h4 id="generate_random_cmap" class="doc_header"><code>generate_random_cmap</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/utils.py#L206" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>generate_random_cmap</code>(<strong><code>num_of_colors</code></strong>=<em><code>2000</code></em>)</p>
 </blockquote>
 
 </div>
@@ -1115,7 +1301,7 @@ Coordinates:
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="what_cmap" class="doc_header"><code>what_cmap</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/utils.py#L191" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>what_cmap</code>(<strong><code>img</code></strong>, <strong><code>img_cmap</code></strong>, <strong><code>label_cmap</code></strong>)</p>
+<h4 id="what_cmap" class="doc_header"><code>what_cmap</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/utils.py#L212" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>what_cmap</code>(<strong><code>img</code></strong>, <strong><code>img_cmap</code></strong>, <strong><code>label_cmap</code></strong>)</p>
 </blockquote>
 
 </div>
@@ -1146,7 +1332,7 @@ Coordinates:
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="figure_rows_columns" class="doc_header"><code>figure_rows_columns</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/utils.py#L195" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>figure_rows_columns</code>(<strong><code>total_fig_axes</code></strong>:<code>int</code>, <strong><code>rows</code></strong>=<em><code>3</code></em>)</p>
+<h4 id="figure_rows_columns" class="doc_header"><code>figure_rows_columns</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/utils.py#L216" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>figure_rows_columns</code>(<strong><code>total_fig_axes</code></strong>:<code>int</code>, <strong><code>rows</code></strong>=<em><code>3</code></em>)</p>
 </blockquote>
 
 </div>
@@ -1177,7 +1363,7 @@ Coordinates:
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="auto_figure_size" class="doc_header"><code>auto_figure_size</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/utils.py#L199" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>auto_figure_size</code>(<strong><code>figure_shape</code></strong>)</p>
+<h4 id="auto_figure_size" class="doc_header"><code>auto_figure_size</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/utils.py#L220" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>auto_figure_size</code>(<strong><code>figure_shape</code></strong>)</p>
 </blockquote>
 
 </div>
@@ -1208,7 +1394,7 @@ Coordinates:
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="crop_RGB_img_to_square" class="doc_header"><code>crop_RGB_img_to_square</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/utils.py#L203" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>crop_RGB_img_to_square</code>(<strong><code>RGB_img</code></strong>)</p>
+<h4 id="crop_RGB_img_to_square" class="doc_header"><code>crop_RGB_img_to_square</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/utils.py#L224" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>crop_RGB_img_to_square</code>(<strong><code>RGB_img</code></strong>)</p>
 </blockquote>
 
 </div>
@@ -1239,7 +1425,7 @@ Coordinates:
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="plot_new_images" class="doc_header"><code>plot_new_images</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/utils.py#L218" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>plot_new_images</code>(<strong><code>images</code></strong>, <strong><code>label_text</code></strong>, <strong><code>label_letter</code></strong>=<em><code>None</code></em>, <strong><code>figure_shape</code></strong>=<em><code>None</code></em>, <strong><code>figure_size</code></strong>=<em><code>None</code></em>, <strong><code>img_cmap</code></strong>=<em><code>'gray'</code></em>, <strong><code>label_cmap</code></strong>=<em><code>None</code></em>, <strong><code>colorbar</code></strong>=<em><code>False</code></em>, <strong><code>colorbar_title</code></strong>=<em><code>'number of neighbours'</code></em>, <strong>**<code>kwargs</code></strong>)</p>
+<h4 id="plot_new_images" class="doc_header"><code>plot_new_images</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/utils.py#L239" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>plot_new_images</code>(<strong><code>images</code></strong>, <strong><code>label_text</code></strong>, <strong><code>label_letter</code></strong>=<em><code>None</code></em>, <strong><code>figure_shape</code></strong>=<em><code>None</code></em>, <strong><code>figure_size</code></strong>=<em><code>None</code></em>, <strong><code>img_cmap</code></strong>=<em><code>'gray'</code></em>, <strong><code>label_cmap</code></strong>=<em><code>None</code></em>, <strong><code>colorbar</code></strong>=<em><code>False</code></em>, <strong><code>colorbar_title</code></strong>=<em><code>'number of neighbours'</code></em>, <strong>**<code>kwargs</code></strong>)</p>
 </blockquote>
 
 </div>
@@ -1270,7 +1456,7 @@ Coordinates:
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="RGB_image_from_CYX_img" class="doc_header"><code>RGB_image_from_CYX_img</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/utils.py#L264" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>RGB_image_from_CYX_img</code>(<strong><code>red</code></strong>=<em><code>None</code></em>, <strong><code>green</code></strong>=<em><code>None</code></em>, <strong><code>blue</code></strong>=<em><code>None</code></em>, <strong><code>ref_ch</code></strong>=<em><code>2</code></em>, <strong><code>clims</code></strong>=<em><code>(2, 98)</code></em>)</p>
+<h4 id="RGB_image_from_CYX_img" class="doc_header"><code>RGB_image_from_CYX_img</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/utils.py#L285" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>RGB_image_from_CYX_img</code>(<strong><code>red</code></strong>=<em><code>None</code></em>, <strong><code>green</code></strong>=<em><code>None</code></em>, <strong><code>blue</code></strong>=<em><code>None</code></em>, <strong><code>ref_ch</code></strong>=<em><code>2</code></em>, <strong><code>clims</code></strong>=<em><code>(2, 98)</code></em>)</p>
 </blockquote>
 
 </div>
@@ -1301,7 +1487,7 @@ Coordinates:
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="four_ch_CYX_img_to_three_ch_CYX_img" class="doc_header"><code>four_ch_CYX_img_to_three_ch_CYX_img</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/utils.py#L282" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>four_ch_CYX_img_to_three_ch_CYX_img</code>(<strong><code>img</code></strong>)</p>
+<h4 id="four_ch_CYX_img_to_three_ch_CYX_img" class="doc_header"><code>four_ch_CYX_img_to_three_ch_CYX_img</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/utils.py#L303" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>four_ch_CYX_img_to_three_ch_CYX_img</code>(<strong><code>img</code></strong>)</p>
 </blockquote>
 
 </div>
@@ -1332,7 +1518,7 @@ Coordinates:
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="plot_threshold_imgs_side_by_side" class="doc_header"><code>plot_threshold_imgs_side_by_side</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/utils.py#L291" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>plot_threshold_imgs_side_by_side</code>(<strong><code>img</code></strong>, <strong><code>thresh_img_dict</code></strong>, <strong><code>int_img_ch</code></strong>, <strong><code>seg_img_ch</code></strong>)</p>
+<h4 id="plot_threshold_imgs_side_by_side" class="doc_header"><code>plot_threshold_imgs_side_by_side</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/utils.py#L312" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>plot_threshold_imgs_side_by_side</code>(<strong><code>img</code></strong>, <strong><code>thresh_img_dict</code></strong>, <strong><code>int_img_ch</code></strong>, <strong><code>seg_img_ch</code></strong>)</p>
 </blockquote>
 
 </div>
@@ -1369,7 +1555,7 @@ Coordinates:
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="region_overlap" class="doc_header"><code>region_overlap</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/utils.py#L311" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>region_overlap</code>(<strong><code>label_no</code></strong>, <strong><code>label_img_outer</code></strong>=<em><code>None</code></em>, <strong><code>label_img_inner</code></strong>=<em><code>None</code></em>, <strong><code>overlap_thresh</code></strong>=<em><code>0.5</code></em>)</p>
+<h4 id="region_overlap" class="doc_header"><code>region_overlap</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/utils.py#L332" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>region_overlap</code>(<strong><code>label_no</code></strong>, <strong><code>label_img_outer</code></strong>=<em><code>None</code></em>, <strong><code>label_img_inner</code></strong>=<em><code>None</code></em>, <strong><code>overlap_thresh</code></strong>=<em><code>0.5</code></em>)</p>
 </blockquote>
 
 </div>
@@ -1400,7 +1586,7 @@ Coordinates:
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="calculate_overlap" class="doc_header"><code>calculate_overlap</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/utils.py#L329" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>calculate_overlap</code>(<strong><code>img</code></strong>, <strong><code>num_of_segs</code></strong>=<em><code>4</code></em>, <strong><code>preallocate_value</code></strong>=<em><code>1000</code></em>)</p>
+<h4 id="calculate_overlap" class="doc_header"><code>calculate_overlap</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/utils.py#L350" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>calculate_overlap</code>(<strong><code>img</code></strong>, <strong><code>num_of_segs</code></strong>=<em><code>4</code></em>, <strong><code>preallocate_value</code></strong>=<em><code>1000</code></em>)</p>
 </blockquote>
 
 </div>
@@ -1437,7 +1623,7 @@ Coordinates:
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="calc_allfilt_from_thresholds" class="doc_header"><code>calc_allfilt_from_thresholds</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/utils.py#L339" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>calc_allfilt_from_thresholds</code>(<strong><code>thresholds</code></strong>:<code>list</code>, <strong><code>df</code></strong>)</p>
+<h4 id="calc_allfilt_from_thresholds" class="doc_header"><code>calc_allfilt_from_thresholds</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/utils.py#L360" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>calc_allfilt_from_thresholds</code>(<strong><code>thresholds</code></strong>:<code>list</code>, <strong><code>df</code></strong>)</p>
 </blockquote>
 
 </div>
@@ -1468,7 +1654,7 @@ Coordinates:
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="concat_list_of_thresholds_to_string" class="doc_header"><code>concat_list_of_thresholds_to_string</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/utils.py#L358" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>concat_list_of_thresholds_to_string</code>(<strong><code>thresholds</code></strong>)</p>
+<h4 id="concat_list_of_thresholds_to_string" class="doc_header"><code>concat_list_of_thresholds_to_string</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/utils.py#L379" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>concat_list_of_thresholds_to_string</code>(<strong><code>thresholds</code></strong>)</p>
 </blockquote>
 
 </div>
@@ -1505,7 +1691,7 @@ Coordinates:
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="generate_touch_counting_image" class="doc_header"><code>generate_touch_counting_image</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/utils.py#L363" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>generate_touch_counting_image</code>(<strong><code>g_img</code></strong>)</p>
+<h4 id="generate_touch_counting_image" class="doc_header"><code>generate_touch_counting_image</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/utils.py#L384" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>generate_touch_counting_image</code>(<strong><code>g_img</code></strong>)</p>
 </blockquote>
 
 </div>
@@ -1536,7 +1722,7 @@ Coordinates:
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="adjusted_cell_touch_images" class="doc_header"><code>adjusted_cell_touch_images</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/utils.py#L370" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>adjusted_cell_touch_images</code>(<strong><code>total_neigh_counts</code></strong>, <strong><code>neg_neigh_neg</code></strong>, <strong><code>pos_neigh_pos</code></strong>, <strong><code>pos_binary_image</code></strong>)</p>
+<h4 id="adjusted_cell_touch_images" class="doc_header"><code>adjusted_cell_touch_images</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/utils.py#L391" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>adjusted_cell_touch_images</code>(<strong><code>total_neigh_counts</code></strong>, <strong><code>neg_neigh_neg</code></strong>, <strong><code>pos_neigh_pos</code></strong>, <strong><code>pos_binary_image</code></strong>)</p>
 </blockquote>
 
 </div>
@@ -1567,7 +1753,7 @@ Coordinates:
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="Delayed('calc_neighbours-54edbf99-85d5-4b30-afda-924f02e29491')" class="doc_header"><code>Delayed('calc_neighbours-54edbf99-85d5-4b30-afda-924f02e29491')</code><a href="" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Delayed('calc_neighbours-54edbf99-85d5-4b30-afda-924f02e29491')</code>()</p>
+<h4 id="Delayed('calc_neighbours')" class="doc_header"><code>Delayed('calc_neighbours')</code><a href="" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Delayed('calc_neighbours')</code>()</p>
 </blockquote>
 
 </div>
@@ -1598,7 +1784,7 @@ Coordinates:
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="get_all_labeled_clones_unmerged_and_merged" class="doc_header"><code>get_all_labeled_clones_unmerged_and_merged</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/utils.py#L438" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_all_labeled_clones_unmerged_and_merged</code>(<strong><code>total_seg_labels</code></strong>, <strong><code>labels_to_keep</code></strong>:<code>dict</code>, <strong><code>calc_clones</code></strong>:<code>bool</code>)</p>
+<h4 id="get_all_labeled_clones_unmerged_and_merged" class="doc_header"><code>get_all_labeled_clones_unmerged_and_merged</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/utils.py#L459" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_all_labeled_clones_unmerged_and_merged</code>(<strong><code>total_seg_labels</code></strong>, <strong><code>labels_to_keep</code></strong>:<code>dict</code>, <strong><code>calc_clones</code></strong>:<code>bool</code>)</p>
 </blockquote>
 
 </div>
@@ -1629,7 +1815,7 @@ Coordinates:
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="Delayed('determine_labels_across_other_images_using_centroids-aef05f65-8452-4b42-822d-1c700874314a')" class="doc_header"><code>Delayed('determine_labels_across_other_images_using_centroids-aef05f65-8452-4b42-822d-1c700874314a')</code><a href="" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Delayed('determine_labels_across_other_images_using_centroids-aef05f65-8452-4b42-822d-1c700874314a')</code>()</p>
+<h4 id="Delayed('determine_labels_across_other_images_using_centroids')" class="doc_header"><code>Delayed('determine_labels_across_other_images_using_centroids')</code><a href="" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Delayed('determine_labels_across_other_images_using_centroids')</code>()</p>
 </blockquote>
 
 </div>
@@ -1660,7 +1846,7 @@ Coordinates:
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="calculate_corresponding_labels" class="doc_header"><code>calculate_corresponding_labels</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/utils.py#L479" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>calculate_corresponding_labels</code>(<strong><code>labels</code></strong>, <strong><code>centroids_list</code></strong>, <strong><code>first_output_dim</code></strong>, <strong><code>second_output_dim</code></strong>)</p>
+<h4 id="calculate_corresponding_labels" class="doc_header"><code>calculate_corresponding_labels</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/utils.py#L500" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>calculate_corresponding_labels</code>(<strong><code>labels</code></strong>, <strong><code>centroids_list</code></strong>, <strong><code>first_output_dim</code></strong>, <strong><code>second_output_dim</code></strong>)</p>
 </blockquote>
 
 </div>
@@ -1697,7 +1883,7 @@ Coordinates:
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="update_1st_coord_and_dim_of_xarr" class="doc_header"><code>update_1st_coord_and_dim_of_xarr</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/utils.py#L499" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>update_1st_coord_and_dim_of_xarr</code>(<strong><code>xarr</code></strong>, <strong><code>new_coord</code></strong>:<code>list</code>, <strong><code>new_dim</code></strong>:<code>str</code>)</p>
+<h4 id="update_1st_coord_and_dim_of_xarr" class="doc_header"><code>update_1st_coord_and_dim_of_xarr</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/utils.py#L520" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>update_1st_coord_and_dim_of_xarr</code>(<strong><code>xarr</code></strong>, <strong><code>new_coord</code></strong>:<code>list</code>, <strong><code>new_dim</code></strong>:<code>str</code>)</p>
 </blockquote>
 
 </div>

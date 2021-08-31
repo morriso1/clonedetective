@@ -17,7 +17,7 @@ import re
 import string
 from glob import glob
 from itertools import zip_longest
-from typing import List, Union
+from typing import Callable, List
 
 import dask.array as da
 import dask.dataframe as dd
@@ -107,7 +107,13 @@ def img_path_to_xarr(
     )
 
 # Cell
-def last2dims(f):
+def last2dims(f: Callable):
+    """Decorator function for operating on the last two dimensions of an array. Useful with dask map blocks.
+
+    Args:
+        f (Callable): Function
+    """
+
     def func(array):
         return f(array[0, 0, ...])[None, None, ...]
 
@@ -115,17 +121,31 @@ def last2dims(f):
 
 # Cell
 def check_channels_input_suitable_and_return_channels(
-    channels, available_channels: list
-):
+    channels: List, available_channels: List
+) -> List:
+    """Checks if inputted channels are within a available channels list. If so, return inputted channels. If no channels given, returns all available channels.
+
+    Args:
+        channels (List): List of desired channels.
+        available_channels (List): List of available channels.
+
+    Raises:
+        ValueError: channels are not in available channels.
+        TypeError: channels and availables channels must be of type list
+
+    Returns:
+        List: channels to be used.
+    """
     if channels is not None:
         try:
             channels + []
+            available_channels + []
             if not set(channels).issubset(available_channels):
                 raise ValueError(f"{channels} not in {available_channels}")
         except ValueError:
             raise
         except TypeError:
-            raise TypeError("channels must be a list")
+            raise TypeError("channels and available channels must be lists")
         except Exception as e:
             raise
     else:
@@ -154,8 +174,9 @@ def add_scale_regionprops_table_area_measurements(df, pixel_size):
     return pd.concat([df, df_with_um2], axis=1)
 
 # Cell
-@delayed
+@delayed(name="lazy_props")
 def lazy_props(seg, img, seg_ch, img_ch, seg_name, img_name, properties, **kwargs):
+    """hello"""
     df = pd.DataFrame(
         measure.regionprops_table(seg, img, properties=properties, **kwargs)
     )
@@ -385,7 +406,7 @@ def adjusted_cell_touch_images(
     return neg_neigh_counts, pos_neigh_counts
 
 # Cell
-@delayed
+@delayed(name="calc_neighbours")
 def calc_neighbours(lab_img, to_keep, calc_clones):
     g_lab_img = cle.push(lab_img)
 
@@ -464,7 +485,7 @@ def get_all_labeled_clones_unmerged_and_merged(
     return da.stack(img_list, axis=1)
 
 # Cell
-@delayed
+@delayed(name="determine_labels_across_other_images_using_centroids")
 @numba.njit()
 def determine_labels_across_other_images_using_centroids(
     image_1, centroids, first_output_dim, second_output_dim
