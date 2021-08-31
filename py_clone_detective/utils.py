@@ -54,10 +54,10 @@ def check_lists_identical(list_of_lists: List[List]):
     """Checks if all lists within a list are identical. Raises a ValueError exception if not.
 
     Args:
-        list_of_lists (list[list]): List of lists. Can contain
+        list_of_lists (list[list]): List of lists. Can contain anything e.g. strings, numbers.
 
     Raises:
-        ValueError: [description]
+        ValueError: Exception.
     """
     list_a = list_of_lists[0]
 
@@ -65,7 +65,7 @@ def check_lists_identical(list_of_lists: List[List]):
         if np.array_equal(l, list_a):
             continue
         else:
-            raise ValueError("not all lists have same length!")
+            raise ValueError("not all sublists are identical!")
 
 # Cell
 def img_path_to_xarr(
