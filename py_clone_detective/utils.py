@@ -209,7 +209,15 @@ def lazy_props(seg, img, seg_ch, img_ch, seg_name, img_name, properties, **kwarg
     return df
 
 # Cell
-def reorder_df_to_put_ch_info_first(df):
+def reorder_df_to_put_ch_info_first(df: pd.DataFrame) -> pd.DataFrame:
+    """reorders a pandas dataframe to channel columns first e.g. "int_img_ch"
+
+    Args:
+        df (pd.DataFrame): pandas dataframe containing channel columns.
+
+    Returns:
+        pd.DataFrame: pandas dataframe with the channel columns first
+    """
     first_cols = [
         "seg_ch",
         "int_img_ch",
@@ -221,11 +229,28 @@ def reorder_df_to_put_ch_info_first(df):
     return df[first_cols]
 
 # Cell
-def is_label_image(img):
+def is_label_image(img: np.array, unique_value_thresh: int = 2000) -> bool:
+    """tests whether supplied image is a label image based on the number of unique values in the image.
+
+    Args:
+        img (np.array): image
+        unique_value_thresh (int, optional): Defaults to 2000.
+
+    Returns:
+        bool: is the supplied image a label image.
+    """
     return np.unique(img).shape[0] < 2000
 
 # Cell
-def generate_random_cmap(num_of_colors=2000):
+def generate_random_cmap(num_of_colors: int = 2000) -> matplotlib.colors.ListedColormap:
+    """Uses matplotlib to generate a random cmap.
+
+    Args:
+        num_of_colors (int, optional): Defaults to 2000.
+
+    Returns:
+        matplotlib.colors.ListedColormap: colormap that can be use when plotting e.g. cmap=custom_cmap
+    """
     colors = np.random.rand(num_of_colors, 3)
     colors[0, :] = 0
     return matplotlib.colors.ListedColormap(colors)
