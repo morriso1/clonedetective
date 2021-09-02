@@ -43,8 +43,7 @@ nb_path: "05_Tutorial_Downstream_Analysis_R.ipynb"
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#hide_output</span>
-<span class="n">library</span><span class="p">(</span><span class="n">cowplot</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">library</span><span class="p">(</span><span class="n">cowplot</span><span class="p">)</span>
 <span class="n">library</span><span class="p">(</span><span class="n">limma</span><span class="p">)</span>
 <span class="n">library</span><span class="p">(</span><span class="n">multcomp</span><span class="p">)</span>
 <span class="n">library</span><span class="p">(</span><span class="n">tidyverse</span><span class="p">)</span>
@@ -55,6 +54,48 @@ nb_path: "05_Tutorial_Downstream_Analysis_R.ipynb"
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>Loading required package: mvtnorm
+
+Loading required package: survival
+
+Loading required package: TH.data
+
+Loading required package: MASS
+
+
+Attaching package: ‘TH.data’
+
+
+The following object is masked from ‘package:MASS’:
+
+    geyser
+
+
+── <span class="ansi-bold">Attaching packages</span> ───────────────────────── tidyverse 1.3.1 ──
+
+<span class="ansi-green-fg">✔</span> <span class="ansi-blue-fg">ggplot2</span> 3.3.5     <span class="ansi-green-fg">✔</span> <span class="ansi-blue-fg">purrr  </span> 0.3.4
+<span class="ansi-green-fg">✔</span> <span class="ansi-blue-fg">tibble </span> 3.1.3     <span class="ansi-green-fg">✔</span> <span class="ansi-blue-fg">dplyr  </span> 1.0.7
+<span class="ansi-green-fg">✔</span> <span class="ansi-blue-fg">tidyr  </span> 1.1.3     <span class="ansi-green-fg">✔</span> <span class="ansi-blue-fg">stringr</span> 1.4.0
+<span class="ansi-green-fg">✔</span> <span class="ansi-blue-fg">readr  </span> 1.4.0     <span class="ansi-green-fg">✔</span> <span class="ansi-blue-fg">forcats</span> 0.5.1
+
+── <span class="ansi-bold">Conflicts</span> ──────────────────────────── tidyverse_conflicts() ──
+<span class="ansi-red-fg">✖</span> <span class="ansi-blue-fg">dplyr</span>::<span class="ansi-green-fg">filter()</span> masks <span class="ansi-blue-fg">stats</span>::filter()
+<span class="ansi-red-fg">✖</span> <span class="ansi-blue-fg">dplyr</span>::<span class="ansi-green-fg">lag()</span>    masks <span class="ansi-blue-fg">stats</span>::lag()
+<span class="ansi-red-fg">✖</span> <span class="ansi-blue-fg">dplyr</span>::<span class="ansi-green-fg">select()</span> masks <span class="ansi-blue-fg">MASS</span>::select()
+
+</pre>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -153,22 +194,20 @@ nb_path: "05_Tutorial_Downstream_Analysis_R.ipynb"
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">count_df</span> <span class="o">&lt;-</span> <span class="n">count_df</span> <span class="o">%&gt;%</span>
-    <span class="n">mutate</span><span class="p">(</span><span class="n">across</span><span class="p">(</span><span class="n">where</span><span class="p">(</span><span class="n">is_character</span><span class="p">),</span> <span class="n">as_factor</span><span class="p">))</span> <span class="o">%&gt;%</span>
-      <span class="nb">filter</span><span class="p">(</span><span class="n">int_img_ch</span> <span class="o">==</span> <span class="s1">&#39;C1&#39;</span><span class="p">)</span> <span class="o">%&gt;%</span>
-      <span class="n">dplyr</span><span class="p">::</span><span class="n">select</span><span class="p">(</span><span class="n">matches</span><span class="p">(</span><span class="s2">&quot;clone$|_pos$|int_img&quot;</span><span class="p">))</span> <span class="o">%&gt;%</span>
-      <span class="n">group_by</span><span class="p">(</span><span class="n">int_img</span><span class="p">,</span> <span class="n">GFP_clone</span><span class="p">)</span> <span class="o">%&gt;%</span>
-      <span class="n">summarise</span><span class="p">(</span>
-        <span class="n">EC</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">EC_pos</span><span class="p">),</span>
-        <span class="n">ECEE</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">ECEE_pos</span><span class="p">),</span>
-        <span class="n">preEC</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">preEC_pos</span><span class="p">),</span>
-        <span class="n">EE</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">EE_pos</span><span class="p">),</span>
-        <span class="n">ISCorEB</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">ISCorEB_pos</span><span class="p">)</span>
-      <span class="p">)</span> <span class="o">%&gt;%</span>
-      <span class="n">mutate</span><span class="p">(</span>
-        <span class="n">clone_status</span> <span class="o">=</span> <span class="k">as</span><span class="o">.</span><span class="n">factor</span><span class="p">(</span><span class="n">if_else</span><span class="p">(</span><span class="n">GFP_clone</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;OC&#39;</span><span class="p">,</span> <span class="s1">&#39;IC&#39;</span><span class="p">)),</span>
-        <span class="n">genotype</span> <span class="o">=</span> <span class="k">as</span><span class="o">.</span><span class="n">factor</span><span class="p">(</span><span class="n">if_else</span><span class="p">(</span><span class="n">str_detect</span><span class="p">(</span><span class="n">int_img</span><span class="p">,</span> <span class="s1">&#39;a1&#39;</span><span class="p">),</span> <span class="s1">&#39;ctrl&#39;</span><span class="p">,</span> <span class="s1">&#39;mut&#39;</span><span class="p">)),</span>
-        <span class="n">total</span> <span class="o">=</span> <span class="n">EC</span> <span class="o">+</span> <span class="n">ECEE</span> <span class="o">+</span> <span class="n">preEC</span> <span class="o">+</span> <span class="n">EE</span> <span class="o">+</span> <span class="n">ISCorEB</span>
-      <span class="p">)</span>
+  <span class="n">mutate</span><span class="p">(</span><span class="n">across</span><span class="p">(</span><span class="n">where</span><span class="p">(</span><span class="n">is_character</span><span class="p">),</span> <span class="n">as_factor</span><span class="p">))</span> <span class="o">%&gt;%</span>
+  <span class="nb">filter</span><span class="p">(</span><span class="n">int_img_ch</span> <span class="o">==</span> <span class="s2">&quot;C1&quot;</span><span class="p">)</span> <span class="o">%&gt;%</span>
+  <span class="n">dplyr</span><span class="p">::</span><span class="n">select</span><span class="p">(</span><span class="n">matches</span><span class="p">(</span><span class="s2">&quot;clone$|_pos$|int_img&quot;</span><span class="p">))</span> <span class="o">%&gt;%</span>
+  <span class="n">group_by</span><span class="p">(</span><span class="n">int_img</span><span class="p">,</span> <span class="n">GFP_clone</span><span class="p">)</span> <span class="o">%&gt;%</span>
+  <span class="n">summarise</span><span class="p">(</span>
+    <span class="n">EC</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">EC_pos</span><span class="p">),</span> 
+    <span class="n">ECEE</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">ECEE_pos</span><span class="p">),</span>
+    <span class="n">preEC</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">preEC_pos</span><span class="p">),</span>
+    <span class="n">EE</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">EE_pos</span><span class="p">),</span>
+    <span class="n">ISCorEB</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">ISCorEB_pos</span><span class="p">)</span>
+  <span class="p">)</span> <span class="o">%&gt;%</span>
+  <span class="n">mutate</span><span class="p">(</span><span class="n">clone_status</span> <span class="o">=</span> <span class="k">as</span><span class="o">.</span><span class="n">factor</span><span class="p">(</span><span class="n">if_else</span><span class="p">(</span><span class="n">GFP_clone</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;OC&quot;</span><span class="p">,</span> <span class="s2">&quot;IC&quot;</span><span class="p">)),</span> 
+         <span class="n">genotype</span> <span class="o">=</span> <span class="k">as</span><span class="o">.</span><span class="n">factor</span><span class="p">(</span><span class="n">if_else</span><span class="p">(</span><span class="n">str_detect</span><span class="p">(</span><span class="n">int_img</span><span class="p">,</span> <span class="s2">&quot;a1&quot;</span><span class="p">),</span> <span class="s2">&quot;ctrl&quot;</span><span class="p">,</span> <span class="s2">&quot;mut&quot;</span><span class="p">)),</span>
+         <span class="n">total</span> <span class="o">=</span> <span class="n">EC</span> <span class="o">+</span> <span class="n">ECEE</span> <span class="o">+</span> <span class="n">preEC</span> <span class="o">+</span> <span class="n">EE</span> <span class="o">+</span> <span class="n">ISCorEB</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -232,11 +271,9 @@ nb_path: "05_Tutorial_Downstream_Analysis_R.ipynb"
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">count_df_tidy</span> <span class="o">&lt;-</span>
-  <span class="n">count_df</span> <span class="o">%&gt;%</span> <span class="n">pivot_longer</span><span class="p">(</span><span class="n">cols</span> <span class="o">=</span> <span class="n">EC</span><span class="p">:</span><span class="n">ISCorEB</span><span class="p">,</span>
-                            <span class="n">names_to</span> <span class="o">=</span> <span class="s1">&#39;cell_type&#39;</span><span class="p">,</span>
-                            <span class="n">values_to</span> <span class="o">=</span> <span class="s1">&#39;cell_num&#39;</span><span class="p">)</span> <span class="o">%&gt;%</span>
-  <span class="n">mutate</span><span class="p">(</span><span class="n">cell_type</span> <span class="o">=</span> <span class="n">factor</span><span class="p">(</span><span class="n">cell_type</span><span class="p">,</span> <span class="n">levels</span> <span class="o">=</span> <span class="n">c</span><span class="p">(</span><span class="s1">&#39;ECEE&#39;</span><span class="p">,</span> <span class="s1">&#39;EE&#39;</span><span class="p">,</span> <span class="s1">&#39;EC&#39;</span><span class="p">,</span> <span class="s1">&#39;preEC&#39;</span><span class="p">,</span> <span class="s1">&#39;ISCorEB&#39;</span><span class="p">)))</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">count_df_tidy</span> <span class="o">&lt;-</span> <span class="n">count_df</span> <span class="o">%&gt;%</span>
+  <span class="n">pivot_longer</span><span class="p">(</span><span class="n">cols</span> <span class="o">=</span> <span class="n">EC</span><span class="p">:</span><span class="n">ISCorEB</span><span class="p">,</span> <span class="n">names_to</span> <span class="o">=</span> <span class="s2">&quot;cell_type&quot;</span><span class="p">,</span> <span class="n">values_to</span> <span class="o">=</span> <span class="s2">&quot;cell_num&quot;</span><span class="p">)</span> <span class="o">%&gt;%</span>
+  <span class="n">mutate</span><span class="p">(</span><span class="n">cell_type</span> <span class="o">=</span> <span class="n">factor</span><span class="p">(</span><span class="n">cell_type</span><span class="p">,</span> <span class="n">levels</span> <span class="o">=</span> <span class="n">c</span><span class="p">(</span><span class="s2">&quot;ECEE&quot;</span><span class="p">,</span> <span class="s2">&quot;EE&quot;</span><span class="p">,</span> <span class="s2">&quot;EC&quot;</span><span class="p">,</span> <span class="s2">&quot;preEC&quot;</span><span class="p">,</span> <span class="s2">&quot;ISCorEB&quot;</span><span class="p">)))</span>
 </pre></div>
 
     </div>
@@ -253,7 +290,7 @@ nb_path: "05_Tutorial_Downstream_Analysis_R.ipynb"
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">count_df_tidy_inside</span> <span class="o">&lt;-</span> <span class="n">count_df_tidy</span> <span class="o">%&gt;%</span> <span class="nb">filter</span><span class="p">(</span><span class="n">clone_status</span> <span class="o">==</span> <span class="s1">&#39;IC&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">count_df_tidy_inside</span> <span class="o">&lt;-</span> <span class="n">count_df_tidy</span> <span class="o">%&gt;%</span> <span class="nb">filter</span><span class="p">(</span><span class="n">clone_status</span> <span class="o">==</span> <span class="s2">&quot;IC&quot;</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -271,13 +308,17 @@ nb_path: "05_Tutorial_Downstream_Analysis_R.ipynb"
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">stacked_bar_mean</span> <span class="o">&lt;-</span> <span class="n">count_df_tidy_inside</span> <span class="o">%&gt;%</span>
-  <span class="nb">filter</span><span class="p">(</span><span class="n">clone_status</span> <span class="o">==</span> <span class="s1">&#39;IC&#39;</span><span class="p">)</span> <span class="o">%&gt;%</span>
+  <span class="nb">filter</span><span class="p">(</span><span class="n">clone_status</span> <span class="o">==</span> <span class="s2">&quot;IC&quot;</span><span class="p">)</span> <span class="o">%&gt;%</span>
   <span class="n">ggplot</span><span class="p">(</span><span class="n">aes</span><span class="p">(</span><span class="n">fill</span> <span class="o">=</span> <span class="n">cell_type</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">cell_num</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="n">genotype</span><span class="p">))</span> <span class="o">+</span>
-  <span class="n">geom_bar</span><span class="p">(</span><span class="n">position</span> <span class="o">=</span> <span class="s2">&quot;stack&quot;</span><span class="p">,</span>
-           <span class="n">stat</span> <span class="o">=</span> <span class="s2">&quot;summary&quot;</span><span class="p">,</span>
-           <span class="n">fun</span> <span class="o">=</span> <span class="s1">&#39;mean&#39;</span><span class="p">)</span> <span class="o">+</span>
+  <span class="n">geom_bar</span><span class="p">(</span>
+    <span class="n">position</span> <span class="o">=</span> <span class="s2">&quot;stack&quot;</span><span class="p">,</span>
+    <span class="n">stat</span> <span class="o">=</span> <span class="s2">&quot;summary&quot;</span><span class="p">,</span> <span class="n">fun</span> <span class="o">=</span> <span class="s2">&quot;mean&quot;</span>
+  <span class="p">)</span> <span class="o">+</span>
   <span class="n">theme_bw</span><span class="p">()</span> <span class="o">+</span>
-  <span class="n">scale_fill_manual</span><span class="p">(</span><span class="n">values</span> <span class="o">=</span> <span class="n">c</span><span class="p">(</span><span class="s2">&quot;#000000&quot;</span><span class="p">,</span> <span class="s2">&quot;#95a5a6&quot;</span><span class="p">,</span> <span class="s2">&quot;#F57171&quot;</span><span class="p">,</span> <span class="s2">&quot;#539DC2&quot;</span><span class="p">,</span> <span class="s2">&quot;#008b68&quot;</span><span class="p">))</span>
+  <span class="n">scale_fill_manual</span><span class="p">(</span><span class="n">values</span> <span class="o">=</span> <span class="n">c</span><span class="p">(</span>
+    <span class="s2">&quot;#000000&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;#95a5a6&quot;</span><span class="p">,</span> <span class="s2">&quot;#F57171&quot;</span><span class="p">,</span> <span class="s2">&quot;#539DC2&quot;</span><span class="p">,</span> <span class="s2">&quot;#008b68&quot;</span>
+  <span class="p">))</span>
 </pre></div>
 
     </div>
@@ -294,8 +335,8 @@ nb_path: "05_Tutorial_Downstream_Analysis_R.ipynb"
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">options</span><span class="p">(</span><span class="nb">repr</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">width</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="nb">repr</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">height</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
-<span class="n">theme_set</span><span class="p">(</span><span class="n">theme_cowplot</span><span class="p">(</span><span class="n">font_size</span><span class="o">=</span><span class="mi">14</span><span class="p">))</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">options</span><span class="p">(</span><span class="nb">repr</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span> <span class="nb">repr</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="mi">3</span><span class="p">)</span>
+<span class="n">theme_set</span><span class="p">(</span><span class="n">theme_cowplot</span><span class="p">(</span><span class="n">font_size</span> <span class="o">=</span> <span class="mi">14</span><span class="p">))</span>
 
 <span class="n">stacked_bar_mean</span>
 </pre></div>
@@ -625,7 +666,7 @@ height=180
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">glm</span><span class="p">(</span><span class="n">total</span> <span class="o">~</span> <span class="n">genotype</span><span class="p">,</span> <span class="n">count_df</span><span class="p">,</span> <span class="n">family</span> <span class="o">=</span> <span class="s1">&#39;poisson&#39;</span><span class="p">)</span> <span class="o">%&gt;%</span> <span class="n">tidy</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">glm</span><span class="p">(</span><span class="n">total</span> <span class="o">~</span> <span class="n">genotype</span><span class="p">,</span> <span class="n">count_df</span><span class="p">,</span> <span class="n">family</span> <span class="o">=</span> <span class="s2">&quot;poisson&quot;</span><span class="p">)</span> <span class="o">%&gt;%</span> <span class="n">tidy</span><span class="p">()</span>
 </pre></div>
 
     </div>
@@ -670,16 +711,15 @@ height=180
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">stacked_bar_prop</span> <span class="o">&lt;-</span> <span class="n">count_df_tidy</span> <span class="o">%&gt;%</span>
   <span class="n">ggplot</span><span class="p">(</span><span class="n">aes</span><span class="p">(</span><span class="n">fill</span> <span class="o">=</span> <span class="n">cell_type</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">cell_num</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="n">genotype</span><span class="p">))</span> <span class="o">+</span>
-  <span class="n">geom_bar</span><span class="p">(</span><span class="n">position</span> <span class="o">=</span> <span class="s2">&quot;fill&quot;</span><span class="p">,</span> <span class="n">stat</span> <span class="o">=</span> <span class="s1">&#39;identity&#39;</span><span class="p">)</span> <span class="o">+</span>
+  <span class="n">geom_bar</span><span class="p">(</span>
+    <span class="n">position</span> <span class="o">=</span> <span class="s2">&quot;fill&quot;</span><span class="p">,</span>
+    <span class="n">stat</span> <span class="o">=</span> <span class="s2">&quot;identity&quot;</span>
+  <span class="p">)</span> <span class="o">+</span>
   <span class="n">theme_bw</span><span class="p">()</span> <span class="o">+</span>
   <span class="n">facet_wrap</span><span class="p">(</span><span class="nb">vars</span><span class="p">(</span><span class="n">clone_status</span><span class="p">))</span> <span class="o">+</span>
   <span class="n">scale_fill_manual</span><span class="p">(</span><span class="n">values</span> <span class="o">=</span> <span class="n">c</span><span class="p">(</span>
     <span class="s2">&quot;#000000&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;#95a5a6&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;#F57171&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;#539DC2&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;#008b68&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;#000000&quot;</span>
+    <span class="s2">&quot;#95a5a6&quot;</span><span class="p">,</span> <span class="s2">&quot;#F57171&quot;</span><span class="p">,</span> <span class="s2">&quot;#539DC2&quot;</span><span class="p">,</span> <span class="s2">&quot;#008b68&quot;</span><span class="p">,</span> <span class="s2">&quot;#000000&quot;</span>
   <span class="p">))</span> <span class="o">+</span>
   <span class="n">theme</span><span class="p">(</span><span class="n">legend</span><span class="o">.</span><span class="n">position</span> <span class="o">=</span> <span class="s2">&quot;none&quot;</span><span class="p">)</span>
 </pre></div>
@@ -698,8 +738,8 @@ height=180
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">options</span><span class="p">(</span><span class="nb">repr</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">width</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="nb">repr</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">height</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
-<span class="n">theme_set</span><span class="p">(</span><span class="n">theme_cowplot</span><span class="p">(</span><span class="n">font_size</span><span class="o">=</span><span class="mi">14</span><span class="p">))</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">options</span><span class="p">(</span><span class="nb">repr</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span> <span class="nb">repr</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="mi">4</span><span class="p">)</span>
+<span class="n">theme_set</span><span class="p">(</span><span class="n">theme_cowplot</span><span class="p">(</span><span class="n">font_size</span> <span class="o">=</span> <span class="mi">14</span><span class="p">))</span>
 
 <span class="n">stacked_bar_prop</span>
 </pre></div>
@@ -1053,8 +1093,9 @@ height=240
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">prop_df_tidy</span> <span class="o">&lt;-</span> <span class="n">count_df_tidy</span> <span class="o">%&gt;%</span> <span class="n">mutate</span><span class="p">(</span><span class="n">pro_cell_num</span> <span class="o">=</span> <span class="n">cell_num</span> <span class="o">/</span> <span class="n">total</span><span class="p">,</span> 
-                                         <span class="n">g_cs_ct</span> <span class="o">=</span> <span class="k">as</span><span class="o">.</span><span class="n">factor</span><span class="p">(</span><span class="n">paste</span><span class="p">(</span><span class="n">genotype</span><span class="p">,</span> <span class="n">clone_status</span><span class="p">,</span> <span class="n">cell_type</span><span class="p">,</span> <span class="n">sep</span> <span class="o">=</span> <span class="s1">&#39;_&#39;</span><span class="p">)))</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">prop_df_tidy</span> <span class="o">&lt;-</span> <span class="n">count_df_tidy</span> <span class="o">%&gt;%</span>
+  <span class="n">mutate</span><span class="p">(</span><span class="n">pro_cell_num</span> <span class="o">=</span> <span class="n">cell_num</span> <span class="o">/</span> <span class="n">total</span><span class="p">,</span> 
+         <span class="n">g_cs_ct</span> <span class="o">=</span> <span class="k">as</span><span class="o">.</span><span class="n">factor</span><span class="p">(</span><span class="n">paste</span><span class="p">(</span><span class="n">genotype</span><span class="p">,</span> <span class="n">clone_status</span><span class="p">,</span> <span class="n">cell_type</span><span class="p">,</span> <span class="n">sep</span> <span class="o">=</span> <span class="s2">&quot;_&quot;</span><span class="p">)))</span>
 </pre></div>
 
     </div>
@@ -1071,7 +1112,9 @@ height=240
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">glm</span><span class="p">(</span><span class="n">pro_cell_num</span> <span class="o">~</span> <span class="n">genotype</span> <span class="o">*</span> <span class="n">clone_status</span> <span class="o">*</span> <span class="n">cell_type</span><span class="p">,</span> <span class="n">prop_df_tidy</span><span class="p">,</span> <span class="n">family</span> <span class="o">=</span> <span class="n">quasibinomial</span><span class="p">)</span> <span class="o">%&gt;%</span> <span class="n">tidy</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">glm</span><span class="p">(</span><span class="n">pro_cell_num</span> <span class="o">~</span> <span class="n">genotype</span> <span class="o">*</span> <span class="n">clone_status</span> <span class="o">*</span> <span class="n">cell_type</span><span class="p">,</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">prop_df_tidy</span><span class="p">,</span>
+    <span class="n">family</span> <span class="o">=</span> <span class="n">quasibinomial</span><span class="p">)</span> <span class="o">%&gt;%</span> <span class="n">tidy</span><span class="p">()</span>
 </pre></div>
 
     </div>
@@ -1139,18 +1182,19 @@ height=240
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">contr</span> <span class="o">&lt;-</span>
-  <span class="n">limma</span><span class="p">::</span><span class="n">makeContrasts</span><span class="p">(</span><span class="n">mut_IC_ECEE</span> <span class="o">-</span> <span class="n">ctrl_IC_ECEE</span><span class="p">,</span> 
-                       <span class="n">mut_IC_EE</span> <span class="o">-</span> <span class="n">ctrl_IC_EE</span><span class="p">,</span>
-                       <span class="n">mut_IC_EC</span> <span class="o">-</span> <span class="n">ctrl_IC_EC</span><span class="p">,</span>
-                       <span class="n">mut_IC_preEC</span> <span class="o">-</span> <span class="n">ctrl_IC_preEC</span><span class="p">,</span>
-                       <span class="n">mut_IC_ISCorEB</span> <span class="o">-</span> <span class="n">ctrl_IC_ISCorEB</span><span class="p">,</span>
-                       <span class="n">mut_OC_ECEE</span> <span class="o">-</span> <span class="n">mut_IC_ECEE</span><span class="p">,</span>
-                       <span class="n">mut_OC_EE</span> <span class="o">-</span> <span class="n">mut_IC_EE</span><span class="p">,</span>
-                       <span class="n">mut_OC_EC</span> <span class="o">-</span> <span class="n">mut_IC_EC</span><span class="p">,</span>
-                       <span class="n">mut_OC_preEC</span> <span class="o">-</span> <span class="n">mut_IC_preEC</span><span class="p">,</span>
-                       <span class="n">mut_OC_ISCorEB</span> <span class="o">-</span> <span class="n">mut_IC_ISCorEB</span><span class="p">,</span>
-                       <span class="n">levels</span> <span class="o">=</span> <span class="n">levels</span><span class="p">(</span><span class="n">prop_df_tidy</span><span class="err">$</span><span class="n">g_cs_ct</span><span class="p">))</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">contr</span> <span class="o">&lt;-</span> <span class="n">limma</span><span class="p">::</span><span class="n">makeContrasts</span><span class="p">(</span>
+  <span class="n">mut_IC_ECEE</span> <span class="o">-</span> <span class="n">ctrl_IC_ECEE</span><span class="p">,</span>
+  <span class="n">mut_IC_EE</span> <span class="o">-</span> <span class="n">ctrl_IC_EE</span><span class="p">,</span>
+  <span class="n">mut_IC_EC</span> <span class="o">-</span> <span class="n">ctrl_IC_EC</span><span class="p">,</span>
+  <span class="n">mut_IC_preEC</span> <span class="o">-</span> <span class="n">ctrl_IC_preEC</span><span class="p">,</span>
+  <span class="n">mut_IC_ISCorEB</span> <span class="o">-</span> <span class="n">ctrl_IC_ISCorEB</span><span class="p">,</span>
+  <span class="n">mut_OC_ECEE</span> <span class="o">-</span> <span class="n">mut_IC_ECEE</span><span class="p">,</span>
+  <span class="n">mut_OC_EE</span> <span class="o">-</span> <span class="n">mut_IC_EE</span><span class="p">,</span>
+  <span class="n">mut_OC_EC</span> <span class="o">-</span> <span class="n">mut_IC_EC</span><span class="p">,</span>
+  <span class="n">mut_OC_preEC</span> <span class="o">-</span> <span class="n">mut_IC_preEC</span><span class="p">,</span>
+  <span class="n">mut_OC_ISCorEB</span> <span class="o">-</span> <span class="n">mut_IC_ISCorEB</span><span class="p">,</span>
+  <span class="n">levels</span> <span class="o">=</span> <span class="n">levels</span><span class="p">(</span><span class="n">prop_df_tidy</span><span class="err">$</span><span class="n">g_cs_ct</span><span class="p">)</span>
+<span class="p">)</span>
 </pre></div>
 
     </div>
@@ -1169,9 +1213,18 @@ height=240
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">model</span> <span class="o">&lt;-</span> <span class="n">glm</span><span class="p">(</span><span class="n">pro_cell_num</span> <span class="o">~</span> <span class="n">g_cs_ct</span><span class="p">,</span> <span class="n">prop_df_tidy</span><span class="p">,</span> <span class="n">family</span> <span class="o">=</span> <span class="n">quasibinomial</span><span class="p">)</span>
 
-<span class="n">G</span> <span class="o">=</span> <span class="n">glht</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">mcp</span><span class="p">(</span><span class="n">g_cs_ct</span> <span class="o">=</span> <span class="n">t</span><span class="p">(</span><span class="n">contr</span><span class="p">)))</span>
+<span class="n">G</span> <span class="o">&lt;-</span> <span class="n">glht</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">mcp</span><span class="p">(</span><span class="n">g_cs_ct</span> <span class="o">=</span> <span class="n">t</span><span class="p">(</span><span class="n">contr</span><span class="p">)))</span>
 
-<span class="n">tidy</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">test</span> <span class="o">=</span> <span class="n">adjusted</span><span class="p">(</span><span class="s1">&#39;BH&#39;</span><span class="p">))</span>
+<span class="n">tidy</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">test</span> <span class="o">=</span> <span class="n">adjusted</span><span class="p">(</span><span class="s2">&quot;BH&quot;</span><span class="p">))</span> <span class="o">%&gt;%</span>
+  <span class="n">mutate</span><span class="p">(</span>
+    <span class="n">sig_anot</span> <span class="o">=</span> <span class="n">case_when</span><span class="p">(</span>
+      <span class="n">adj</span><span class="o">.</span><span class="n">p</span><span class="o">.</span><span class="n">value</span> <span class="o">&lt;</span> <span class="mf">0.0001</span> <span class="o">~</span> <span class="s1">&#39;****&#39;</span><span class="p">,</span>
+      <span class="n">adj</span><span class="o">.</span><span class="n">p</span><span class="o">.</span><span class="n">value</span> <span class="o">&lt;</span> <span class="mf">0.001</span> <span class="o">~</span> <span class="s1">&#39;***&#39;</span><span class="p">,</span>
+      <span class="n">adj</span><span class="o">.</span><span class="n">p</span><span class="o">.</span><span class="n">value</span> <span class="o">&lt;</span> <span class="mf">0.01</span> <span class="o">~</span> <span class="s1">&#39;**&#39;</span><span class="p">,</span>
+      <span class="n">adj</span><span class="o">.</span><span class="n">p</span><span class="o">.</span><span class="n">value</span> <span class="o">&lt;</span> <span class="mf">0.05</span> <span class="o">~</span> <span class="s1">&#39;*&#39;</span><span class="p">,</span>
+      <span class="n">adj</span><span class="o">.</span><span class="n">p</span><span class="o">.</span><span class="n">value</span> <span class="o">&lt;</span> <span class="mi">1</span> <span class="o">~</span> <span class="s1">&#39;ns&#39;</span>
+    <span class="p">)</span>
+  <span class="p">)</span>
 </pre></div>
 
     </div>
@@ -1186,22 +1239,22 @@ height=240
 
 <div class="output_html rendered_html output_subarea ">
 <table class="dataframe">
-<caption>A tibble: 10 × 7</caption>
+<caption>A tibble: 10 × 8</caption>
 <thead>
-	<tr><th scope=col>term</th><th scope=col>contrast</th><th scope=col>null.value</th><th scope=col>estimate</th><th scope=col>std.error</th><th scope=col>statistic</th><th scope=col>adj.p.value</th></tr>
-	<tr><th scope=col>&lt;chr&gt;</th><th scope=col>&lt;chr&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th></tr>
+	<tr><th scope=col>term</th><th scope=col>contrast</th><th scope=col>null.value</th><th scope=col>estimate</th><th scope=col>std.error</th><th scope=col>statistic</th><th scope=col>adj.p.value</th><th scope=col>sig_anot</th></tr>
+	<tr><th scope=col>&lt;chr&gt;</th><th scope=col>&lt;chr&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;chr&gt;</th></tr>
 </thead>
 <tbody>
-	<tr><td>g_cs_ct</td><td>mut_IC_ECEE - ctrl_IC_ECEE      </td><td>0</td><td>-0.0260</td><td>0.741</td><td>-0.0351</td><td>9.72e-01</td></tr>
-	<tr><td>g_cs_ct</td><td>mut_IC_EE - ctrl_IC_EE          </td><td>0</td><td> 0.8064</td><td>0.286</td><td> 2.8173</td><td>9.69e-03</td></tr>
-	<tr><td>g_cs_ct</td><td>mut_IC_EC - ctrl_IC_EC          </td><td>0</td><td>-1.1502</td><td>0.131</td><td>-8.7474</td><td>0.00e+00</td></tr>
-	<tr><td>g_cs_ct</td><td>mut_IC_preEC - ctrl_IC_preEC    </td><td>0</td><td> 1.3296</td><td>1.403</td><td> 0.9476</td><td>4.90e-01</td></tr>
-	<tr><td>g_cs_ct</td><td>mut_IC_ISCorEB - ctrl_IC_ISCorEB</td><td>0</td><td> 0.8487</td><td>0.122</td><td> 6.9731</td><td>1.55e-11</td></tr>
-	<tr><td>g_cs_ct</td><td>mut_OC_ECEE - mut_IC_ECEE       </td><td>0</td><td> 0.1520</td><td>1.341</td><td> 0.1133</td><td>9.72e-01</td></tr>
-	<tr><td>g_cs_ct</td><td>mut_OC_EE - mut_IC_EE           </td><td>0</td><td>-0.0324</td><td>0.441</td><td>-0.0734</td><td>9.72e-01</td></tr>
-	<tr><td>g_cs_ct</td><td>mut_OC_EC - mut_IC_EC           </td><td>0</td><td> 0.7743</td><td>0.240</td><td> 3.2226</td><td>4.23e-03</td></tr>
-	<tr><td>g_cs_ct</td><td>mut_OC_preEC - mut_IC_preEC     </td><td>0</td><td> 1.2188</td><td>1.059</td><td> 1.1509</td><td>4.16e-01</td></tr>
-	<tr><td>g_cs_ct</td><td>mut_OC_ISCorEB - mut_IC_ISCorEB </td><td>0</td><td>-0.6880</td><td>0.225</td><td>-3.0544</td><td>5.64e-03</td></tr>
+	<tr><td>g_cs_ct</td><td>mut_IC_ECEE - ctrl_IC_ECEE      </td><td>0</td><td>-0.0260</td><td>0.741</td><td>-0.0351</td><td>9.72e-01</td><td>ns  </td></tr>
+	<tr><td>g_cs_ct</td><td>mut_IC_EE - ctrl_IC_EE          </td><td>0</td><td> 0.8064</td><td>0.286</td><td> 2.8173</td><td>9.69e-03</td><td>**  </td></tr>
+	<tr><td>g_cs_ct</td><td>mut_IC_EC - ctrl_IC_EC          </td><td>0</td><td>-1.1502</td><td>0.131</td><td>-8.7474</td><td>0.00e+00</td><td>****</td></tr>
+	<tr><td>g_cs_ct</td><td>mut_IC_preEC - ctrl_IC_preEC    </td><td>0</td><td> 1.3296</td><td>1.403</td><td> 0.9476</td><td>4.90e-01</td><td>ns  </td></tr>
+	<tr><td>g_cs_ct</td><td>mut_IC_ISCorEB - ctrl_IC_ISCorEB</td><td>0</td><td> 0.8487</td><td>0.122</td><td> 6.9731</td><td>1.55e-11</td><td>****</td></tr>
+	<tr><td>g_cs_ct</td><td>mut_OC_ECEE - mut_IC_ECEE       </td><td>0</td><td> 0.1520</td><td>1.341</td><td> 0.1133</td><td>9.72e-01</td><td>ns  </td></tr>
+	<tr><td>g_cs_ct</td><td>mut_OC_EE - mut_IC_EE           </td><td>0</td><td>-0.0324</td><td>0.441</td><td>-0.0734</td><td>9.72e-01</td><td>ns  </td></tr>
+	<tr><td>g_cs_ct</td><td>mut_OC_EC - mut_IC_EC           </td><td>0</td><td> 0.7743</td><td>0.240</td><td> 3.2226</td><td>4.23e-03</td><td>**  </td></tr>
+	<tr><td>g_cs_ct</td><td>mut_OC_preEC - mut_IC_preEC     </td><td>0</td><td> 1.2188</td><td>1.059</td><td> 1.1509</td><td>4.16e-01</td><td>ns  </td></tr>
+	<tr><td>g_cs_ct</td><td>mut_OC_ISCorEB - mut_IC_ISCorEB </td><td>0</td><td>-0.6880</td><td>0.225</td><td>-3.0544</td><td>5.64e-03</td><td>**  </td></tr>
 </tbody>
 </table>
 
