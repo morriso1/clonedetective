@@ -10,7 +10,7 @@ entries:
       title: Overview
       url: /
     output: web
-    title: py_clone_detective
+    title: clonedetective
   - folderitems:
     - output: web,pdf
       title: Example Walkthrough

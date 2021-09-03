@@ -1,12 +1,12 @@
-# py_clone_detective
+# clonedetective
 > A python library for automated cell lineage analysis.
 
 
-<img src="docs/images/py_clone_detector_scheme.png" width="800" style="max-width: 800px">
+<img src="docs/images/clonedetective_scheme.png" width="800" style="max-width: 800px">
 
 ## What does it do?
 
-**py_clone_detector** is a package for analysing fluorescent imaging data from cell lineage experiments (e.g. FLP-out, MARCM or Cre-lox clones).
+**clonedetective** is a package for analysing fluorescent imaging data from cell lineage experiments (e.g. FLP-out, MARCM or Cre-lox clones).
 
 Outputted quantifications include:
 - counts of each cell type per “clone”
@@ -20,9 +20,9 @@ If clones label genetic mutations, these metrics can be useful in addressing bio
 
 ## Under the hood
 
-**py_clone_detector** is constructed using many amazing python libraries, including scikit-image, numpy, Xarray, pandas, numba, Dask, Dask-image and pyclesperanto-prototype.
+**clonedetective** is constructed using many amazing python libraries, including scikit-image, numpy, Xarray, pandas, numba, Dask, Dask-image and pyclesperanto-prototype.
 
-Many functions are lazy-loaded and parallelized using [Dask](https://dask.org/), enabling py_clone_detector to scale to large multi-dimensional datasets that do not fit in RAM.
+Many functions are lazy-loaded and parallelized using [Dask](https://dask.org/), enabling clonedetective to scale to large multi-dimensional datasets that do not fit in RAM.
 
 ## Install
 
@@ -33,9 +33,9 @@ pip install not yet supported but will be soon!
 ## How to use
 
 Please see the tutorials:  
-1) [Example walkthrough](https://morriso1.github.io/py_clone_detective/Tutorial_Walkthrough.html)  
-2) [Downstream Analysis using Python](https://morriso1.github.io/py_clone_detective/Tutorial_Downstream_Analysis_Python.html)  
-3) [Downstream Analysis using R](https://morriso1.github.io/py_clone_detective/Tutorial_Downstream_Analysis_R.html)  
-4) [Generating nuclei segmentation using StarDist](https://morriso1.github.io/py_clone_detective/Tutorial_StarDist_Segmentation.html)  
+1) [Example walkthrough](https://morriso1.github.io/clonedetective/Tutorial_Walkthrough.html)  
+2) [Downstream Analysis using Python](https://morriso1.github.io/clonedetective/Tutorial_Downstream_Analysis_Python.html)  
+3) [Downstream Analysis using R](https://morriso1.github.io/clonedetective/Tutorial_Downstream_Analysis_R.html)  
+4) [Generating nuclei segmentation using StarDist](https://morriso1.github.io/clonedetective/Tutorial_StarDist_Segmentation.html)  
 
 In progress, more to come!

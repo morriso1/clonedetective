@@ -67,7 +67,7 @@ nb_path: "02_clone_analysis.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="query_df_groupby_by_clone_channel" class="doc_header"><code>query_df_groupby_by_clone_channel</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/clone_analysis.py#L36" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>query_df_groupby_by_clone_channel</code>(<strong><code>df</code></strong>, <strong><code>queries</code></strong>:<code>dict</code>, <strong><code>clone_channel</code></strong>:<code>str</code>=<em><code>'C1'</code></em>, <strong><code>additional_agg_functions</code></strong>:<code>dict</code>=<em><code>None</code></em>)</p>
+<h4 id="query_df_groupby_by_clone_channel" class="doc_header"><code>query_df_groupby_by_clone_channel</code><a href="https://github.com/morriso1/clonedetective/tree/master/clonedetective/clone_analysis.py#L36" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>query_df_groupby_by_clone_channel</code>(<strong><code>df</code></strong>, <strong><code>queries</code></strong>:<code>dict</code>, <strong><code>clone_channel</code></strong>:<code>str</code>=<em><code>'C1'</code></em>, <strong><code>additional_agg_functions</code></strong>:<code>dict</code>=<em><code>None</code></em>)</p>
 </blockquote>
 <p>additional agg_functions could be something like:
 additional_agg_functions = {"mean_intensity": [np.mean, np.std]}</p>
@@ -106,7 +106,7 @@ additional_agg_functions = {"mean_intensity": [np.mean, np.std]}</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="create_stack_bar_plot" class="doc_header"><code>create_stack_bar_plot</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/clone_analysis.py#L59" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>create_stack_bar_plot</code>(<strong><code>df</code></strong>, <strong><code>df_error_bar</code></strong>=<em><code>None</code></em>, <strong><code>x_figSize</code></strong>=<em><code>2.5</code></em>, <strong><code>y_figSize</code></strong>=<em><code>2.5</code></em>, <strong><code>y_label</code></strong>=<em><code>None</code></em>, <strong><code>y_axis_start</code></strong>=<em><code>0</code></em>, <strong><code>y_axis_limit</code></strong>=<em><code>None</code></em>, <strong><code>color_pal</code></strong>=<em><code>[(0.044059976931949255, 0.3338869665513264, 0.6244521337946944), (0.16696655132641294, 0.48069204152249134, 0.7291503267973857), (0.3262898885044214, 0.6186236063052672, 0.802798923490965), (0.5356862745098039, 0.746082276047674, 0.8642522106881968), (0.7309496347558632, 0.8394771241830065, 0.9213225682429834), (0.8584083044982699, 0.9134486735870818, 0.9645674740484429)]</code></em>, <strong><code>bar_width</code></strong>=<em><code>0.8</code></em>)</p>
+<h4 id="create_stack_bar_plot" class="doc_header"><code>create_stack_bar_plot</code><a href="https://github.com/morriso1/clonedetective/tree/master/clonedetective/clone_analysis.py#L59" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>create_stack_bar_plot</code>(<strong><code>df</code></strong>, <strong><code>df_error_bar</code></strong>=<em><code>None</code></em>, <strong><code>x_figSize</code></strong>=<em><code>2.5</code></em>, <strong><code>y_figSize</code></strong>=<em><code>2.5</code></em>, <strong><code>y_label</code></strong>=<em><code>None</code></em>, <strong><code>y_axis_start</code></strong>=<em><code>0</code></em>, <strong><code>y_axis_limit</code></strong>=<em><code>None</code></em>, <strong><code>color_pal</code></strong>=<em><code>[(0.044059976931949255, 0.3338869665513264, 0.6244521337946944), (0.16696655132641294, 0.48069204152249134, 0.7291503267973857), (0.3262898885044214, 0.6186236063052672, 0.802798923490965), (0.5356862745098039, 0.746082276047674, 0.8642522106881968), (0.7309496347558632, 0.8394771241830065, 0.9213225682429834), (0.8584083044982699, 0.9134486735870818, 0.9645674740484429)]</code></em>, <strong><code>bar_width</code></strong>=<em><code>0.8</code></em>)</p>
 </blockquote>
 
 </div>
@@ -137,7 +137,7 @@ additional_agg_functions = {"mean_intensity": [np.mean, np.std]}</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="plot_stat_annotation" class="doc_header"><code>plot_stat_annotation</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/clone_analysis.py#L101" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>plot_stat_annotation</code>(<strong><code>x_indexes</code></strong>:<code>tuple</code>, <strong><code>y</code></strong>:<code>int</code>, <strong><code>p_values</code></strong>:<code>list</code>, <strong><code>sep</code></strong>:<code>int</code>=<em><code>None</code></em>, <strong><code>text_colors</code></strong>:<code>list</code>=<em><code>None</code></em>)</p>
+<h4 id="plot_stat_annotation" class="doc_header"><code>plot_stat_annotation</code><a href="https://github.com/morriso1/clonedetective/tree/master/clonedetective/clone_analysis.py#L101" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>plot_stat_annotation</code>(<strong><code>x_indexes</code></strong>:<code>tuple</code>, <strong><code>y</code></strong>:<code>int</code>, <strong><code>p_values</code></strong>:<code>list</code>, <strong><code>sep</code></strong>:<code>int</code>=<em><code>None</code></em>, <strong><code>text_colors</code></strong>:<code>list</code>=<em><code>None</code></em>)</p>
 </blockquote>
 
 </div>
@@ -168,7 +168,7 @@ additional_agg_functions = {"mean_intensity": [np.mean, np.std]}</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="pvals_to_stat_anots" class="doc_header"><code>pvals_to_stat_anots</code><a href="https://github.com/morriso1/py_clone_detective/tree/master/py_clone_detective/clone_analysis.py#L126" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>pvals_to_stat_anots</code>(<strong><code>pvals_arr</code></strong>, <strong><code>pval_thresholds</code></strong>=<em><code>(0.0001, 0.001, 0.01, 0.05, 1)</code></em>, <strong><code>annotations</code></strong>=<em>`('<strong>**', '</strong></em>', '*<em>', '</em>', '$^{ns}$')`*)</p>
+<h4 id="pvals_to_stat_anots" class="doc_header"><code>pvals_to_stat_anots</code><a href="https://github.com/morriso1/clonedetective/tree/master/clonedetective/clone_analysis.py#L126" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>pvals_to_stat_anots</code>(<strong><code>pvals_arr</code></strong>, <strong><code>pval_thresholds</code></strong>=<em><code>(0.0001, 0.001, 0.01, 0.05, 1)</code></em>, <strong><code>annotations</code></strong>=<em>`('<strong>**', '</strong></em>', '*<em>', '</em>', '$^{ns}$')`*)</p>
 </blockquote>
 
 </div>

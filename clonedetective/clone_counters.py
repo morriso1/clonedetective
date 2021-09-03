@@ -16,7 +16,7 @@ import xarray as xr
 from matplotlib import pyplot as plt
 from skimage import measure
 
-from py_clone_detective import clone_analysis as ca
+from clonedetective import clone_analysis as ca
 from .utils import (
     RGB_image_from_CYX_img,
     add_scale_regionprops_table_area_measurements,

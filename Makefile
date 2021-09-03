@@ -2,11 +2,11 @@
 SHELL := /bin/bash
 SRC = $(wildcard ./*.ipynb)
 
-all: py_clone_detective docs
+all: clonedetective docs
 
-py_clone_detective: $(SRC)
+clonedetective: $(SRC)
 	nbdev_build_lib
-	touch py_clone_detective
+	touch clonedetective
 
 sync:
 	nbdev_update_lib

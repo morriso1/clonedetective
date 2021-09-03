@@ -1,7 +1,7 @@
-repository: morriso1/py_clone_detective
+repository: morriso1/clonedetective
 output: web
-topnav_title: py_clone_detective
-site_title: py_clone_detective
+topnav_title: clonedetective
+site_title: clonedetective
 company_name: Otto Morris
 description: A simple python package that loads in fluorescence microscopy images and their segmentations, calculates cell properties (e.g. area, mean intensity), and counts cells per clone.
 # Set to false to disable KaTeX math
@@ -63,4 +63,4 @@ plugins:
     - jekyll-remote-theme
     
 remote_theme: fastai/nbdev-jekyll-theme
-baseurl: /py_clone_detective/
+baseurl: /clonedetective/

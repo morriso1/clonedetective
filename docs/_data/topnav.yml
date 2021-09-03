@@ -2,7 +2,7 @@ topnav:
 - title: Topnav
   items:
     - title: github
-      external_url: https://github.com/morriso1/py_clone_detective/tree/master/
+      external_url: https://github.com/morriso1/clonedetective/tree/master/
 
 #Topnav dropdowns
 topnav_dropdowns:

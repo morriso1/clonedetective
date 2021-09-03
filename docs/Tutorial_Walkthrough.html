@@ -6,8 +6,8 @@ title: Example Walkthrough
 keywords: fastai
 sidebar: home_sidebar
 
-summary: "This tutorial provides a brief demonstration of py_clone_detective's core functionality."
-description: "This tutorial provides a brief demonstration of py_clone_detective's core functionality."
+summary: "This tutorial provides a brief demonstration of clonedetective's core functionality."
+description: "This tutorial provides a brief demonstration of clonedetective's core functionality."
 nb_path: "03_Tutorial_Walkthrough.ipynb"
 ---
 <!--
@@ -45,7 +45,7 @@ nb_path: "03_Tutorial_Walkthrough.ipynb"
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The example dataset used in this tutorial contains 2D immunofluorescence images of the <em>Drosophila</em> intestine obtained using a spinning-disc confocal microscope. The dataset is describes a "MARCM" experiment from the following <a href="https://doi.org/10.1016/j.celrep.2020.108423">paper</a>.</p>
 <p>MARCM is a genetic technique whereby mitotic recombination generates GFP-marked homozygous mutant cells from heterozygous precursors. Over time, individually marked cells divide adjacent to each other and create "clones" of mutant cells, surrounded by unmarked wild-type cells:</p>
-<p>{% include image.html width="800" max-width="800" file="/py_clone_detective/docs/images/marcm_explanation.png" %}</p>
+<p>{% include image.html width="800" max-width="800" file="/clonedetective/docs/images/marcm_explanation.png" %}</p>
 <blockquote><p>Left:Genetic labelling by MARCM. Right: Labelled cells grow over time into 'clones'.</p>
 </blockquote>
 
@@ -61,7 +61,7 @@ nb_path: "03_Tutorial_Walkthrough.ipynb"
 <li>C2 : PDM1 staining (EnteroCyte marker)</li>
 <li>C3 : Prospero staining (EndoEndocrine marker)</li>
 </ul>
-<p>{% include image.html width="400" max-width="400" file="/py_clone_detective/docs/images/marcm_slide2-01.png" %}</p>
+<p>{% include image.html width="400" max-width="400" file="/clonedetective/docs/images/marcm_slide2-01.png" %}</p>
 <blockquote><p>composite image</p>
 </blockquote>
 
@@ -117,8 +117,8 @@ nb_path: "03_Tutorial_Walkthrough.ipynb"
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>For example, here is what the dashboard looks like when measuring cell properties using the <a href="/py_clone_detective/clone_counters.html#CloneCounter.make_measurements("><code>CloneCounter.make_measurements()</code></a>) call described below. Each line of the 'Task Stream' corresponds to one of 8 logical cores on my MacBook Pro.</p>
-<p><img src="/py_clone_detective/docs/images/dask.gif" alt="SegmentLocal" title="dask"></p>
+<p>For example, here is what the dashboard looks like when measuring cell properties using the <a href="/clonedetective/clone_counters.html#CloneCounter.make_measurements("><code>CloneCounter.make_measurements()</code></a>) call described below. Each line of the 'Task Stream' corresponds to one of 8 logical cores on my MacBook Pro.</p>
+<p><img src="/clonedetective/docs/images/dask.gif" alt="SegmentLocal" title="dask"></p>
 <blockquote><p>example Dask dashboard</p>
 </blockquote>
 
@@ -155,7 +155,7 @@ nb_path: "03_Tutorial_Walkthrough.ipynb"
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>{% include image.html file="/py_clone_detective/docs/images/client_setup.png" %}</p>
+<p>{% include image.html file="/clonedetective/docs/images/client_setup.png" %}</p>
 
 </div>
 </div>
@@ -182,7 +182,7 @@ nb_path: "03_Tutorial_Walkthrough.ipynb"
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">py_clone_detective.clone_counters</span> <span class="kn">import</span> <span class="n">LazyCloneCounter</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">clonedetective.clone_counters</span> <span class="kn">import</span> <span class="n">LazyCloneCounter</span>
 </pre></div>
 
     </div>
@@ -1342,7 +1342,7 @@ Coordinates:
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>We can add <strong>segmentations</strong> in the same fashion...</p>
 <p><strong>TIP.</strong> 
-At a minimum, py_clone_detector requires a segmentation for the "tot_seg_ch" (see above for definition). If you do not have a suitable segmentation, check out the <a href="https://morriso1.github.io/py_clone_detective/Tutorial_StarDist_Segmentation.html">example tutorial using StarDist</a>.</p>
+At a minimum, py_clone_detector requires a segmentation for the "tot_seg_ch" (see above for definition). If you do not have a suitable segmentation, check out the <a href="https://morriso1.github.io/clonedetective/Tutorial_StarDist_Segmentation.html">example tutorial using StarDist</a>.</p>
 
 </div>
 </div>
@@ -2064,7 +2064,7 @@ Data variables:
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">py_clone_detective.utils</span> <span class="kn">import</span> <span class="n">generate_random_cmap</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">clonedetective.utils</span> <span class="kn">import</span> <span class="n">generate_random_cmap</span>
 
 <span class="c1"># display total segmentation for the first image</span>
 <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
@@ -2136,8 +2136,8 @@ Data variables:
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Without providing an arguments, <a href="/py_clone_detective/clone_counters.html#CloneCounter.make_measurements("><code>CloneCounter.make_measurements()</code></a>) defaults to pairing the 'tot_seg_ch' segmentation channel to each of the image channels.</p>
-<p>The segmentation-image channel pairs used for cell measurements can be accessed via the <a href="/py_clone_detective/clone_counters.html#CloneCounter.seg_img_channel_pairs"><code>CloneCounter.seg_img_channel_pairs</code></a> attribute.</p>
+<p>Without providing an arguments, <a href="/clonedetective/clone_counters.html#CloneCounter.make_measurements("><code>CloneCounter.make_measurements()</code></a>) defaults to pairing the 'tot_seg_ch' segmentation channel to each of the image channels.</p>
+<p>The segmentation-image channel pairs used for cell measurements can be accessed via the <a href="/clonedetective/clone_counters.html#CloneCounter.seg_img_channel_pairs"><code>CloneCounter.seg_img_channel_pairs</code></a> attribute.</p>
 
 </div>
 </div>
@@ -2224,7 +2224,7 @@ Data variables:
 <p><strong>TIP:</strong>
 If these segmentation-image channel pairs are unsuitable for your experiment, they can be customised as detailed in the advanced tutorial (coming soon).</p>
 <p><strong>TIP:</strong>
-As a default,<a href="/py_clone_detective/clone_counters.html#CloneCounter.make_measurements("><code>CloneCounter.make_measurements()</code></a>) calculates every cell's mean intensity, centroid, and area. If we require additional measurements, we can supply the <code>extra_properties</code> with a list containing any 'regionprops' metrics from the <a href="https://scikit-image.org/docs/dev/api/skimage.measure.html">scikit-image measure module</a>. For example, we can additionally calculate 'eccentricity' as follows:</p>
+As a default,<a href="/clonedetective/clone_counters.html#CloneCounter.make_measurements("><code>CloneCounter.make_measurements()</code></a>) calculates every cell's mean intensity, centroid, and area. If we require additional measurements, we can supply the <code>extra_properties</code> with a list containing any 'regionprops' metrics from the <a href="https://scikit-image.org/docs/dev/api/skimage.measure.html">scikit-image measure module</a>. For example, we can additionally calculate 'eccentricity' as follows:</p>
 
 </div>
 </div>
@@ -2248,7 +2248,7 @@ As a default,<a href="/py_clone_detective/clone_counters.html#CloneCounter.make_
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The primary result from the <a href="/py_clone_detective/clone_counters.html#CloneCounter.make_measurements("><code>CloneCounter.make_measurements()</code></a>) call is a <a href="/py_clone_detective/clone_counters.html#CloneCounter.results_measurements"><code>CloneCounter.results_measurements</code></a> attribute. This is a pandas DataFrame containing all per cell measurements.</p>
+<p>The primary result from the <a href="/clonedetective/clone_counters.html#CloneCounter.make_measurements("><code>CloneCounter.make_measurements()</code></a>) call is a <a href="/clonedetective/clone_counters.html#CloneCounter.results_measurements"><code>CloneCounter.results_measurements</code></a> attribute. This is a pandas DataFrame containing all per cell measurements.</p>
 
 </div>
 </div>
@@ -2483,8 +2483,8 @@ As a default,<a href="/py_clone_detective/clone_counters.html#CloneCounter.make_
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>We now aim to determine whether each cell resides inside or outside a "clone". To do this, we first define a 'threshold' that categorises whether a cell is GFP positive or negative. This can be as simple as "mean_intensity &gt; 1000", or involve multiple conditions e.g. "mean_intensity &gt; 1000 &amp; eccentricity &gt; 0.3".</p>
-<p>Thresholds are not applied directly to the C1 (GFP) image. Instead, for every label of the total segmentation channel (in this case C0: DAPI), we look at its corresponding intensity in the C1 (GFP) channel. We do this by querying the <a href="/py_clone_detective/clone_counters.html#CloneCounter.results_measurement"><code>CloneCounter.results_measurement</code></a> dataframe and keeping only those labels that meet our desired threshold criteria.</p>
-<p>The <a href="/py_clone_detective/clone_counters.html#CloneCounter"><code>CloneCounter</code></a> class provides a helper method <code>testing_possible_thresholds</code> that can plot and compare different thresholds:</p>
+<p>Thresholds are not applied directly to the C1 (GFP) image. Instead, for every label of the total segmentation channel (in this case C0: DAPI), we look at its corresponding intensity in the C1 (GFP) channel. We do this by querying the <a href="/clonedetective/clone_counters.html#CloneCounter.results_measurement"><code>CloneCounter.results_measurement</code></a> dataframe and keeping only those labels that meet our desired threshold criteria.</p>
+<p>The <a href="/clonedetective/clone_counters.html#CloneCounter"><code>CloneCounter</code></a> class provides a helper method <code>testing_possible_thresholds</code> that can plot and compare different thresholds:</p>
 
 </div>
 </div>
@@ -2607,7 +2607,7 @@ As a default,<a href="/py_clone_detective/clone_counters.html#CloneCounter.make_
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Once we have decided on a threshold, we can plug it into the <a href="/py_clone_detective/clone_counters.html#CloneCounter.add_clones_and_neighbouring_labels"><code>CloneCounter.add_clones_and_neighbouring_labels</code></a> method and apply it to all images:</p>
+<p>Once we have decided on a threshold, we can plug it into the <a href="/clonedetective/clone_counters.html#CloneCounter.add_clones_and_neighbouring_labels"><code>CloneCounter.add_clones_and_neighbouring_labels</code></a> method and apply it to all images:</p>
 
 </div>
 </div>
@@ -2787,7 +2787,7 @@ As a default,<a href="/py_clone_detective/clone_counters.html#CloneCounter.make_
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>2) It adds new neighbourhood count and clone images to <a href="/py_clone_detective/clone_counters.html#CloneCounter.image_data"><code>CloneCounter.image_data</code></a>. (See the additional 'C1' data variable in the Xarray dataset below)</p>
+<p>2) It adds new neighbourhood count and clone images to <a href="/clonedetective/clone_counters.html#CloneCounter.image_data"><code>CloneCounter.image_data</code></a>. (See the additional 'C1' data variable in the Xarray dataset below)</p>
 
 </div>
 </div>
@@ -3613,7 +3613,7 @@ Data variables:
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>To illustrate what these new images are, lets plot and walkthrough them for one <code>img_name</code> (e.g. "a1g01p1"). As all these new images derive from the original total segmentation image, we will plot this, along with the original fluorescent image (channels C0 and C1).</p>
-<p>We first import helper plotting functions from <code>py_clone_detective.utils</code>:</p>
+<p>We first import helper plotting functions from <code>clonedetective.utils</code>:</p>
 
 </div>
 </div>
@@ -3625,7 +3625,7 @@ Data variables:
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">py_clone_detective.utils</span> <span class="kn">import</span> <span class="n">RGB_image_from_CYX_img</span><span class="p">,</span> <span class="n">plot_new_images</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">clonedetective.utils</span> <span class="kn">import</span> <span class="n">RGB_image_from_CYX_img</span><span class="p">,</span> <span class="n">plot_new_images</span>
 </pre></div>
 
     </div>
@@ -3800,7 +3800,7 @@ Data variables:
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>As well as a GFP channel, our dataset contains fluorescence channels for PDM1 (channel C2)  and Prospero (channel C3) immunostains. Since PDM1 marks EnteroCyte (EE) cells, and Prospero marks EnteroEndocrine (EE) cells, we can use thresholds to define these cell types within our images.</p>
-<p>{% include image.html file="/py_clone_detective/docs/images/labelled_cell_types_attempt_2.png" %}</p>
+<p>{% include image.html file="/clonedetective/docs/images/labelled_cell_types_attempt_2.png" %}</p>
 <blockquote><p>Cropped image of intestine stained with <span style="color:blue">DAPI</span>, <span style="color:green">GFP</span>, <span style="color:red">PDM1</span> and <span style="color:gray">Prospero</span> with labelled cell types</p>
 </blockquote>
 
@@ -3835,7 +3835,7 @@ Data variables:
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>To find suitable PDM1 (C2) threshold, we can again use the <a href="/py_clone_detective/clone_counters.html#CloneCounter.testing_possible_thresholds("><code>CloneCounter.testing_possible_thresholds()</code></a>) method:</p>
+<p>To find suitable PDM1 (C2) threshold, we can again use the <a href="/clonedetective/clone_counters.html#CloneCounter.testing_possible_thresholds("><code>CloneCounter.testing_possible_thresholds()</code></a>) method:</p>
 
 </div>
 </div>
@@ -3942,7 +3942,7 @@ Data variables:
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>'mean_intensity &gt; 1000' looks to work well for the Prospero (C3 channel).</p>
 <p><strong>IMP -&gt; However</strong>, it is crucial that threshold definitions for cell types are mutually exclusive i.e. a cell cannot be both EC_pos and EE_pos. If thresholds are not mutually exclusive, the same cell might be counted more than once when we later calculate percentage cell types and the number of neighbours.</p>
-<p>At the moment, our thresholds are not mutually exclusive since there might a small percentage of cells that have PDM1 'total_intensity &gt; 5e5' and Prospero 'mean_intensity' &gt; 1000. We can check this using the <a href="/py_clone_detective/clone_counters.html#CloneCounter.mutually_exclusive_cell_types("><code>CloneCounter.mutually_exclusive_cell_types()</code></a>) method after defining out initial cell type thresholds:</p>
+<p>At the moment, our thresholds are not mutually exclusive since there might a small percentage of cells that have PDM1 'total_intensity &gt; 5e5' and Prospero 'mean_intensity' &gt; 1000. We can check this using the <a href="/clonedetective/clone_counters.html#CloneCounter.mutually_exclusive_cell_types("><code>CloneCounter.mutually_exclusive_cell_types()</code></a>) method after defining out initial cell type thresholds:</p>
 
 </div>
 </div>
@@ -4301,7 +4301,7 @@ Data variables:
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>This operation populates a <a href="/py_clone_detective/clone_counters.html#CloneCounter.results_clones_and_neighbour_counts"><code>CloneCounter.results_clones_and_neighbour_counts</code></a> dictionary attribute with pandas dataframes for each defined cell type or clone threshold:</p>
+<p>This operation populates a <a href="/clonedetective/clone_counters.html#CloneCounter.results_clones_and_neighbour_counts"><code>CloneCounter.results_clones_and_neighbour_counts</code></a> dictionary attribute with pandas dataframes for each defined cell type or clone threshold:</p>
 
 </div>
 </div>
@@ -4452,7 +4452,7 @@ Data variables:
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Next, we combine these dataframes together, along with the original <a href="/py_clone_detective/clone_counters.html#CloneCounter.results_measurements"><code>CloneCounter.results_measurements</code></a> dataframe, to return a final dataframe that contains information on all cell properties (e.g. mean_intensity), whether a cell inside a clone, and the number and type of neighbours a cell has:</p>
+<p>Next, we combine these dataframes together, along with the original <a href="/clonedetective/clone_counters.html#CloneCounter.results_measurements"><code>CloneCounter.results_measurements</code></a> dataframe, to return a final dataframe that contains information on all cell properties (e.g. mean_intensity), whether a cell inside a clone, and the number and type of neighbours a cell has:</p>
 
 </div>
 </div>
@@ -4508,8 +4508,8 @@ Data variables:
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>To follow on with these analyses, please see tutorials:</p>
 <ul>
-<li><a href="https://morriso1.github.io/py_clone_detective/Tutorial_Downstream_Analysis_Python.html">downstream analysis using Python</a>  </li>
-<li><a href="https://morriso1.github.io/py_clone_detective/Tutorial_Downstream_Analysis_R.html">downstream analysis using R</a>   </li>
+<li><a href="https://morriso1.github.io/clonedetective/Tutorial_Downstream_Analysis_Python.html">downstream analysis using Python</a>  </li>
+<li><a href="https://morriso1.github.io/clonedetective/Tutorial_Downstream_Analysis_R.html">downstream analysis using R</a>   </li>
 </ul>
 
 </div>

@@ -44,8 +44,8 @@ modules = ["utils.py",
            "clone_counters.py",
            "clone_analysis.py"]
 
-doc_url = "https://morriso1.github.io/py_clone_detective/"
+doc_url = "https://morriso1.github.io/clonedetective/"
 
-git_url = "https://github.com/morriso1/py_clone_detective/tree/master/"
+git_url = "https://github.com/morriso1/clonedetective/tree/master/"
 
 def custom_doc_links(name): return None
