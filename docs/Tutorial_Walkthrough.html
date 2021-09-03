@@ -76,14 +76,22 @@ nb_path: "03_Tutorial_Walkthrough.ipynb"
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Dataset images contain cells positive for an EnteroCyte marker, cells positive for an EnteroEndocrine marker, and cells negative for both - stem/progenitor cells.</p>
-<p>We aim to:</p>
+<p>We aim to investigate:
+1) Does gene of interest regulate <strong>cell proliferation</strong>?<br>
+2) Does our gene of interest control <strong>cell differentiation</strong>?<br>
+3) Does gene of interest affect <strong>local tissue cell arrangement and structure</strong>?</p>
+<p>To address each of these aims we will:</p>
 <ul>
-<li>Quantify the number and type of cells present in each image.  </li>
+<li>Quantify the number and type of cells present in each image.</li>
 <li>Classify whether each cell resides outside or inside a clone.  </li>
-<li>Calculate the number of neighbours each cell has and what type of cell each of those neighbours are.</li>
+<li>Calculate the number of neighbours each cell has and what type of cell each of those neighbours are.   </li>
 </ul>
-<p>As only cells inside a clone are mutant for our gene of interest, we can determine if our gene of interest regulates <strong>cell differentiation</strong> by comparing the percentage of each cell type inside vs. outside a clone. We can measure if our gene of interest regulates <strong>cell proliferation</strong> by comparing the number of cells per mutant clone, to the number of cells per control clone i.e. clones generated in wild-type animals lacking any mutation. Finally, we can determine whether our mutation of interest affects <strong>local tissue cell arrangement and structure</strong> by comparing each cell type's number and type of neighbours inside vs outside a clone.</p>
+<p>These data will help us address of experimental aims since:</p>
+<ul>
+<li>We can measure if our gene of interest regulates <strong>cell proliferation</strong> by comparing the number of cells per mutant clone, to the number of cells per control clone i.e. clones generated in wild-type animals lacking any mutation.  </li>
+<li>We can determine if our gene of interest regulates <strong>cell differentiation</strong> by comparing the percentage of each cell type inside vs. outside a clone (since only cells inside a clone are mutant for our gene of interest).  </li>
+<li>We can determine whether our mutation of interest affects <strong>local tissue cell arrangement and structure</strong> by comparing the number and type of cell neighbours inside vs outside a clone.  </li>
+</ul>
 
 </div>
 </div>
