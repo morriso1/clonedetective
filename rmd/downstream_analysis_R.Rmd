@@ -1,0 +1,28 @@
+---
+title: "Downstream Analysis - R"
+output: html_document
+---
+## Cell Proliferation - number of cells per clone
+
+Now we wrangle our data and plot results! Below, we do this using R tidyverse, cowplot and emmeans packages.
+```{r setup}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(tidyverse)
+library(cowplot)
+library(emmeans)
+library(lme4)
+library(here)
+```
+
+
+```{r}
+path_to_data <- "/Users/ottomorris/Documents/my_python_packages/clonedetective/data/example_results.csv"
+
+count_df <-
+  read_csv(path_to_data)
+```
+```{r}
+
+```
+
