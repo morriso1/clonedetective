@@ -46,7 +46,7 @@ count_df <- count_df %>%
   pivot_wider(
     names_from = int_img_ch,
     values_from = c('total_intensity', 'mean_intensity')
-  ) %>% select(matches("clone$|_pos$|int_img"))
+  ) %>% dplyr::select(matches("clone$|_pos$|int_img"))
 ```
 
 Next, we groupby clones per image and sum to get the number of cells of each type per clone.
@@ -76,5 +76,36 @@ count_df <- count_df %>% mutate(
     gut = as_factor(str_extract(int_img, 'g\\d\\d')),
     total = EC + ECEE + preEC + EE + ISCorEB
   )
+```
 
+```{r}
+count_df_tidy <-
+  count_df %>% pivot_longer(cols = EC:ISCorEB,
+                            names_to = 'cell_type',
+                            values_to = 'cell_num') %>%
+  mutate(cell_type = factor(cell_type, levels = c('ECEE', 'EE', 'EC', 'preEC', 'ISCorEB')))
+```
+
+```{r}
+m1 <- MASS::glm.nb(total ~ genotype * clone_status,
+          count_df)
+
+summary(m1)
+```
+
+```{r}
+m2 <- glmer.nb(total ~ genotype * clone_status + (1 |
+                                                 gut),
+            count_df)
+
+summary(m2)
+```
+
+```{r}
+library(glmmTMB)
+
+m3 <- glmmTMB(total ~ genotype * clone_status,
+              count_df,
+              family = 'truncated_nbinom2')
+m3 %>% summary()
 ```
