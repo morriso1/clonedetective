@@ -29,7 +29,7 @@ count_df <- count_df %>%
     genotype = as.factor(if_else(str_detect(int_img, 'a1'), 'ctrl', 'mut')),
     gut = as_factor(str_extract(int_img, 'g\\d\\d')),
     total = EC + ECEE + preEC + EE + ISCorEB
-  ) %>% mutate()
+  )
 
 count_df_tidy <-
   count_df %>% pivot_longer(cols = EC:ISCorEB,
