@@ -42,6 +42,33 @@ Our first aim is to determine whether there is a difference in the number of cel
 For simplicity, we also filter out columns not required for counting the number and type of cells per clone.
 
 ```{r}
-pivot_wider(count_df, names_from = int_img_ch, 
-            values_from = c('total_intensity', 'mean_intensity'))
+count_df <- count_df %>%
+  pivot_wider(
+    names_from = int_img_ch,
+    values_from = c('total_intensity', 'mean_intensity')
+  ) %>% select(matches("clone$|_pos$|int_img"))
+```
+
+Next, we groupby clones per image and sum to get the number of cells of each type per clone.
+
+```{r}
+count_df <- count_df %>%
+  group_by(int_img, GFP_clone) %>%
+  summarise(
+    EC = sum(EC_pos),
+    ECEE = sum(ECEE_pos),
+    preEC = sum(preEC_pos),
+    EE = sum(EE_pos),
+    ISCorEB = sum(ISCorEB_pos)
+  )
+```
+
+To ease downstream wrangling and plotting, we update some of the column metadata.
+
+For example, when plotting, it will be helpful to label whether a cell is inside a clone (IC) or outside a clone (OC). This information is present within the GFP_clone column: 0 indicates if a cell is outside a clone, and \>0 indicate if a cell is inside a clone.
+
+We also can extract metadata stored within the image names. We know that images are named 'a1' if from a wild-type (*ctrl*) animal, and 'a2' if from a mutant (*mut*) animal. The 'g\\d\\d' pattern of the image name identifies the gut (animal) from which an image is taken (e.g. 'g01' is gut/animal 1) . Using this information, we can add 'genotype' and 'gut' columns.
+
+```{r}
+
 ```
