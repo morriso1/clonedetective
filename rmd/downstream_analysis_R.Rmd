@@ -184,13 +184,20 @@ ml_qb = glm(pro_cell_num ~ genotype * clone_status * cell_type, family = quasibi
 ```
 Unfortunately, quasibinomal regression models do not currently support mixed-effects (via lme4 package). We, therefore, move onto our desired contrasts.
 
-We wish to
+We wish to compare:
+* the percentage of each cell type inside mutant vs ctrl clones  
+* the percentage of each cell type outside mutant vs ctrl clones  
+* the percentage of each cell type outside mutant vs inside mutant clones
+
+To do this, we setup pairwise contrasts by cell type and adjust for multiple comparisons using Benjamini/Hochberg false-discovery rate procedure:
 ```{r}
 e_ml <- emmeans(ml_qb, ~ genotype * clone_status * cell_type)
 
 comp_results <- contrast(e_ml, 'pairwise',
-                         by = 'cell_type',
+                         by = c('cell_type'),
                          adjust = 'fdr')
 
-comp_results %>% tidy() %>% filter(cell_type == 'EC')
+stat_results <- comp_results %>% tidy()
+stat_results %>% head()
 ```
+To aid visualization, let's add these results to our stacked percentage barplot from earlier. We annotations only statistically significant comparisons.
