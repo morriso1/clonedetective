@@ -157,3 +157,15 @@ These data are consistent with a role for our gene of interest in controlling ce
 Next, let's investigate whether the types of cells inside and outside clones are different in ctrl and mutant animals. This information will help us determine whether our gene of interest affects cell differentiation.
 
 First, since we already know that 'mutant' clones possess fewer cells than 'ctrl' clones, it is helpful to summarise cell types as proportions and percentages:
+```{r}
+prop_df_tidy <- count_df_tidy %>% mutate(pro_cell_num = cell_num / total,
+                                         perc_cell_num = pro_cell_num * 100)
+```
+```{r}
+prop_df_tidy %>% head()
+```
+Next, we plot a stacked barplot as before. However, this time we plot percentage cell types:
+```{r}
+
+```
+
