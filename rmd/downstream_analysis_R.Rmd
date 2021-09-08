@@ -155,9 +155,11 @@ From this we see that the total number of cells per clone is significantly diffe
 These data are consistent with a role for our gene of interest in controlling cell proliferation. However, complementary studies are be required to test this hypothesis further and eliminate alternative theories, e.g. does our gene of interest enhance cell death, leading to few cells per clone.
 
 ## Cell Differentiation - percentage cell type inside and outside clones
+
 Next, let's investigate whether the types of cells inside and outside clones are different in ctrl and mutant animals. This information will help us determine whether our gene of interest affects cell differentiation.
 
-First, since we already know that 'mutant' clones possess fewer cells than 'ctrl' clones, it is helpful to summarise cell types as proportions and percentages. We also create a composite 
+First, since we already know that 'mutant' clones possess fewer cells than 'ctrl' clones, it is helpful to summarise cell types as proportions and percentages. We also create a composite
+
 ```{r}
 prop_df_tidy <- count_df_tidy %>% mutate(
   pro_cell_num = cell_num / total,
@@ -169,7 +171,9 @@ prop_df_tidy <- count_df_tidy %>% mutate(
 ```{r}
 prop_df_tidy %>% head()
 ```
+
 Next, we plot a stacked barplot as before. However, this time we plot percentage cell types:
+
 ```{r, fig.width=3, fig.height=3}
 stacked_bar_prop <- prop_df_tidy %>%
   ggplot(aes(fill = cell_type, y = pro_cell_num, x = genotype_clone_status)) +
@@ -184,18 +188,21 @@ stacked_bar_prop <- prop_df_tidy %>%
 options(repr.plot.width = 3, repr.plot.height = 4)
 stacked_bar_prop
 ```
+
 This plot suggests there might be a difference in percentage cell-types of mutant clones vs ctrl. Let's investigate if these differences are statistically significant. Since we have proportional data, we construct a quasibinomal regression model:
+
 ```{r}
 ml_qb <- glm(pro_cell_num ~ genotype * clone_status * cell_type, family = quasibinomial(), prop_df_tidy)
 ```
+
 Unfortunately, quasibinomal regression models do not currently support mixed-effects (via lme4 package). We, therefore, move onto our desired contrasts.
 
-We wish to compare:
-* the percentage of each cell type inside mutant vs ctrl clones  
-* the percentage of each cell type outside mutant vs ctrl clones  
-* the percentage of each cell type outside mutant vs inside mutant clones
+We wish to compare: \* the percentage of each cell type inside mutant vs ctrl clones\
+\* the percentage of each cell type outside mutant vs ctrl clones\
+\* the percentage of each cell type outside mutant vs inside mutant clones
 
 To do this, we setup pairwise contrasts by cell type and adjust for multiple comparisons using Benjamini/Hochberg false-discovery rate procedure:
+
 ```{r}
 e_ml <- emmeans(ml_qb, ~ genotype * clone_status * cell_type)
 
@@ -207,7 +214,9 @@ comp_results <- contrast(e_ml, "pairwise",
 stat_results <- comp_results %>% tidy()
 stat_results %>% head()
 ```
+
 To aid visualization, let's add these results to our stacked percentage barplot from earlier. We annotations only statistically significant comparisons:
+
 ```{r}
 stat_anots <- stat_results %>%
   mutate(
@@ -229,6 +238,14 @@ stat_anots <- stat_results %>%
   separate(contrast, sep = "\n-\n", c("group1", "group2"))
 ```
 
-```{r}
-stacked_bar_prop + stat_pvalue_manual(stat_anots, color = rep(stat_anots$color, each=3))
+```{r, fig.width=3, fig.height=3}
+options(repr.plot.width = 3, repr.plot.height = 4)
+stacked_bar_prop + stat_pvalue_manual(stat_anots, color = rep(stat_anots$color, each=3), tip.length=0.01)
 ```
+
+**Summary of results**: \* comparing the percentage makeup of control and mutant clones, mutant clones possess significantly fewer ECs and significantly more progenitor cells (e.g. ISCs or EBs) and EEs.\
+\* comparing the percentage makeup of cells inside mutant clones and outside mutant clones, cells inside clones similarly possess significantly fewer ECs and more progenitor cells.\
+\* no significant difference is seen in the percentage makeup of cells outside clones in control vs mutant animals, suggesting our gene of interest may be haploinsufficient.
+
+**Conclusion**:\
+Together, these data suggest mutation of our gene of interest may hinder ISC -\> EC differentiation. However, complementary studies are be required to further test this hypothesis and eliminate alternative theories, e.g. does our gene of interest lead to enhanced EC cell death, resulting in higher percentage progenitor and EE cells.
