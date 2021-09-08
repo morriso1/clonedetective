@@ -17,10 +17,20 @@ Now we wrangle our data and plot results! Below, we do this using R tidyverse, c
 
 ```{r setup}
 knitr::opts_chunk$set(echo = TRUE)
-library(tidyverse)
-library(cowplot)
+# stats
+library(MASS)
 library(emmeans)
 library(lme4)
+library(glmmTMB)
+
+# tidying up stat outputs
+library(broom.mixed)
+
+# data wrangling
+library(tidyverse)
+
+# arranging our plots
+library(cowplot)
 ```
 
 ```{r}
@@ -45,8 +55,9 @@ For simplicity, we also filter out columns not required for counting the number 
 count_df <- count_df %>%
   pivot_wider(
     names_from = int_img_ch,
-    values_from = c('total_intensity', 'mean_intensity')
-  ) %>% dplyr::select(matches("clone$|_pos$|int_img"))
+    values_from = c("total_intensity", "mean_intensity")
+  ) %>%
+  dplyr::select(matches("clone$|_pos$|int_img"))
 ```
 
 Next, we groupby clones per image and sum to get the number of cells of each type per clone.
@@ -71,41 +82,61 @@ We also can extract metadata stored within the image names. We know that images 
 
 ```{r}
 count_df <- count_df %>% mutate(
-    clone_status = as.factor(if_else(GFP_clone == 0, 'OC', 'IC')),
-    genotype = as.factor(if_else(str_detect(int_img, 'a1'), 'ctrl', 'mut')),
-    gut = as_factor(str_extract(int_img, 'g\\d\\d')),
-    total = EC + ECEE + preEC + EE + ISCorEB
-  )
+  clone_status = as.factor(if_else(GFP_clone == 0, "OC", "IC")),
+  genotype = as.factor(if_else(str_detect(int_img, "a1"), "ctrl", "mut")),
+  gut = as_factor(str_extract(int_img, "g\\d\\d")),
+  total = EC + ECEE + preEC + EE + ISCorEB
+)
 ```
 
 ```{r}
 count_df_tidy <-
-  count_df %>% pivot_longer(cols = EC:ISCorEB,
-                            names_to = 'cell_type',
-                            values_to = 'cell_num') %>%
-  mutate(cell_type = factor(cell_type, levels = c('ECEE', 'EE', 'EC', 'preEC', 'ISCorEB')))
+  count_df %>%
+  pivot_longer(cols = EC:ISCorEB, names_to = "cell_type", values_to = "cell_num") %>%
+  mutate(cell_type = factor(cell_type, levels = c("ECEE", "EE", "EC", "preEC", "ISCorEB")))
 ```
 
+We next generate a bar plot displaying cell numbers and types per clone. Here, we are only interested in plotting cells inside clones, and so we first filter on 'clone_status':
+
+```{r, fig.width=2, fig.height=2}
+count_df_tidy_inside <-
+  count_df_tidy %>% filter(clone_status == "IC")
+
+# colors for our bar plot
+col_pal <- c("#000000", "#95a5a6", "#F57171", "#539DC2", "#008b68")
+
+stacked_bar_mean <- count_df_tidy_inside %>%
+  ggplot(aes(fill = cell_type, y = cell_num, x = genotype)) +
+  geom_bar(
+    position = "stack",
+    stat = "summary",
+    fun = "mean"
+  ) +
+  theme_bw() +
+  scale_fill_manual(values = col_pal)
+
+stacked_bar_mean
+```
+From this plot we can see that 'mutant' clones are on average bigger than 'ctrl' clones. This suggests that mutation of our gene of interest may affect cell proliferation. Since we have count data, let's fit a negative binomial regression using the 'MASS' package to test if this difference is significant.
 ```{r}
-m1 <- MASS::glm.nb(total ~ genotype * clone_status,
-          count_df)
-
-summary(m1)
+m1 <- glm.nb(total ~ genotype * clone_status, count_df)
+glance(m1)
 ```
-
+However, this simple model ignores the fact that each clone is 'nested' inside a gut. Errors may, therefore, correlate within guts, and so we should try to take account of this using a mixed-effect model:  
 ```{r}
-m2 <- glmer.nb(total ~ genotype * clone_status + (1 |
-                                                 gut),
-            count_df)
-
-summary(m2)
+m2 <- glmer.nb(total ~ genotype * clone_status + (1 | gut), count_df)
+glance(m2)
 ```
+This model shows shows an improved (note the improved AIC score). However, the current negative binomial distribution does not account for the fact that clone cannot contain 0 cells! We, therefore, adjust our model to use a truncated negative binomial distribution.
 
+```{r, warning=FALSE}
+m3 <- glmmTMB(total ~ genotype * clone_status + (1 | gut), count_df, family = "truncated_nbinom2")
+glance(m3)
+```
+This further improves the fit of our model.
+
+We next move to test our desired contrast- whether mutant clones possess fewer cells than control clones.
 ```{r}
-library(glmmTMB)
 
-m3 <- glmmTMB(total ~ genotype * clone_status,
-              count_df,
-              family = 'truncated_nbinom2')
-m3 %>% summary()
 ```
+
