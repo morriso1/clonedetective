@@ -29,8 +29,9 @@ library(broom.mixed)
 # data wrangling
 library(tidyverse)
 
-# arranging our plots
+# ehlp with plotting
 library(cowplot)
+library(ggpubr)
 ```
 
 ```{r}
@@ -156,23 +157,24 @@ These data are consistent with a role for our gene of interest in controlling ce
 ## Cell Differentiation - percentage cell type inside and outside clones
 Next, let's investigate whether the types of cells inside and outside clones are different in ctrl and mutant animals. This information will help us determine whether our gene of interest affects cell differentiation.
 
-First, since we already know that 'mutant' clones possess fewer cells than 'ctrl' clones, it is helpful to summarise cell types as proportions and percentages:
+First, since we already know that 'mutant' clones possess fewer cells than 'ctrl' clones, it is helpful to summarise cell types as proportions and percentages. We also create a composite 
 ```{r}
 prop_df_tidy <- count_df_tidy %>% mutate(pro_cell_num = cell_num / total,
-                                         perc_cell_num = pro_cell_num * 100)
+                                         perc_cell_num = pro_cell_num * 100, 
+                                         clone_status_genotype = paste(clone_status, genotype, sep = '\n'))
 ```
+
 ```{r}
 prop_df_tidy %>% head()
 ```
 Next, we plot a stacked barplot as before. However, this time we plot percentage cell types:
 ```{r, fig.width=3, fig.height=3}
 stacked_bar_prop <- prop_df_tidy %>%
-  ggplot(aes(fill = cell_type, y = pro_cell_num, x = genotype)) +
+  ggplot(aes(fill = cell_type, y = pro_cell_num, x = clone_status_genotype)) +
   geom_bar(position = "fill",
            stat = 'summary',
            fun = 'mean') +
   theme_bw() +
-  facet_wrap(vars(clone_status)) +
   scale_fill_manual(values = col_pal)
 
 options(repr.plot.width = 3, repr.plot.height = 4)
@@ -200,4 +202,22 @@ comp_results <- contrast(e_ml, 'pairwise',
 stat_results <- comp_results %>% tidy()
 stat_results %>% head()
 ```
-To aid visualization, let's add these results to our stacked percentage barplot from earlier. We annotations only statistically significant comparisons.
+To aid visualization, let's add these results to our stacked percentage barplot from earlier. We annotations only statistically significant comparisons:
+```{r}
+stat_results <- stat_results %>%
+  mutate(
+    sig_anot = case_when(
+      adj.p.value < 0.0001 ~ '****',
+      adj.p.value < 0.001 ~ '***',
+      adj.p.value < 0.01 ~ '**',
+      adj.p.value < 0.05 ~ '*',
+      adj.p.value < 1 ~ 'ns'
+    )
+  ) %>% filter(sig_anot != 'ns', contrast != 'mut IC - ctrl OC') %>%
+  select(cell_type, contrast, sig_anot)
+```
+
+```{r}
+stat_results
+```
+
