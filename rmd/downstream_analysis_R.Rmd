@@ -99,13 +99,11 @@ count_df_tidy <-
 We next generate a bar plot displaying cell numbers and types per clone. Here, we are only interested in plotting cells inside clones, and so we first filter on 'clone_status':
 
 ```{r, fig.width=2, fig.height=2}
-count_df_tidy_inside <-
-  count_df_tidy %>% filter(clone_status == "IC")
-
 # colors for our bar plot
 col_pal <- c("#000000", "#95a5a6", "#F57171", "#539DC2", "#008b68")
 
-stacked_bar_mean <- count_df_tidy_inside %>%
+stacked_bar_mean <- count_df_tidy %>%
+  filter(clone_status == "IC") %>%
   ggplot(aes(fill = cell_type, y = cell_num, x = genotype)) +
   geom_bar(
     position = "stack",
@@ -117,26 +115,44 @@ stacked_bar_mean <- count_df_tidy_inside %>%
 
 stacked_bar_mean
 ```
+
 From this plot we can see that 'mutant' clones are on average bigger than 'ctrl' clones. This suggests that mutation of our gene of interest may affect cell proliferation. Since we have count data, let's fit a negative binomial regression using the 'MASS' package to test if this difference is significant.
+
 ```{r}
 m1 <- glm.nb(total ~ genotype * clone_status, count_df)
 glance(m1)
 ```
-However, this simple model ignores the fact that each clone is 'nested' inside a gut. Errors may, therefore, correlate within guts, and so we should try to take account of this using a mixed-effect model:  
+
+However, this simple model ignores the fact that each clone is 'nested' inside a gut. Errors may, therefore, correlate within guts, and so we should try to take account of this using a mixed-effect model:
+
 ```{r}
 m2 <- glmer.nb(total ~ genotype * clone_status + (1 | gut), count_df)
 glance(m2)
 ```
+
 This model shows shows an improved (note the improved AIC score). However, the current negative binomial distribution does not account for the fact that clone cannot contain 0 cells! We, therefore, adjust our model to use a truncated negative binomial distribution.
 
 ```{r, warning=FALSE}
 m3 <- glmmTMB(total ~ genotype * clone_status + (1 | gut), count_df, family = "truncated_nbinom2")
 glance(m3)
 ```
+
 This further improves the fit of our model.
 
-We next move to test our desired contrast- whether mutant clones possess fewer cells than control clones.
-```{r}
+We next move to test our desired contrast - do mutant clones possess fewer cells than control clones?
 
+```{r}
+em_m3 <- emmeans(m3, ~ genotype * clone_status)
+
+contrast(em_m3, "pairwise", by = "clone_status", adjust = "fdr") %>% tidy()
 ```
 
+From this we see that the total number of cells per clone is significantly different in "ctrl" vs "mutant" animals.
+
+**Conclusion**:\
+These data are consistent with a role for our gene of interest in controlling cell proliferation. However, complementary studies are be required to test this hypothesis further and eliminate alternative theories, e.g. does our gene of interest enhance cell death, leading to few cells per clone.
+
+## Cell Differentiation - percentage cell type inside and outside clones
+Next, let's investigate whether the types of cells inside and outside clones are different in ctrl and mutant animals. This information will help us determine whether our gene of interest affects cell differentiation.
+
+First, since we already know that 'mutant' clones possess fewer cells than 'ctrl' clones, it is helpful to summarise cell types as proportions and percentages:
