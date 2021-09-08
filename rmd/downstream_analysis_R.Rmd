@@ -165,7 +165,32 @@ prop_df_tidy <- count_df_tidy %>% mutate(pro_cell_num = cell_num / total,
 prop_df_tidy %>% head()
 ```
 Next, we plot a stacked barplot as before. However, this time we plot percentage cell types:
-```{r}
+```{r, fig.width=3, fig.height=3}
+stacked_bar_prop <- prop_df_tidy %>%
+  ggplot(aes(fill = cell_type, y = pro_cell_num, x = genotype)) +
+  geom_bar(position = "fill",
+           stat = 'summary',
+           fun = 'mean') +
+  theme_bw() +
+  facet_wrap(vars(clone_status)) +
+  scale_fill_manual(values = col_pal)
 
+options(repr.plot.width = 3, repr.plot.height = 4)
+stacked_bar_prop
 ```
+This plot suggests there might be a difference in percentage cell-types of mutant clones vs ctrl. Let's investigate if these differences are statistically significant. Since we have proportional data, we construct a quasibinomal regression model:
+```{r}
+ml_qb = glm(pro_cell_num ~ genotype * clone_status * cell_type, family = quasibinomial(), prop_df_tidy)
+```
+Unfortunately, quasibinomal regression models do not currently support mixed-effects (via lme4 package). We, therefore, move onto our desired contrasts.
 
+We wish to
+```{r}
+e_ml <- emmeans(ml_qb, ~ genotype * clone_status * cell_type)
+
+comp_results <- contrast(e_ml, 'pairwise',
+                         by = 'cell_type',
+                         adjust = 'fdr')
+
+comp_results %>% tidy() %>% filter(cell_type == 'EC')
+```
