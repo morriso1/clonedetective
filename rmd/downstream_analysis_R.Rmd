@@ -159,9 +159,11 @@ Next, let's investigate whether the types of cells inside and outside clones are
 
 First, since we already know that 'mutant' clones possess fewer cells than 'ctrl' clones, it is helpful to summarise cell types as proportions and percentages. We also create a composite 
 ```{r}
-prop_df_tidy <- count_df_tidy %>% mutate(pro_cell_num = cell_num / total,
-                                         perc_cell_num = pro_cell_num * 100, 
-                                         clone_status_genotype = paste(clone_status, genotype, sep = '\n'))
+prop_df_tidy <- count_df_tidy %>% mutate(
+  pro_cell_num = cell_num / total,
+  perc_cell_num = pro_cell_num * 100,
+  genotype_clone_status = interaction(genotype, clone_status, sep = "\n")
+)
 ```
 
 ```{r}
@@ -170,10 +172,12 @@ prop_df_tidy %>% head()
 Next, we plot a stacked barplot as before. However, this time we plot percentage cell types:
 ```{r, fig.width=3, fig.height=3}
 stacked_bar_prop <- prop_df_tidy %>%
-  ggplot(aes(fill = cell_type, y = pro_cell_num, x = clone_status_genotype)) +
-  geom_bar(position = "fill",
-           stat = 'summary',
-           fun = 'mean') +
+  ggplot(aes(fill = cell_type, y = pro_cell_num, x = genotype_clone_status)) +
+  geom_bar(
+    position = "fill",
+    stat = "summary",
+    fun = "mean"
+  ) +
   theme_bw() +
   scale_fill_manual(values = col_pal)
 
@@ -182,7 +186,7 @@ stacked_bar_prop
 ```
 This plot suggests there might be a difference in percentage cell-types of mutant clones vs ctrl. Let's investigate if these differences are statistically significant. Since we have proportional data, we construct a quasibinomal regression model:
 ```{r}
-ml_qb = glm(pro_cell_num ~ genotype * clone_status * cell_type, family = quasibinomial(), prop_df_tidy)
+ml_qb <- glm(pro_cell_num ~ genotype * clone_status * cell_type, family = quasibinomial(), prop_df_tidy)
 ```
 Unfortunately, quasibinomal regression models do not currently support mixed-effects (via lme4 package). We, therefore, move onto our desired contrasts.
 
@@ -195,29 +199,36 @@ To do this, we setup pairwise contrasts by cell type and adjust for multiple com
 ```{r}
 e_ml <- emmeans(ml_qb, ~ genotype * clone_status * cell_type)
 
-comp_results <- contrast(e_ml, 'pairwise',
-                         by = c('cell_type'),
-                         adjust = 'fdr')
+comp_results <- contrast(e_ml, "pairwise",
+  by = c("cell_type"),
+  adjust = "fdr"
+)
 
 stat_results <- comp_results %>% tidy()
 stat_results %>% head()
 ```
 To aid visualization, let's add these results to our stacked percentage barplot from earlier. We annotations only statistically significant comparisons:
 ```{r}
-stat_results <- stat_results %>%
+stat_anots <- stat_results %>%
   mutate(
-    sig_anot = case_when(
-      adj.p.value < 0.0001 ~ '****',
-      adj.p.value < 0.001 ~ '***',
-      adj.p.value < 0.01 ~ '**',
-      adj.p.value < 0.05 ~ '*',
-      adj.p.value < 1 ~ 'ns'
-    )
-  ) %>% filter(sig_anot != 'ns', contrast != 'mut IC - ctrl OC') %>%
-  select(cell_type, contrast, sig_anot)
+    p = case_when(
+      adj.p.value < 0.0001 ~ "****",
+      adj.p.value < 0.001 ~ "***",
+      adj.p.value < 0.01 ~ "**",
+      adj.p.value < 0.05 ~ "*",
+      adj.p.value < 1 ~ "ns"
+    ),
+  ) %>%
+  filter(p != "ns", contrast != "mut IC - ctrl OC") %>%
+  select(cell_type, contrast, p) %>%
+  mutate(contrast = str_replace_all(contrast, "\ ", "\n"),
+         y.position = c(1.05, 1.10, 1.15, 1.20, 1.25), 
+         color = case_when(cell_type == 'EE' ~ "#95a5a6",
+                           cell_type == 'EC' ~ "#F57171",
+                           cell_type == 'ISCorEB' ~ "#008b68")) %>% 
+  separate(contrast, sep = "\n-\n", c("group1", "group2"))
 ```
 
 ```{r}
-stat_results
+stacked_bar_prop + stat_pvalue_manual(stat_anots, color = rep(stat_anots$color, each=3))
 ```
-
