@@ -243,9 +243,10 @@ options(repr.plot.width = 3, repr.plot.height = 4)
 stacked_bar_prop + stat_pvalue_manual(stat_anots, color = rep(stat_anots$color, each=3), tip.length=0.01)
 ```
 
-**Summary of results**: \* comparing the percentage makeup of control and mutant clones, mutant clones possess significantly fewer ECs and significantly more progenitor cells (e.g. ISCs or EBs) and EEs.\
-\* comparing the percentage makeup of cells inside mutant clones and outside mutant clones, cells inside clones similarly possess significantly fewer ECs and more progenitor cells.\
-\* no significant difference is seen in the percentage makeup of cells outside clones in control vs mutant animals, suggesting our gene of interest may be haploinsufficient.
+**Summary of results**:\
+- comparing the percentage makeup of control and mutant clones, mutant clones possess significantly fewer ECs and significantly more progenitor cells (e.g. ISCs or EBs) and EEs.\
+- comparing the percentage makeup of cells inside mutant clones and outside mutant clones, cells inside clones similarly possess significantly fewer ECs and more progenitor cells.\
+- no significant difference is seen in the percentage makeup of cells outside clones in control vs mutant animals, suggesting our gene of interest may be haploinsufficient.
 
 **Conclusion**:\
 Together, these data suggest mutation of our gene of interest may hinder ISC -\> EC differentiation. However, complementary studies are be required to further test this hypothesis and eliminate alternative theories, e.g. does our gene of interest lead to enhanced EC cell death, resulting in higher percentage progenitor and EE cells.
