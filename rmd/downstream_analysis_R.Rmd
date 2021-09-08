@@ -113,6 +113,7 @@ stacked_bar_mean <- count_df_tidy %>%
   theme_bw() +
   scale_fill_manual(values = col_pal)
 
+options(repr.plot.width = 3, repr.plot.height = 4)
 stacked_bar_mean
 ```
 
