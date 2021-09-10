@@ -1,0 +1,56 @@
+package:
+  name: clonedetective
+  version: 0.0.1
+source:
+  sha256: d09448f6874e8e94bfc7fdceb51e19b394694fe2cd551e4cd9e31ee40aa8def9
+  url: https://files.pythonhosted.org/packages/10/fc/65b71acbf44eecb1e4eac9c87de29d06bc2246fa1e82085a415b710e3c87/clonedetective-0.0.1.tar.gz
+about:
+  dev_url: https://morriso1.github.io
+  doc_url: https://morriso1.github.io
+  home: https://morriso1.github.io
+  license: Apache Software
+  license_family: APACHE
+  summary: A simple python package that loads in fluorescence microscopy images and
+    their segmentations, calculates cell properties (e.g. area, mean intensity), and
+    counts cells per clone.
+build:
+  noarch: python
+  number: '0'
+  script: '{{ PYTHON }} -m pip install . -vv'
+extra:
+  recipe-maintainers:
+  - morriso1
+requirements:
+  host:
+  - pip
+  - python
+  - packaging
+  - xarray
+  - dask[dataframe]
+  - dask[array]
+  - dask[distributed]
+  - netCDF4
+  - bottleneck
+  - scipy
+  - scikit-image
+  - dask-image
+  - seaborn
+  - numba
+  run:
+  - pip
+  - python
+  - packaging
+  - xarray
+  - dask[dataframe]
+  - dask[array]
+  - dask[distributed]
+  - netCDF4
+  - bottleneck
+  - scipy
+  - scikit-image
+  - dask-image
+  - seaborn
+  - numba
+test:
+  imports:
+  - clonedetective

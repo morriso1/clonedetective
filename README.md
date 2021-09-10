@@ -26,9 +26,13 @@ Many functions are lazy-loaded and parallelized using [Dask](https://dask.org/),
 
 ## Install
 
-pip install not yet supported but will be soon!
+It is recommended to install `clonedetective` into a virtual environment e.g. using [conda](https://docs.conda.io/). Once you have anaconda or miniconda installed, you can create a virtual environment using the following command. It is often helpful to install something into an empty environment, in this case we install scipy:
 
-`pip install coming_soon`
+`conda create -n myenv scipy` 
+
+You can then install clonedetective via pip:
+
+`pip install clonedetective`
 
 ## How to use
 
