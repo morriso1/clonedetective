@@ -1,5 +1,5 @@
 # clonedetective
-> A python library for automated cell lineage analysis.
+> A python package for automated cell lineage analysis.
 
 
 <img src="docs/images/clonedetective_scheme.png" width="800" style="max-width: 800px">
