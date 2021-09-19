@@ -26,11 +26,17 @@ Many functions are lazy-loaded and parallelized using [Dask](https://dask.org/),
 
 ## Install
 
-It is recommended to install **clonedetective** into a virtual environment e.g. using [conda](https://docs.conda.io/). Once you have anaconda or miniconda installed, you can create a virtual environment using the following command. It is often helpful to install something into an empty environment, in this case we install scipy:
+It is recommended to install **clonedetective** into a virtual environment e.g. using [conda](https://docs.conda.io/).
+
+If you have anaconda or miniconda installed, you can create a virtual environment using the following command. It is often helpful to install something into an empty environment, in this case we install scipy:
 
 `conda create -n myenv scipy` 
 
-You can then install clonedetective via pip:
+We next activate our environment:  
+
+`conda activate myenv`
+
+You can then install clonedetective into this environment via pip:
 
 `pip install clonedetective`
 
