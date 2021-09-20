@@ -282,7 +282,7 @@ class CloneCounter:
 
     def add_clones_and_neighbouring_labels(
         self,
-        thresholds: list = ['int_img_ch == "C1" & mean_intensity > 1000'],
+        thresholds: list,
         thresh_name: str = "C1",
         calc_clones: bool = True,
     ):
