@@ -17,7 +17,7 @@ import re
 import string
 from glob import glob
 from itertools import zip_longest
-from typing import Callable, List
+from typing import Callable, List, Tuple
 
 import dask.array as da
 import dask.dataframe as dd
@@ -274,7 +274,16 @@ def what_cmap(
     return label_cmap if is_label_image(img) else img_cmap
 
 # Cell
-def figure_rows_columns(total_fig_axes: int, rows=3):
+def figure_rows_columns(total_fig_axes: int, rows: int = 3) -> Tuple:
+    """Calculates the sensible default number of columns and rows for a figure.
+
+    Args:
+        total_fig_axes (int): Total number figure axes e.g. for 3x3 grid, would be 9.
+        rows (int, optional): How many rows. Defaults to 3.
+
+    Returns:
+        Tuple: Number of columns and rows for a figure
+    """
     return (np.ceil(total_fig_axes / rows).astype(int), rows)
 
 # Cell
