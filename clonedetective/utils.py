@@ -256,16 +256,20 @@ def generate_random_cmap(num_of_colors: int = 2000) -> matplotlib.colors.ListedC
     return matplotlib.colors.ListedColormap(colors)
 
 # Cell
-def what_cmap(img: np.array, img_cmap, label_cmap):
+def what_cmap(
+    img: np.array,
+    img_cmap: matplotlib.colors.ListedColormap,
+    label_cmap: matplotlib.colors.ListedColormap,
+) -> matplotlib.colors.ListedColormap:
     """Determines whether to use a image cmap (e.g. gray) or a label cmap (e.g. random)
 
     Args:
-        img (np.array): [description]
-        img_cmap ([type]): [description]
-        label_cmap ([type]): [description]
+        img (np.array)
+        img_cmap (matplotlib.colors.ListedColormap)
+        label_cmap (matplotlib.colors.ListedColormap)
 
     Returns:
-        [type]: [description]
+        matplotlib.colors.ListedColormap: image cmap (e.g. gray) or a label cmap (e.g. random).
     """
     return label_cmap if is_label_image(img) else img_cmap
 
