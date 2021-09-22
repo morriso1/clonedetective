@@ -230,7 +230,7 @@ def reorder_df_to_put_ch_info_first(df: pd.DataFrame) -> pd.DataFrame:
 
 # Cell
 def is_label_image(img: np.array, unique_value_thresh: int = 2000) -> bool:
-    """tests whether supplied image is a label image based on the number of unique values in the image.
+    """Tests whether supplied image is a label image based on the number of unique values in the image.
 
     Args:
         img (np.array): image
@@ -256,7 +256,17 @@ def generate_random_cmap(num_of_colors: int = 2000) -> matplotlib.colors.ListedC
     return matplotlib.colors.ListedColormap(colors)
 
 # Cell
-def what_cmap(img, img_cmap, label_cmap):
+def what_cmap(img: np.array, img_cmap, label_cmap):
+    """Determines whether to use a image cmap (e.g. gray) or a label cmap (e.g. random)
+
+    Args:
+        img (np.array): [description]
+        img_cmap ([type]): [description]
+        label_cmap ([type]): [description]
+
+    Returns:
+        [type]: [description]
+    """
     return label_cmap if is_label_image(img) else img_cmap
 
 # Cell
