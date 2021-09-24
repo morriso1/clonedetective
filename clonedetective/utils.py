@@ -300,7 +300,15 @@ def auto_figure_size(figure_shape: Tuple, scaling_factor: int = 4) -> Tuple:
     return figure_shape[1] * scaling_factor, figure_shape[0] * scaling_factor
 
 # Cell
-def crop_RGB_img_to_square(RGB_img):
+def crop_RGB_img_to_square(RGB_img: np.array) -> np.array:
+    """Crops an RGB image to a square e.g useful after taking a napari screenshot.
+
+    Args:
+        RGB_img (np.array): Image of form (y,x,c).
+
+    Returns:
+        np.array: cropped image
+    """
     y, x = RGB_img.shape[:2]
     if y > x:
         y_min = (y - x) // 2
