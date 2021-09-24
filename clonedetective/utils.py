@@ -287,8 +287,17 @@ def figure_rows_columns(total_fig_axes: int, rows: int = 3) -> Tuple:
     return (np.ceil(total_fig_axes / rows).astype(int), rows)
 
 # Cell
-def auto_figure_size(figure_shape):
-    return figure_shape[1] * 4, figure_shape[0] * 4
+def auto_figure_size(figure_shape: Tuple, scaling_factor: int = 4) -> Tuple:
+    """Scales figure shape to generate figure dimensions.
+
+    Args:
+        figure_shape (Tuple): Figure shape in determines of rows and columns.
+        scaling_factor (int, optional): Defaults to 4.
+
+    Returns:
+        Tuple: figure dimensions in inches for matplotlib.
+    """
+    return figure_shape[1] * scaling_factor, figure_shape[0] * scaling_factor
 
 # Cell
 def crop_RGB_img_to_square(RGB_img):

@@ -1716,7 +1716,44 @@ Coordinates:
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="auto_figure_size" class="doc_header"><code>auto_figure_size</code><a href="https://github.com/morriso1/clonedetective/tree/master/clonedetective/utils.py#L290" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>auto_figure_size</code>(<strong><code>figure_shape</code></strong>)</p>
+<h4 id="auto_figure_size" class="doc_header"><code>auto_figure_size</code><a href="https://github.com/morriso1/clonedetective/tree/master/clonedetective/utils.py#L290" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>auto_figure_size</code>(<strong><code>figure_shape</code></strong>:<code>Tuple</code>, <strong><code>scaling_factor</code></strong>:<code>int</code>=<em><code>4</code></em>)</p>
+</blockquote>
+<p>Scales figure shape to generate figure dimensions.</p>
+<p>Args:
+    figure_shape (Tuple): Figure shape in determines of rows and columns.
+    scaling_factor (int, optional): Defaults to 4.</p>
+<p>Returns:
+    Tuple: figure dimensions in inches for matplotlib.</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="crop_RGB_img_to_square" class="doc_header"><code>crop_RGB_img_to_square</code><a href="https://github.com/morriso1/clonedetective/tree/master/clonedetective/utils.py#L303" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>crop_RGB_img_to_square</code>(<strong><code>RGB_img</code></strong>)</p>
 </blockquote>
 
 </div>
@@ -1747,7 +1784,7 @@ Coordinates:
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="crop_RGB_img_to_square" class="doc_header"><code>crop_RGB_img_to_square</code><a href="https://github.com/morriso1/clonedetective/tree/master/clonedetective/utils.py#L294" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>crop_RGB_img_to_square</code>(<strong><code>RGB_img</code></strong>)</p>
+<h4 id="plot_new_images" class="doc_header"><code>plot_new_images</code><a href="https://github.com/morriso1/clonedetective/tree/master/clonedetective/utils.py#L318" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>plot_new_images</code>(<strong><code>images</code></strong>, <strong><code>label_text</code></strong>, <strong><code>label_letter</code></strong>=<em><code>None</code></em>, <strong><code>figure_shape</code></strong>=<em><code>None</code></em>, <strong><code>figure_size</code></strong>=<em><code>None</code></em>, <strong><code>img_cmap</code></strong>=<em><code>'gray'</code></em>, <strong><code>label_cmap</code></strong>=<em><code>None</code></em>, <strong><code>colorbar</code></strong>=<em><code>False</code></em>, <strong><code>colorbar_title</code></strong>=<em><code>'number of neighbours'</code></em>, <strong>**<code>kwargs</code></strong>)</p>
 </blockquote>
 
 </div>
@@ -1778,7 +1815,7 @@ Coordinates:
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="plot_new_images" class="doc_header"><code>plot_new_images</code><a href="https://github.com/morriso1/clonedetective/tree/master/clonedetective/utils.py#L309" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>plot_new_images</code>(<strong><code>images</code></strong>, <strong><code>label_text</code></strong>, <strong><code>label_letter</code></strong>=<em><code>None</code></em>, <strong><code>figure_shape</code></strong>=<em><code>None</code></em>, <strong><code>figure_size</code></strong>=<em><code>None</code></em>, <strong><code>img_cmap</code></strong>=<em><code>'gray'</code></em>, <strong><code>label_cmap</code></strong>=<em><code>None</code></em>, <strong><code>colorbar</code></strong>=<em><code>False</code></em>, <strong><code>colorbar_title</code></strong>=<em><code>'number of neighbours'</code></em>, <strong>**<code>kwargs</code></strong>)</p>
+<h4 id="RGB_image_from_CYX_img" class="doc_header"><code>RGB_image_from_CYX_img</code><a href="https://github.com/morriso1/clonedetective/tree/master/clonedetective/utils.py#L364" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>RGB_image_from_CYX_img</code>(<strong><code>red</code></strong>=<em><code>None</code></em>, <strong><code>green</code></strong>=<em><code>None</code></em>, <strong><code>blue</code></strong>=<em><code>None</code></em>, <strong><code>ref_ch</code></strong>=<em><code>2</code></em>, <strong><code>clims</code></strong>=<em><code>(2, 98)</code></em>)</p>
 </blockquote>
 
 </div>
@@ -1809,7 +1846,7 @@ Coordinates:
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="RGB_image_from_CYX_img" class="doc_header"><code>RGB_image_from_CYX_img</code><a href="https://github.com/morriso1/clonedetective/tree/master/clonedetective/utils.py#L355" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>RGB_image_from_CYX_img</code>(<strong><code>red</code></strong>=<em><code>None</code></em>, <strong><code>green</code></strong>=<em><code>None</code></em>, <strong><code>blue</code></strong>=<em><code>None</code></em>, <strong><code>ref_ch</code></strong>=<em><code>2</code></em>, <strong><code>clims</code></strong>=<em><code>(2, 98)</code></em>)</p>
+<h4 id="four_ch_CYX_img_to_three_ch_CYX_img" class="doc_header"><code>four_ch_CYX_img_to_three_ch_CYX_img</code><a href="https://github.com/morriso1/clonedetective/tree/master/clonedetective/utils.py#L382" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>four_ch_CYX_img_to_three_ch_CYX_img</code>(<strong><code>img</code></strong>)</p>
 </blockquote>
 
 </div>
@@ -1840,38 +1877,7 @@ Coordinates:
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="four_ch_CYX_img_to_three_ch_CYX_img" class="doc_header"><code>four_ch_CYX_img_to_three_ch_CYX_img</code><a href="https://github.com/morriso1/clonedetective/tree/master/clonedetective/utils.py#L373" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>four_ch_CYX_img_to_three_ch_CYX_img</code>(<strong><code>img</code></strong>)</p>
-</blockquote>
-
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_markdown rendered_html output_subarea ">
-<h4 id="plot_threshold_imgs_side_by_side" class="doc_header"><code>plot_threshold_imgs_side_by_side</code><a href="https://github.com/morriso1/clonedetective/tree/master/clonedetective/utils.py#L382" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>plot_threshold_imgs_side_by_side</code>(<strong><code>img</code></strong>, <strong><code>thresh_img_dict</code></strong>, <strong><code>int_img_ch</code></strong>, <strong><code>seg_img_ch</code></strong>)</p>
+<h4 id="plot_threshold_imgs_side_by_side" class="doc_header"><code>plot_threshold_imgs_side_by_side</code><a href="https://github.com/morriso1/clonedetective/tree/master/clonedetective/utils.py#L391" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>plot_threshold_imgs_side_by_side</code>(<strong><code>img</code></strong>, <strong><code>thresh_img_dict</code></strong>, <strong><code>int_img_ch</code></strong>, <strong><code>seg_img_ch</code></strong>)</p>
 </blockquote>
 
 </div>
@@ -1908,7 +1914,7 @@ Coordinates:
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="region_overlap" class="doc_header"><code>region_overlap</code><a href="https://github.com/morriso1/clonedetective/tree/master/clonedetective/utils.py#L402" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>region_overlap</code>(<strong><code>label_no</code></strong>, <strong><code>label_img_outer</code></strong>=<em><code>None</code></em>, <strong><code>label_img_inner</code></strong>=<em><code>None</code></em>, <strong><code>overlap_thresh</code></strong>=<em><code>0.5</code></em>)</p>
+<h4 id="region_overlap" class="doc_header"><code>region_overlap</code><a href="https://github.com/morriso1/clonedetective/tree/master/clonedetective/utils.py#L411" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>region_overlap</code>(<strong><code>label_no</code></strong>, <strong><code>label_img_outer</code></strong>=<em><code>None</code></em>, <strong><code>label_img_inner</code></strong>=<em><code>None</code></em>, <strong><code>overlap_thresh</code></strong>=<em><code>0.5</code></em>)</p>
 </blockquote>
 
 </div>
@@ -1939,7 +1945,7 @@ Coordinates:
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="calculate_overlap" class="doc_header"><code>calculate_overlap</code><a href="https://github.com/morriso1/clonedetective/tree/master/clonedetective/utils.py#L420" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>calculate_overlap</code>(<strong><code>img</code></strong>, <strong><code>num_of_segs</code></strong>=<em><code>4</code></em>, <strong><code>preallocate_value</code></strong>=<em><code>1000</code></em>)</p>
+<h4 id="calculate_overlap" class="doc_header"><code>calculate_overlap</code><a href="https://github.com/morriso1/clonedetective/tree/master/clonedetective/utils.py#L429" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>calculate_overlap</code>(<strong><code>img</code></strong>, <strong><code>num_of_segs</code></strong>=<em><code>4</code></em>, <strong><code>preallocate_value</code></strong>=<em><code>1000</code></em>)</p>
 </blockquote>
 
 </div>
@@ -1976,7 +1982,7 @@ Coordinates:
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="calc_allfilt_from_thresholds" class="doc_header"><code>calc_allfilt_from_thresholds</code><a href="https://github.com/morriso1/clonedetective/tree/master/clonedetective/utils.py#L430" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>calc_allfilt_from_thresholds</code>(<strong><code>thresholds</code></strong>:<code>list</code>, <strong><code>df</code></strong>)</p>
+<h4 id="calc_allfilt_from_thresholds" class="doc_header"><code>calc_allfilt_from_thresholds</code><a href="https://github.com/morriso1/clonedetective/tree/master/clonedetective/utils.py#L439" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>calc_allfilt_from_thresholds</code>(<strong><code>thresholds</code></strong>:<code>list</code>, <strong><code>df</code></strong>)</p>
 </blockquote>
 
 </div>
@@ -2007,7 +2013,7 @@ Coordinates:
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="concat_list_of_thresholds_to_string" class="doc_header"><code>concat_list_of_thresholds_to_string</code><a href="https://github.com/morriso1/clonedetective/tree/master/clonedetective/utils.py#L449" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>concat_list_of_thresholds_to_string</code>(<strong><code>thresholds</code></strong>)</p>
+<h4 id="concat_list_of_thresholds_to_string" class="doc_header"><code>concat_list_of_thresholds_to_string</code><a href="https://github.com/morriso1/clonedetective/tree/master/clonedetective/utils.py#L458" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>concat_list_of_thresholds_to_string</code>(<strong><code>thresholds</code></strong>)</p>
 </blockquote>
 
 </div>
@@ -2044,7 +2050,7 @@ Coordinates:
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="generate_touch_counting_image" class="doc_header"><code>generate_touch_counting_image</code><a href="https://github.com/morriso1/clonedetective/tree/master/clonedetective/utils.py#L454" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>generate_touch_counting_image</code>(<strong><code>g_img</code></strong>)</p>
+<h4 id="generate_touch_counting_image" class="doc_header"><code>generate_touch_counting_image</code><a href="https://github.com/morriso1/clonedetective/tree/master/clonedetective/utils.py#L463" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>generate_touch_counting_image</code>(<strong><code>g_img</code></strong>)</p>
 </blockquote>
 
 </div>
@@ -2075,7 +2081,7 @@ Coordinates:
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="adjusted_cell_touch_images" class="doc_header"><code>adjusted_cell_touch_images</code><a href="https://github.com/morriso1/clonedetective/tree/master/clonedetective/utils.py#L461" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>adjusted_cell_touch_images</code>(<strong><code>total_neigh_counts</code></strong>, <strong><code>neg_neigh_neg</code></strong>, <strong><code>pos_neigh_pos</code></strong>, <strong><code>pos_binary_image</code></strong>)</p>
+<h4 id="adjusted_cell_touch_images" class="doc_header"><code>adjusted_cell_touch_images</code><a href="https://github.com/morriso1/clonedetective/tree/master/clonedetective/utils.py#L470" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>adjusted_cell_touch_images</code>(<strong><code>total_neigh_counts</code></strong>, <strong><code>neg_neigh_neg</code></strong>, <strong><code>pos_neigh_pos</code></strong>, <strong><code>pos_binary_image</code></strong>)</p>
 </blockquote>
 
 </div>
@@ -2137,7 +2143,7 @@ Coordinates:
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="get_all_labeled_clones_unmerged_and_merged" class="doc_header"><code>get_all_labeled_clones_unmerged_and_merged</code><a href="https://github.com/morriso1/clonedetective/tree/master/clonedetective/utils.py#L529" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_all_labeled_clones_unmerged_and_merged</code>(<strong><code>total_seg_labels</code></strong>, <strong><code>labels_to_keep</code></strong>:<code>dict</code>, <strong><code>calc_clones</code></strong>:<code>bool</code>)</p>
+<h4 id="get_all_labeled_clones_unmerged_and_merged" class="doc_header"><code>get_all_labeled_clones_unmerged_and_merged</code><a href="https://github.com/morriso1/clonedetective/tree/master/clonedetective/utils.py#L538" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_all_labeled_clones_unmerged_and_merged</code>(<strong><code>total_seg_labels</code></strong>, <strong><code>labels_to_keep</code></strong>:<code>dict</code>, <strong><code>calc_clones</code></strong>:<code>bool</code>)</p>
 </blockquote>
 
 </div>
@@ -2199,7 +2205,7 @@ Coordinates:
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="calculate_corresponding_labels" class="doc_header"><code>calculate_corresponding_labels</code><a href="https://github.com/morriso1/clonedetective/tree/master/clonedetective/utils.py#L570" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>calculate_corresponding_labels</code>(<strong><code>labels</code></strong>, <strong><code>centroids_list</code></strong>, <strong><code>first_output_dim</code></strong>, <strong><code>second_output_dim</code></strong>)</p>
+<h4 id="calculate_corresponding_labels" class="doc_header"><code>calculate_corresponding_labels</code><a href="https://github.com/morriso1/clonedetective/tree/master/clonedetective/utils.py#L579" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>calculate_corresponding_labels</code>(<strong><code>labels</code></strong>, <strong><code>centroids_list</code></strong>, <strong><code>first_output_dim</code></strong>, <strong><code>second_output_dim</code></strong>)</p>
 </blockquote>
 
 </div>
@@ -2236,7 +2242,7 @@ Coordinates:
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="update_1st_coord_and_dim_of_xarr" class="doc_header"><code>update_1st_coord_and_dim_of_xarr</code><a href="https://github.com/morriso1/clonedetective/tree/master/clonedetective/utils.py#L590" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>update_1st_coord_and_dim_of_xarr</code>(<strong><code>xarr</code></strong>, <strong><code>new_coord</code></strong>:<code>list</code>, <strong><code>new_dim</code></strong>:<code>str</code>)</p>
+<h4 id="update_1st_coord_and_dim_of_xarr" class="doc_header"><code>update_1st_coord_and_dim_of_xarr</code><a href="https://github.com/morriso1/clonedetective/tree/master/clonedetective/utils.py#L599" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>update_1st_coord_and_dim_of_xarr</code>(<strong><code>xarr</code></strong>, <strong><code>new_coord</code></strong>:<code>list</code>, <strong><code>new_dim</code></strong>:<code>str</code>)</p>
 </blockquote>
 
 </div>
