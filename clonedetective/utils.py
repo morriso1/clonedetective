@@ -382,7 +382,25 @@ def plot_new_images(
     plt.tight_layout()
 
 # Cell
-def RGB_image_from_CYX_img(red=None, green=None, blue=None, ref_ch=2, clims=(2, 98)):
+def RGB_image_from_CYX_img(
+    red: np.array = None,
+    green: np.array = None,
+    blue: np.array = None,
+    ref_ch: int = 2,
+    clims: Tuple = (2, 98),
+) -> np.array:
+    """Takes individual, equal-sized 2D numby arrays and generates an RGB image of the form (Y,X,C).
+
+    Args:
+        red (np.array, optional): Defaults to None.
+        green (np.array, optional): Defaults to None.
+        blue (np.array, optional): Defaults to None.
+        ref_ch (int, optional): Channel used to define shape. Defaults to 2.
+        clims (Tuple, optional): Adjust contrast limits. Defaults to (2, 98).
+
+    Returns:
+        np.array: [description]
+    """
     RGB_image = list([red, green, blue])
     for i in range(len(RGB_image)):
         if RGB_image[i] is None:
