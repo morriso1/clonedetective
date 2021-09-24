@@ -324,17 +324,30 @@ def crop_RGB_img_to_square(RGB_img: np.array) -> np.array:
 
 # Cell
 def plot_new_images(
-    images,
-    label_text,
-    label_letter=None,
-    figure_shape=None,
-    figure_size=None,
-    img_cmap="gray",
-    label_cmap=None,
-    colorbar=False,
-    colorbar_title="number of neighbours",
+    images: List[np.array],
+    label_text: List[str],
+    label_letter: str = None,
+    figure_shape: tuple = None,
+    figure_size: tuple = None,
+    img_cmap: str = "gray",
+    label_cmap: str = None,
+    colorbar: bool = False,
+    colorbar_title: str = "number of neighbours",
     **kwargs,
 ):
+    """Plots a grid of images with labels.
+
+    Args:
+        images (list[np.array]): List of numpy arrays. Can be RGB or 2D.
+        label_text (list[str]): List of image labels.
+        label_letter (str, optional): e.g. ABCDE Defaults to None.
+        figure_shape (tuple, optional): e.g. four rows and columns (4,4) Defaults to None.
+        figure_size (tuple, optional): e.g. a 12 by 12 image (12, 12) Defaults to None.
+        img_cmap (str, optional): Defaults to "gray".
+        label_cmap (str, optional): Defaults to None.
+        colorbar (bool, optional): Defaults to False.
+        colorbar_title (str, optional): Defaults to "number of neighbours".
+    """
     if figure_shape is None:
         figure_shape = figure_rows_columns(len(images))
 
