@@ -5,11 +5,10 @@ __all__ = ['clean_img_names', 'check_lists_identical', 'img_path_to_xarr', 'last
            'add_scale_regionprops_table_area_measurements', 'lazy_props', 'reorder_df_to_put_ch_info_first',
            'is_label_image', 'generate_random_cmap', 'what_cmap', 'figure_rows_columns', 'auto_figure_size',
            'crop_RGB_img_to_square', 'plot_new_images', 'RGB_image_from_CYX_img', 'four_ch_CYX_img_to_three_ch_CYX_img',
-           'plot_threshold_imgs_side_by_side', 'region_overlap', 'calculate_overlap', 'calc_allfilt_from_thresholds',
-           'concat_list_of_thresholds_to_string', 'generate_touch_counting_image', 'adjusted_cell_touch_images',
-           'calc_neighbours', 'get_all_labeled_clones_unmerged_and_merged',
-           'determine_labels_across_other_images_using_centroids', 'calculate_corresponding_labels',
-           'update_1st_coord_and_dim_of_xarr']
+           'region_overlap', 'calculate_overlap', 'calc_allfilt_from_thresholds', 'concat_list_of_thresholds_to_string',
+           'generate_touch_counting_image', 'adjusted_cell_touch_images', 'calc_neighbours',
+           'get_all_labeled_clones_unmerged_and_merged', 'determine_labels_across_other_images_using_centroids',
+           'calculate_corresponding_labels', 'update_1st_coord_and_dim_of_xarr']
 
 # Cell
 import os
@@ -431,28 +430,6 @@ def four_ch_CYX_img_to_three_ch_CYX_img(img: np.array) -> np.array:
     img[1] = img[1] + img[3]
     img[2] = img[2] + img[3]
     return img
-
-# Cell
-
-## not currently in use
-def plot_threshold_imgs_side_by_side(img, thresh_img_dict, int_img_ch, seg_img_ch):
-    fig, axes = plt.subplots(
-        nrows=len(thresh_img_dict), ncols=2, figsize=(6, 3 * len(thresh_img_dict))
-    )
-    fig.suptitle(" ")
-
-    for ax, (key, value) in zip(axes, thresh_img_dict.items()):
-        # separate long query across mulitple lines
-        key = re.sub(r"&", r"\n&", key)
-
-        ax[0].imshow(value, cmap="gray")
-        ax[0].set_title(f"{seg_img_ch} labels that meet threshold:\n{key}")
-        ax[1].imshow(img, cmap="gray")
-        ax[1].set_title(f"{int_img_ch} channel image")
-        ax[0].axis("off")
-        ax[1].axis("off")
-
-    plt.tight_layout()
 
 # Cell
 def region_overlap(
