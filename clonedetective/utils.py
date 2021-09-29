@@ -464,7 +464,19 @@ def region_overlap(
     return is_in
 
 # Cell
-def calculate_overlap(img, num_of_segs=4, preallocate_value=1000):
+def calculate_overlap(
+    img: np.array, num_of_segs: int = 4, preallocate_value: int = 1000,
+) -> np.array:
+    """Calculates overlap between stack of label images.
+
+    Args:
+        img (np.array): Label image with channel first.
+        num_of_segs (int, optional): Defaults to 4.
+        preallocate_value (int, optional): Defaults to 1000.
+
+    Returns:
+        np.array: Array of overlaps
+    """
     num_dapi = np.unique(img[0])
     l = np.zeros((num_of_segs - 1, preallocate_value), dtype=np.float64)
     l[:] = np.nan
