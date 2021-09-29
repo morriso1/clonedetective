@@ -418,7 +418,15 @@ def RGB_image_from_CYX_img(
     return np.stack(RGB_image, axis=2)
 
 # Cell
-def four_ch_CYX_img_to_three_ch_CYX_img(img):
+def four_ch_CYX_img_to_three_ch_CYX_img(img: np.array) -> np.array:
+    """Converts a four channel CYX image into a three channel CYX image.
+
+    Args:
+        img (np.array): Four channel CYX image.
+
+    Returns:
+        np.array: Three channel CYX image.
+    """
     img[0] = img[0] + img[3]
     img[1] = img[1] + img[3]
     img[2] = img[2] + img[3]
