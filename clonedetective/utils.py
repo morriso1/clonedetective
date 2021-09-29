@@ -433,8 +433,22 @@ def four_ch_CYX_img_to_three_ch_CYX_img(img: np.array) -> np.array:
 
 # Cell
 def region_overlap(
-    label_no, label_img_outer=None, label_img_inner=None, overlap_thresh=0.5
-):
+    label_no: int,
+    label_img_outer: np.array,
+    label_img_inner: np.array,
+    overlap_thresh: int = 0.5,
+) -> int:
+    """Determine which two regions overlap in two label images.
+
+    Args:
+        label_no (int): Label number in the inner label image to look for overlap with.
+        label_img_outer (np.array): Outer label image i.e. the one for which we are testing overlap against.
+        label_img_inner (np.array): Inner label image i.e. the image contain the label_no provide in the first argument.
+        overlap_thresh (int, optional): How much overlap between two labels to call an overlap. Defaults to 0.5.
+
+    Returns:
+        int: Label in outer label image which overlaps with label_no.
+    """
     overlap = label_img_outer[label_img_inner == label_no]
     total_overlap_region = overlap.size
     non_zero_count = np.count_nonzero(overlap)
